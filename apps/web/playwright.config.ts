@@ -8,12 +8,12 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? 'github' : 'list',
   use: {
-    baseURL: 'http://localhost:4173/lieferradar/',
+    baseURL: 'http://localhost:4173/LieferUhr/',
     trace: 'retain-on-failure',
   },
   webServer: {
     command: 'pnpm exec vite preview --port 4173 --strictPort',
-    url: 'http://localhost:4173/lieferradar/',
+    url: 'http://localhost:4173/LieferUhr/',
     reuseExistingServer: false,
     env: { VITE_DEMO_MODE: 'true' },
   },

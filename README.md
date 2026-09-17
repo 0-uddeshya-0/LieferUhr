@@ -11,7 +11,7 @@ Lieferuhr is the umbrella for two lean tools built around the delivery date, sha
 
 See [docs/fleet-expansion.md](docs/fleet-expansion.md) and [docs/rollout-plan.md](docs/rollout-plan.md).
 
-**Live demo (both products):** https://0-uddeshya-0.github.io/lieferuhr/ — the umbrella page links into each product's interactive demo; FrachtRadar ships nested under [`/lieferuhr/fleet/`](https://0-uddeshya-0.github.io/lieferuhr/fleet/).
+**Live demo (both products):** https://0-uddeshya-0.github.io/LieferUhr/ — the umbrella page links into each product's interactive demo; FrachtRadar ships nested under [`/LieferUhr/fleet/`](https://0-uddeshya-0.github.io/LieferUhr/fleet/).
 
 ## What works on GitHub Pages vs full deploy
 

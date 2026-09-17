@@ -5,7 +5,7 @@ import path from 'path';
 const isPagesBuild = process.env.VITE_DEMO_MODE === 'true';
 
 export default defineConfig({
-  base: isPagesBuild ? '/lieferuhr/' : '/',
+  base: isPagesBuild ? '/LieferUhr/' : '/',
   plugins: [react()],
   resolve: {
     alias: {

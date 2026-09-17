@@ -20,9 +20,14 @@ const de = {
   'landing.nav.journey': 'Der Weg',
   'landing.nav.demoEinkauf': 'Einkauf-Demo',
   'landing.nav.demoFracht': 'FrachtRadar-Demo',
-  'landing.hero.title': 'Wissen, wann Ware ankommt.',
+  'landing.nav.products': 'Produkte',
+  'landing.nav.system': 'System',
+  'landing.nav.integration': 'Integrationen',
+  'landing.hero.kicker': 'Lieferuhr Plattform · Betriebsamt · FrachtRadar',
+  'landing.hero.family': 'Sechs Werkzeuge — jedes einzeln nutzbar, zusammen ein Büro',
+  'landing.hero.title': 'Ein Konto. Sechs Werkzeuge. Kein ERP-Projekt.',
   'landing.hero.sub':
-    'Lieferuhr führt die zwei Seiten eines Liefertermins zusammen: den Einkauf, der auf Ware wartet — und das Fuhrunternehmen, das sie bringt. Ein Termin, ein Status, kein Telefonat.',
+    'Lieferuhr bündelt Werkzeuge für Einkauf, Fuhrpark und Büro — jedes einzeln nutzbar, zusammen auf einem gemeinsamen Datenbestand.',
   'landing.hero.note': 'Eine Plattform · ein Konto · DSGVO-konform · Hosting in Deutschland',
   'landing.journey.title': 'Der Weg eines Liefertermins',
   'landing.journey.sub': 'Vom Bestellungseingang bis zur Rechnung — verfolgt an einem einzigen Termin.',
@@ -64,18 +69,30 @@ const de = {
   'landing.tool.dispatch.for': 'Fuhrunternehmen 3–30 LKW',
   'landing.tool.dispatch.desc':
     'Liest Frachtangebote aus TIMOCOM und dem Posteingang, bereitet Gegenangebote vor und führt die Papiere.',
+  'landing.tool.dispatch.f1': 'Angebote bewerten und kontern statt Postfach-Chaos',
+  'landing.tool.dispatch.f2': 'Gegenangebot als fertiger E-Mail-Entwurf',
+  'landing.tool.dispatch.f3': 'Buchung mit Übergabe an FrachtRadar',
   'landing.tool.comply.name': 'PrüfAmt',
   'landing.tool.comply.for': 'Fuhrunternehmen & Flottenleiter',
   'landing.tool.comply.desc':
     'Wacht über Lenkzeiten — auch Transporter ab 2,5 t ab Juli 2026 —, Dokumenten-Fristen und das Kontroll-Paket.',
+  'landing.tool.comply.f1': 'Lenkzeit- und Pausen-Uhren je Fahrer',
+  'landing.tool.comply.f2': 'Fristen-Ampel für Dokumente und Prüfungen',
+  'landing.tool.comply.f3': 'Audit-Paket für Kontrollen per Klick',
   'landing.tool.hvac.name': 'EinsatzAmt',
   'landing.tool.hvac.for': 'Handwerksbetriebe 2–15 Monteure',
   'landing.tool.hvac.desc':
     'Macht aus Anrufnotizen und E-Mails Jobs — mit Techniker- und Terminvorschlag für die Zentrale.',
+  'landing.tool.hvac.f1': 'Anfragen aus Anruf, Mail und Formular',
+  'landing.tool.hvac.f2': 'Techniker- und Terminvorschlag',
+  'landing.tool.hvac.f3': 'Kundenbestätigung als Entwurf',
   'landing.tool.depot.name': 'PostAmt',
   'landing.tool.depot.for': 'Kleine Großhändler & Lager',
   'landing.tool.depot.desc':
     'Aus Bestell-E-Mails werden Auftragsentwürfe — Bestand bucht runter, Pickliste und Versand folgen.',
+  'landing.tool.depot.f1': 'Bestell-Mails werden Auftragszeilen',
+  'landing.tool.depot.f2': 'Bestand bucht automatisch ab',
+  'landing.tool.depot.f3': 'Pickliste bis Versand in einem Fluss',
   'landing.einkauf.name': 'Lieferuhr Einkauf',
   'landing.einkauf.audience': 'Für Einkaufsteams in Maschinenbau und Metallverarbeitung',
   'landing.einkauf.desc':
@@ -98,6 +115,19 @@ const de = {
   'landing.fracht.demoDriver': 'Fahrer-Ansicht',
   'landing.fracht.demoTrack': 'Sendungsverfolgung',
   'landing.fracht.shotAlt': 'FrachtRadar-Disposition: Touren, Fahrer und Status auf einem Board',
+  'landing.prod.videoSuffix': 'Kurzdemo',
+  'landing.system.title': 'Einzeln stark. Zusammen ein System.',
+  'landing.system.sub':
+    'Jedes Werkzeug läuft eigenständig — eigenes Branding, eigener Einstieg. Wer mehrere nutzt, arbeitet auf demselben Datenbestand: ein Login, keine doppelte Pflege.',
+  'landing.system.solo.title': 'Einzeln starten',
+  'landing.system.solo.desc':
+    'Jedes Produkt steht für sich und ist ohne die anderen nutzbar. Kein Suite-Zwang, keine Mindestkombination.',
+  'landing.system.team.title': 'Zusammen wachsen',
+  'landing.system.team.desc':
+    'Werkzeuge reichen Arbeit weiter: FrachtAmt übergibt gebuchte Ladungen an FrachtRadar, PostAmt-Aufträge werden zu Touren. Ein Datenbestand statt Copy-Paste.',
+  'landing.system.open.title': 'Offen angebunden',
+  'landing.system.open.desc':
+    'REST-API und Webhooks laufen heute in der Plattform; der MCP-Server für KI-Agenten liegt im Repository. ERP-Konnektoren folgen mit Pilotkunden.',
   'landing.why.title': 'Warum das zusammengehört',
   'landing.why.desc':
     'Einkäufer warten auf den Termin, Fahrer liefern ihn. Beide Seiten arbeiten heute mit Telefon und Excel — Lieferuhr gibt beiden dasselbe Fundament: Status per Link, Erinnerungen automatisch.',
@@ -113,6 +143,8 @@ const de = {
     'CSV-Import heute, REST-API und signierte Webhooks für n8n, Make oder Zapier. Dazu ein MCP-Server, damit KI-Assistenten Bestellungen direkt abfragen und nachfassen können. ERP-Konnektoren (SAP Business One, proAlpha, abas) sind in Arbeit.',
   'landing.integrations.mcp': 'MCP für KI-Agenten',
   'landing.integrations.erp': 'ERP-Konnektoren (bald)',
+  'landing.integrations.note':
+    'REST-API und Webhooks laufen produktiv; MCP-Server und CSV-Import liegen im Repository. n8n, Make und Zapier hängen an denselben Webhook-Ereignissen.',
   'landing.pilot.title': 'Pilotkunden gesucht',
   'landing.pilot.desc':
     'Wir suchen Einkaufsteams aus Maschinenbau und Metallverarbeitung sowie regionale Fuhrunternehmen (3–30 LKW) für acht Wochen kostenlose Pilotphase, Einrichtung inklusive.',
@@ -121,6 +153,10 @@ const de = {
   'landing.footer.line': 'Der Termin gehört beiden Seiten.',
   'landing.footer.full': 'Vollständige Installation mit API, PostgreSQL und E-Mail-Versand:',
   'landing.footer.repo': 'GitHub Repository',
+  'landing.footer.prodTitle': 'Produkte',
+  'landing.footer.resTitle': 'Ressourcen',
+  'landing.footer.contactTitle': 'Kontakt',
+  'landing.footer.rights': '© 2026 Lieferuhr — ein Projekt von Uddeshya',
 
   // Login page
   'login.slogan': 'Weniger Lieferanten hinterhertelefonieren',
@@ -313,9 +349,14 @@ const en: Record<TranslationKey, string> = {
   'landing.nav.journey': 'The journey',
   'landing.nav.demoEinkauf': 'Einkauf demo',
   'landing.nav.demoFracht': 'FrachtRadar demo',
-  'landing.hero.title': 'Know when goods arrive.',
+  'landing.nav.products': 'Products',
+  'landing.nav.system': 'System',
+  'landing.nav.integration': 'Integrations',
+  'landing.hero.kicker': 'Lieferuhr platform · Betriebsamt · FrachtRadar',
+  'landing.hero.family': 'Six tools — each works alone, together they run the office',
+  'landing.hero.title': 'One account. Six tools. No ERP project.',
   'landing.hero.sub':
-    'Lieferuhr joins the two sides of a delivery date: the purchasing team waiting for goods — and the carrier bringing them. One date, one status, no phone calls.',
+    'Lieferuhr bundles tools for purchasing, fleet and back office — each useful on its own, all sharing one data space.',
   'landing.hero.note': 'One platform · one account · GDPR-compliant · Hosted in Germany',
   'landing.journey.title': 'The journey of a delivery date',
   'landing.journey.sub': 'From purchase order to invoice — told through a single date.',
@@ -357,18 +398,30 @@ const en: Record<TranslationKey, string> = {
   'landing.tool.dispatch.for': 'Carriers 3–30 trucks',
   'landing.tool.dispatch.desc':
     'Reads freight offers from TIMOCOM and the inbox, drafts counter-offers and keeps the paperwork.',
+  'landing.tool.dispatch.f1': 'Score and counter offers instead of inbox chaos',
+  'landing.tool.dispatch.f2': 'Counteroffer as a ready email draft',
+  'landing.tool.dispatch.f3': 'Booking with handoff to FrachtRadar',
   'landing.tool.comply.name': 'PrüfAmt',
   'landing.tool.comply.for': 'Carriers & fleet managers',
   'landing.tool.comply.desc':
     'Watches driving times — incl. vans over 2.5t from July 2026 —, document deadlines and the audit pack.',
+  'landing.tool.comply.f1': 'Driving-time and break clocks per driver',
+  'landing.tool.comply.f2': 'Deadline traffic light for documents',
+  'landing.tool.comply.f3': 'Audit pack for inspections in one click',
   'landing.tool.hvac.name': 'EinsatzAmt',
   'landing.tool.hvac.for': 'Trades companies 2–15 techs',
   'landing.tool.hvac.desc':
     'Turns call notes and emails into jobs — with technician and slot suggestions for the office.',
+  'landing.tool.hvac.f1': 'Requests from calls, email and forms',
+  'landing.tool.hvac.f2': 'Technician and slot suggestion',
+  'landing.tool.hvac.f3': 'Customer confirmation as a draft',
   'landing.tool.depot.name': 'PostAmt',
   'landing.tool.depot.for': 'Small wholesalers & warehouses',
   'landing.tool.depot.desc':
     'Order emails become order drafts — stock decrements, pick list and shipping follow.',
+  'landing.tool.depot.f1': 'Order emails become order lines',
+  'landing.tool.depot.f2': 'Stock decrements automatically',
+  'landing.tool.depot.f3': 'Pick list to shipping in one flow',
   'landing.einkauf.name': 'Lieferuhr Einkauf',
   'landing.einkauf.audience': 'For purchasing teams in machine building and metal processing',
   'landing.einkauf.desc':
@@ -391,6 +444,19 @@ const en: Record<TranslationKey, string> = {
   'landing.fracht.demoDriver': 'Driver view',
   'landing.fracht.demoTrack': 'Shipment tracking',
   'landing.fracht.shotAlt': 'FrachtRadar dispatch board: tours, drivers and statuses',
+  'landing.prod.videoSuffix': 'Quick demo',
+  'landing.system.title': 'Strong alone. A system together.',
+  'landing.system.sub':
+    'Every tool runs standalone — own branding, own entry point. Use several and they share one data space: one login, no double entry.',
+  'landing.system.solo.title': 'Start with one',
+  'landing.system.solo.desc':
+    'Each product stands on its own and works without the others. No suite requirement, no minimum bundle.',
+  'landing.system.team.title': 'Grow together',
+  'landing.system.team.desc':
+    'Tools hand work along: FrachtAmt passes booked loads to FrachtRadar, PostAmt orders become tours. One data space instead of copy-paste.',
+  'landing.system.open.title': 'Open by design',
+  'landing.system.open.desc':
+    'REST API and webhooks run in the platform today; the MCP server for AI agents ships in the repository. ERP connectors follow with pilot customers.',
   'landing.why.title': 'Why these belong together',
   'landing.why.desc':
     'Buyers wait for the date, drivers deliver it. Both sides still work with phones and spreadsheets — Lieferuhr gives them the same foundation: status via link, reminders automatic.',
@@ -406,6 +472,8 @@ const en: Record<TranslationKey, string> = {
     'CSV import today, a REST API and signed webhooks for n8n, Make, or Zapier. Plus an MCP server so AI assistants can query orders and chase suppliers directly. ERP connectors (SAP Business One, proAlpha, abas) are in the works.',
   'landing.integrations.mcp': 'MCP for AI agents',
   'landing.integrations.erp': 'ERP connectors (soon)',
+  'landing.integrations.note':
+    'REST API and webhooks run in production; the MCP server and CSV import ship in the repository. n8n, Make and Zapier hook onto the same webhook events.',
   'landing.pilot.title': 'Looking for pilot customers',
   'landing.pilot.desc':
     'We are looking for purchasing teams in machine building and metal processing as well as regional carriers (3–30 trucks) for eight weeks of free piloting, setup included.',
@@ -414,6 +482,10 @@ const en: Record<TranslationKey, string> = {
   'landing.footer.line': 'The date belongs to both sides.',
   'landing.footer.full': 'Full installation with API, PostgreSQL, and email delivery:',
   'landing.footer.repo': 'GitHub repository',
+  'landing.footer.prodTitle': 'Products',
+  'landing.footer.resTitle': 'Resources',
+  'landing.footer.contactTitle': 'Contact',
+  'landing.footer.rights': '© 2026 Lieferuhr — a project by Uddeshya',
 
   'login.slogan': 'Stop chasing suppliers by phone',
   'login.email': 'Email',

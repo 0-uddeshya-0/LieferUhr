@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Check, FileText, FileCheck } from 'lucide-react';
 import { useI18n } from '../i18n';
-import { SuiteHeader } from '../components/SuiteShell';
 import { useSuite, counterOffer, setOfferStatus, handoffToFrachtRadar, type Offer } from '../demo/store';
 import { cn } from '../lib/cn';
 import type { TranslationKey } from '../i18n/translations';
@@ -121,7 +120,6 @@ export default function DispatchPage() {
 
   return (
     <>
-      <SuiteHeader product="dispatch" />
       <main className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
         <h1 className="font-display text-3xl font-bold tracking-tight text-ink">{t('dispatch.title')}</h1>
         <p className="mt-1 text-sm text-ink-soft">{t('dispatch.sub')}</p>

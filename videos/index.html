@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1280, height=720" />
+<title>Lieferuhr — sechs Werkzeuge</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+@font-face { font-family: 'Geist'; src: url('assets/fonts/geist.woff2') format('woff2'); font-weight: 100 900; }
+@font-face { font-family: 'Space Grotesk'; src: url('assets/fonts/space-grotesk.woff2') format('woff2'); font-weight: 100 900; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #e8ecf3; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden;
+        font-family: 'Geist', system-ui, sans-serif; color: #1c2430; }
+.clip { position: absolute; inset: 0; }
+.bg { position: absolute; inset: 0;
+  background: radial-gradient(120% 90% at 20% 10%, #f4f6fa 0%, #e8ecf3 55%, #dfe4ee 100%); }
+.center { position: absolute; inset: 0; display: flex; flex-direction: column;
+          align-items: center; justify-content: center; text-align: center; }
+h1 { font-family: 'Space Grotesk', sans-serif; font-size: 84px; font-weight: 700;
+     letter-spacing: -0.02em; margin: 0; }
+.sub { margin: 18px 0 0; font-size: 24px; color: #5a6678; font-weight: 500; }
+.chips { display: flex; gap: 14px; margin-top: 40px; }
+.chip { padding: 10px 20px; border-radius: 999px; background: #edf0f6; font-size: 18px;
+        font-weight: 600; box-shadow: 5px 5px 12px rgba(94,110,140,.28), -4px -4px 10px rgba(255,255,255,.8); }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1280" data-height="720" data-duration="6">
+  <section id="hero" class="clip" data-start="0" data-duration="6">
+    <div class="bg"></div>
+    <div class="center">
+      <h1 id="title">Lieferuhr</h1>
+      <p class="sub" id="sub">Ein Konto. Sechs Werkzeuge. Kein ERP-Projekt.</p>
+      <div class="chips" id="chips">
+        <span class="chip">Einkauf</span><span class="chip">FrachtRadar</span><span class="chip">FrachtAmt</span>
+        <span class="chip">PrüfAmt</span><span class="chip">EinsatzAmt</span><span class="chip">PostAmt</span>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+  const tl = gsap.timeline({ paused: true });
+  tl.from('#title', { y: 40, opacity: 0, duration: 0.6, ease: 'power3.out' }, 0.2)
+    .from('#sub', { y: 24, opacity: 0, duration: 0.5, ease: 'power3.out' }, 0.45)
+    .from('.chip', { y: 16, opacity: 0, duration: 0.4, stagger: 0.12, ease: 'power2.out' }, 0.8);
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

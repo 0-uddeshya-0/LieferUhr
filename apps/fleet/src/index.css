@@ -72,7 +72,7 @@
 
 @layer components {
   .neu-card {
-    @apply bg-neu-bg rounded-2xl shadow-neu;
+    @apply bg-neu-bg rounded-2xl shadow-neu p-5;
   }
 
   .neu-well {

@@ -73,7 +73,7 @@
 }
 
 @layer components {
-  .neu-card { @apply bg-neu-bg rounded-2xl shadow-neu; }
+  .neu-card { @apply bg-neu-bg rounded-2xl shadow-neu p-5; }
   .neu-well { @apply bg-neu-sunken/60 rounded-xl shadow-neu-inset; }
   .neu-raised { @apply bg-neu-raised rounded-xl shadow-neu-sm; }
   .neu-pressed { @apply bg-neu-sunken/70 shadow-neu-inset-sm; }

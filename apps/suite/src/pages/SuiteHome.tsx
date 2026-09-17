@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { useI18n } from '../i18n';
-import { SuiteHeader } from '../components/SuiteShell';
 import { ProductMark, PRODUCT_IDS, type ProductId } from '../components/ProductMark';
 import type { TranslationKey } from '../i18n/translations';
 
@@ -17,7 +16,6 @@ export default function SuiteHome() {
   const { t } = useI18n();
   return (
     <>
-      <SuiteHeader />
       <main className="mx-auto max-w-6xl px-5 pb-20 pt-10 sm:px-8 sm:pt-16">
       <p className="mx-auto w-fit rounded-full bg-neu-raised px-4 py-1.5 text-xs font-medium text-ink-soft shadow-neu-sm">
         {t('home.hero.badge')}

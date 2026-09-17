@@ -7,16 +7,16 @@ test.beforeEach(async ({ page }) => {
 test('suite home lists four tool doors and toggles language', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1 })).toContainText('selbst erledigt');
   for (const name of ['FrachtAmt', 'PrüfAmt', 'EinsatzAmt', 'PostAmt']) {
-    await expect(page.getByRole('link', { name: new RegExp(name) })).toBeVisible();
+    await expect(page.locator('main').getByRole('link', { name: new RegExp(name) })).toBeVisible();
   }
 
   await page.getByRole('group', { name: /Sprache/ }).getByRole('button', { name: 'EN' }).click();
   await expect(page.getByRole('heading', { level: 1 })).toContainText('its own paperwork');
-  await expect(page.getByRole('link', { name: /FrachtAmt/ })).toBeVisible();
+  await expect(page.locator('main').getByRole('link', { name: /FrachtAmt/ })).toBeVisible();
 });
 
 test('dispatch: counter an offer, then book it', async ({ page }) => {
-  await page.getByRole('link', { name: /FrachtAmt/ }).click();
+  await page.locator('main').getByRole('link', { name: /FrachtAmt/ }).click();
   await expect(page).toHaveURL(/#\/dispatch/);
 
   await page.getByRole('button', { name: 'Gegenangebot' }).click();
@@ -32,7 +32,7 @@ test('dispatch: counter an offer, then book it', async ({ page }) => {
 });
 
 test('comply: driver clocks and document traffic light render', async ({ page }) => {
-  await page.getByRole('link', { name: /PrüfAmt/ }).click();
+  await page.locator('main').getByRole('link', { name: /PrüfAmt/ }).click();
   await expect(page).toHaveURL(/#\/comply/);
 
   await expect(page.getByText('Fahrer-Uhren')).toBeVisible();
@@ -42,7 +42,7 @@ test('comply: driver clocks and document traffic light render', async ({ page })
 });
 
 test('hvac: schedule a request from the inbox', async ({ page }) => {
-  await page.getByRole('link', { name: /EinsatzAmt/ }).click();
+  await page.locator('main').getByRole('link', { name: /EinsatzAmt/ }).click();
   await expect(page).toHaveURL(/#\/hvac/);
 
   await page.getByRole('button', { name: /Bäckerei Vogt/ }).click();
@@ -52,7 +52,7 @@ test('hvac: schedule a request from the inbox', async ({ page }) => {
 });
 
 test('depot: order email becomes order and decrements stock', async ({ page }) => {
-  await page.getByRole('link', { name: /PostAmt/ }).click();
+  await page.locator('main').getByRole('link', { name: /PostAmt/ }).click();
   await expect(page).toHaveURL(/#\/depot/);
 
   await expect(page.getByText('84').first()).toBeVisible(); // EST-25 stock

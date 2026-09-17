@@ -84,7 +84,7 @@ export function DriverPage() {
 
   return (
     <Shell>
-      <div className="neu-card">
+      <div className="neu-card space-y-5">
         <div>
           <p className="text-xs text-neu-muted/70">{t('driver.carrier', { name: load.carrierName })}</p>
           <h1 className="text-xl font-bold">{t('driver.title', { loadNumber: load.loadNumber })}</h1>

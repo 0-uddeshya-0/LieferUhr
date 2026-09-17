@@ -33,7 +33,7 @@ export function TrackPage() {
         {!isLoading && !load && <p className="text-center text-risk-red">{t('track.notFound')}</p>}
 
         {load && (
-          <div className="neu-card">
+          <div className="neu-card space-y-5">
             <div>
               <p className="text-xs text-neu-muted/70">{t('track.by', { name: load.carrierName })}</p>
               <div className="flex items-center gap-3 mt-1">

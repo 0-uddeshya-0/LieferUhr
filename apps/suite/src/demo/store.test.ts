@@ -40,7 +40,10 @@ describe('hvac workflow', () => {
 describe('depot workflow', () => {
   it('creates an order and decrements stock', () => {
     const before = s().stock.find((x) => x.sku === 'EST-25')!.qty;
-    createDepotOrder('m1');
+    createDepotOrder('m1', [
+      { sku: 'EST-25', qty: 10 },
+      { sku: 'FLK-15', qty: 5 },
+    ]);
     const mail = s().depotMails.find((m) => m.id === 'm1')!;
     const stock = s().stock.find((x) => x.sku === 'EST-25')!;
     const order = s().depotOrders[0];
@@ -52,7 +55,13 @@ describe('depot workflow', () => {
 
   it('does not double-create an order for the same mail', () => {
     const count = s().depotOrders.length;
-    createDepotOrder('m1');
+    createDepotOrder('m1', [{ sku: 'EST-25', qty: 10 }]);
+    expect(s().depotOrders.length).toBe(count);
+  });
+
+  it('refuses to create an order without extracted lines', () => {
+    const count = s().depotOrders.length;
+    createDepotOrder('m2', []);
     expect(s().depotOrders.length).toBe(count);
   });
 

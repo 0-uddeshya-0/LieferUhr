@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1280, height=720" />
+<title>EinsatzAmt — Lieferuhr</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+@font-face { font-family: 'Geist'; src: url('assets/fonts/geist.woff2') format('woff2'); font-weight: 100 900; }
+@font-face { font-family: 'Space Grotesk'; src: url('assets/fonts/space-grotesk.woff2') format('woff2'); font-weight: 100 900; }
+
+@page { margin: 0; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #e8ecf3; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden;
+        font-family: 'Geist', system-ui, sans-serif; color: #1c2430; }
+.clip { position: absolute; inset: 0; }
+.bg { position: absolute; inset: 0;
+  background:
+    radial-gradient(120% 90% at 20% 10%, #f4f6fa 0%, #e8ecf3 55%, #dfe4ee 100%);
+}
+.center { position: absolute; inset: 0; display: flex; flex-direction: column;
+          align-items: center; justify-content: center; text-align: center; }
+.mark { width: 96px; height: 96px; border-radius: 26px; display: flex;
+        align-items: center; justify-content: center;
+        box-shadow: 8px 8px 20px rgba(94,110,140,.28), -6px -6px 16px rgba(255,255,255,.85); }
+.mark svg { width: 52px; height: 52px; }
+h1 { font-family: 'Space Grotesk', 'Geist', sans-serif; font-weight: 700;
+     font-size: 72px; letter-spacing: -0.02em; margin: 26px 0 0; }
+.aud { margin: 12px 0 0; font-size: 24px; font-weight: 600; }
+.claim { margin: 20px 0 0; font-size: 21px; color: #5a6678; }
+.shot-wrap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.shot { border-radius: 22px; overflow: hidden;
+        box-shadow: 18px 22px 44px rgba(94,110,140,.38), -10px -10px 26px rgba(255,255,255,.8);
+        border: 1px solid rgba(255,255,255,.7); }
+.shot img { display: block; }
+.cap { position: absolute; left: 72px; bottom: 64px; display: flex; align-items: center;
+       gap: 10px; background: #eef1f6; border-radius: 999px; padding: 12px 22px;
+       font-size: 19px; font-weight: 600; color: #2a3442;
+       box-shadow: 6px 6px 16px rgba(94,110,140,.3), -4px -4px 12px rgba(255,255,255,.8); }
+.cap .dot { width: 10px; height: 10px; border-radius: 50%; }
+.beats-card { background: #edf0f6; border-radius: 26px; padding: 44px 52px;
+  box-shadow: 14px 16px 36px rgba(94,110,140,.3), -8px -8px 20px rgba(255,255,255,.8);
+  display: flex; flex-direction: column; gap: 26px; }
+.beat { display: flex; align-items: center; gap: 18px; font-size: 30px; font-weight: 600; }
+.beat .tick { width: 34px; height: 34px; border-radius: 50%; flex: none;
+  display: flex; align-items: center; justify-content: center; }
+.beat .tick svg { width: 18px; height: 18px; }
+.end-name { font-family: 'Space Grotesk', sans-serif; font-size: 54px; font-weight: 700;
+            letter-spacing: -0.02em; margin: 0; }
+.end-tag { margin: 14px 0 0; font-size: 19px; color: #5a6678; font-weight: 500; }
+.end-bar { width: 0; height: 5px; border-radius: 3px; margin-top: 26px; }
+
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="einsatzamt" data-start="0" data-width="1280" data-height="720" data-duration="19">
+
+  <section class="clip" data-start="0" data-duration="2.6">
+    <div class="bg"></div>
+    <div class="center">
+      <div class="mark" id="einsatzamt-mark" style="background:oklch(55% 0.19 30)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="oklch(99% 0.003 40)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4.6 4.6 0 0 0-6.2 6.2L4 17a2 2 0 1 0 2.8 2.8l4.5-4.5a4.6 4.6 0 0 0 6.2-6.2l-2.9 2.9-2.8-2.8z"/></svg>
+      </div>
+      <h1 id="einsatzamt-name">EinsatzAmt</h1>
+      <p class="aud" id="einsatzamt-aud" style="color:oklch(55% 0.19 30)">Für Handwerksbetriebe 2–15 Monteure</p>
+      <p class="claim" id="einsatzamt-claim">Kein Anruf geht verloren.</p>
+    </div>
+  </section>
+  <section class="clip" data-start="2.6" data-duration="6.2">
+    <div class="bg"></div>
+    <div class="shot-wrap">
+      <div class="shot" id="einsatzamt-shot-2.6" style="width: 1000px;">
+        <img src="assets/suite-hvac.png" style="width:100%;height:100%;object-fit:cover;object-position:top center;" />
+      </div>
+    </div>
+    <div class="cap" id="einsatzamt-cap-2.6">
+      <span class="dot" style="background:oklch(55% 0.19 30)"></span>Anfragen aus Anruf, Mail und Formular
+    </div>
+  </section>
+  <section class="clip" data-start="8.8" data-duration="6.6">
+    <div class="bg"></div>
+    <div class="center">
+      <div class="beats-card"><div class="beat" id="einsatzamt-beat-0"><span class="tick" style="background:oklch(55% 0.19 30)"><svg viewBox="0 0 24 24" fill="none" stroke="oklch(99% 0.003 40)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>Techniker- und Terminvorschlag</div><div class="beat" id="einsatzamt-beat-1"><span class="tick" style="background:oklch(55% 0.19 30)"><svg viewBox="0 0 24 24" fill="none" stroke="oklch(99% 0.003 40)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>Kundenbestätigung als Entwurf</div><div class="beat" id="einsatzamt-beat-2"><span class="tick" style="background:oklch(55% 0.19 30)"><svg viewBox="0 0 24 24" fill="none" stroke="oklch(99% 0.003 40)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>Die Zentrale behält die Kontrolle</div></div>
+    </div>
+  </section>
+  <section class="clip" data-start="15.4" data-duration="3.5999999999999996">
+    <div class="bg"></div>
+    <div class="center">
+      <p class="end-name" id="einsatzamt-endname">EinsatzAmt</p>
+      <div class="end-bar" id="einsatzamt-endbar" style="background:oklch(55% 0.19 30)"></div>
+      <p class="end-tag" id="einsatzamt-endtag">Betriebsamt · die Werkzeuge von Lieferuhr</p>
+    </div>
+  </section>
+</div>
+<script>
+  const tl = gsap.timeline({ paused: true });
+  tl.from('#einsatzamt-mark', { scale: 0.6, opacity: 0, duration: 0.5, ease: 'back.out(1.8)' }, 0.15)
+    .from('#einsatzamt-name', { y: 34, opacity: 0, duration: 0.55, ease: 'power3.out' }, 0.3)
+    .from('#einsatzamt-aud', { y: 20, opacity: 0, duration: 0.5, ease: 'power3.out' }, 0.5)
+    .from('#einsatzamt-claim', { opacity: 0, duration: 0.5 }, 0.7);
+  tl.fromTo('#einsatzamt-shot-2.6', { scale: 0.94, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.7, ease: 'power2.out' }, 2.7)
+    .fromTo('#einsatzamt-shot-2.6 img', { scale: 1 }, { scale: 1.07, duration: 6.2, ease: 'none' }, 2.6)
+    .from('#einsatzamt-cap-2.6', { y: 18, opacity: 0, duration: 0.45, ease: 'power2.out' }, 3.2);
+  tl.from('#einsatzamt-beat-0', { x: -30, opacity: 0, duration: 0.45, ease: 'power2.out' }, 9.100000000000001);
+  tl.from('#einsatzamt-beat-1', { x: -30, opacity: 0, duration: 0.45, ease: 'power2.out' }, 9.600000000000001);
+  tl.from('#einsatzamt-beat-2', { x: -30, opacity: 0, duration: 0.45, ease: 'power2.out' }, 10.100000000000001);
+  tl.from('#einsatzamt-endname', { y: 26, opacity: 0, duration: 0.5, ease: 'power3.out' }, 15.55)
+    .to('#einsatzamt-endbar', { width: 320, duration: 0.7, ease: 'power2.inOut' }, 15.9)
+    .from('#einsatzamt-endtag', { opacity: 0, duration: 0.5 }, 16.3);
+  window.__timelines['einsatzamt'] = tl;
+</script>
+</body>
+</html>

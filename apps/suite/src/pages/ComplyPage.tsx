@@ -1,6 +1,5 @@
 import { Download, CircleCheck, CircleAlert, OctagonAlert } from 'lucide-react';
 import { useI18n } from '../i18n';
-import { SuiteHeader } from '../components/SuiteShell';
 import { useSuite } from '../demo/store';
 import { cn } from '../lib/cn';
 import type { TranslationKey } from '../i18n/translations';
@@ -24,7 +23,6 @@ export default function ComplyPage() {
 
   return (
     <>
-      <SuiteHeader product="comply" />
       <main className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
         <h1 className="font-display text-3xl font-bold tracking-tight text-ink">{t('comply.title')}</h1>
         <p className="mt-1 text-sm text-ink-soft">{t('comply.sub')}</p>

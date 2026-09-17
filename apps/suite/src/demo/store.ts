@@ -36,6 +36,7 @@ export interface HvacRequest {
   id: string;
   channel: HvacChannel;
   customer: string;
+  body: string; // raw request text — extracted fields derive from this
   summary: string;
   device: string;
   address: string;
@@ -54,7 +55,7 @@ export interface DepotMail {
   id: string;
   from: string;
   subject: string;
-  lines: { sku: string; qty: number }[];
+  body: string; // raw mail text — the extraction engine parses this, live
   status: 'new' | 'ordered';
 }
 export interface StockItem {
@@ -107,11 +108,11 @@ const initialState: SuiteState = {
     { kind: 'license', holder: 'Mehmet Yilmaz', daysLeft: 480 },
   ],
   hvacRequests: [
-    { id: 'SR-31', channel: 'call', customer: 'Hausverwaltung Kern', summary: 'Heizungsausfall im Treppenhaus, 8 WE', device: 'Gas-Brennwerttherme', address: 'Ringweg 14, Schwäbisch Hall', urgency: 'crit', suggestedTech: 'Stefan Roth', suggestedSlot: 'Heute 14:00' },
-    { id: 'SR-32', channel: 'mail', customer: 'Möbelhaus Schmid', summary: 'Klimaanlage im Verkaufsraum tropft', device: 'Split-Klimaanlage', address: 'Hauptstraße 12, Schwäbisch Hall', urgency: 'high', suggestedTech: 'Lena Braun', suggestedSlot: 'Morgen 09:30' },
-    { id: 'SR-33', channel: 'form', customer: 'Familie Becher', summary: 'Wartung Wärmepumpe, jährlich', device: 'LW-Wärmepumpe', address: 'Gartenweg 3, Öhringen', urgency: 'low', suggestedTech: 'Stefan Roth', suggestedSlot: 'Fr 11:00' },
-    { id: 'SR-34', channel: 'call', customer: 'Bäckerei Vogt', summary: 'Lüftungsanlage Bäckerei laut, Filter?', device: 'Zentral-Lüftung', address: 'Marktplatz 5, Crailsheim', urgency: 'high', suggestedTech: 'Jonas Wolf', suggestedSlot: 'Heute 16:00' },
-    { id: 'SR-35', channel: 'mail', customer: 'Praxis Dr. Sommer', summary: 'Kein Warmwasser im Sanitärbereich', device: 'Durchlauferhitzer', address: 'Bahnhofstraße 21, Schwäbisch Hall', urgency: 'high', suggestedTech: 'Lena Braun', suggestedSlot: 'Morgen 08:00' },
+    { id: 'SR-31', channel: 'call', customer: 'Hausverwaltung Kern', body: 'Notfall — Heizungsausfall im Treppenhaus, 8 WE betroffen. Hausverwaltung Kern, Ringweg 14, 74523 Schwäbisch Hall. Bitte heute noch jemanden schicken.', summary: 'Heizungsausfall im Treppenhaus, 8 WE', device: 'Gas-Brennwerttherme', address: 'Ringweg 14, Schwäbisch Hall', urgency: 'crit', suggestedTech: 'Stefan Roth', suggestedSlot: 'Heute 14:00' },
+    { id: 'SR-32', channel: 'mail', customer: 'Möbelhaus Schmid', body: 'Guten Tag, unsere Split-Klimaanlage im Verkaufsraum tropft seit gestern. Möbelhaus Schmid, Hauptstraße 12, Schwäbisch Hall. Termin gern morgen vormittag.', summary: 'Klimaanlage im Verkaufsraum tropft', device: 'Split-Klimaanlage', address: 'Hauptstraße 12, Schwäbisch Hall', urgency: 'high', suggestedTech: 'Lena Braun', suggestedSlot: 'Morgen 09:30' },
+    { id: 'SR-33', channel: 'form', customer: 'Familie Becher', body: 'Wir hätten gern die jährliche Wartung unserer Wärmepumpe. Familie Becher, Gartenweg 3, Öhringen. Keine Eile, Freitag vormittags passt gut.', summary: 'Wartung Wärmepumpe, jährlich', device: 'LW-Wärmepumpe', address: 'Gartenweg 3, Öhringen', urgency: 'low', suggestedTech: 'Stefan Roth', suggestedSlot: 'Fr 11:00' },
+    { id: 'SR-34', channel: 'call', customer: 'Bäckerei Vogt', body: 'Anruf Bäckerei Vogt: Lüftungsanlage über der Backstube ist sehr laut, vermutlich Filter. Marktplatz 5, Crailsheim. Bitte heute vor Ladenschluss.', summary: 'Lüftungsanlage Bäckerei laut, Filter?', device: 'Zentral-Lüftung', address: 'Marktplatz 5, Crailsheim', urgency: 'high', suggestedTech: 'Jonas Wolf', suggestedSlot: 'Heute 16:00' },
+    { id: 'SR-35', channel: 'mail', customer: 'Praxis Dr. Sommer', body: 'Sehr geehrte Damen und Herren, in unserem Sanitärbereich kommt kein Warmwasser mehr — Durchlauferhitzer defekt? Praxis Dr. Sommer, Bahnhofstraße 21, Schwäbisch Hall. Möglichst morgen früh.', summary: 'Kein Warmwasser im Sanitärbereich', device: 'Durchlauferhitzer', address: 'Bahnhofstraße 21, Schwäbisch Hall', urgency: 'high', suggestedTech: 'Lena Braun', suggestedSlot: 'Morgen 08:00' },
   ],
   hvacTechs: [
     { id: 't1', name: 'Stefan Roth', skills: 'Heizung · Wärmepumpe' },
@@ -119,9 +120,12 @@ const initialState: SuiteState = {
     { id: 't3', name: 'Jonas Wolf', skills: 'Lüftung · MSR' },
   ],
   depotMails: [
-    { id: 'm1', from: 'Bauzentrum Kern AG', subject: 'Bestellung 10x Estrich, 5x Fliesenkleber', lines: [{ sku: 'EST-25', qty: 10 }, { sku: 'FLK-15', qty: 5 }], status: 'new' },
-    { id: 'm2', from: 'Gärtnerei Sonnenschein', subject: 'Nachbestellung Pflanzsubstrat', lines: [{ sku: 'SUB-70', qty: 24 }], status: 'new' },
-    { id: 'm3', from: 'Hotel Krone', subject: 'Bestellung Getränke KW39', lines: [{ sku: 'WAS-05', qty: 12 }, { sku: 'SAF-02', qty: 8 }, { sku: 'BIE-03', qty: 6 }], status: 'new' },
+    { id: 'm1', from: 'Bauzentrum Kern AG', subject: 'Bestellung 10x Estrich, 5x Fliesenkleber', status: 'new',
+      body: 'Guten Tag,\nbitte liefern Sie uns bis Freitag:\n10x Estrich 25kg\n5x Fliesenkleber 15kg\nMit freundlichen Grüßen\nEinkauf Bauzentrum Kern' },
+    { id: 'm2', from: 'Gärtnerei Sonnenschein', subject: 'Nachbestellung Pflanzsubstrat', status: 'new',
+      body: 'Hallo,\nwir benötigen Nachschub: 24 Sack Pflanzsubstrat 70l (SUB-70).\nDanke und viele Grüße\nGärtnerei Sonnenschein' },
+    { id: 'm3', from: 'Hotel Krone', subject: 'Bestellung Getränke KW39', status: 'new',
+      body: 'Sehr geehrte Damen und Herren,\nfür KW39 bestellen wir:\n12 Kisten Wasserkisten 6x1,5l\n8x Saftkisten 12x0,7l\n6 Bierkisten 20x0,5l\nFreundliche Grüße\nHotel Krone' },
   ],
   stock: [
     { sku: 'EST-25', name: 'Estrich 25kg', qty: 84, reorderAt: 40 },
@@ -190,17 +194,17 @@ export function scheduleHvac(id: string, tech: string, slot: string) {
   }));
 }
 
-export function createDepotOrder(mailId: string) {
+export function createDepotOrder(mailId: string, lines?: { sku: string; qty: number }[]) {
   suiteStore.update((s) => {
     const mail = s.depotMails.find((m) => m.id === mailId);
-    if (!mail || mail.status === 'ordered') return s;
+    if (!mail || mail.status === 'ordered' || !lines?.length) return s;
     const order: DepotOrder = {
       id: `A-${2400 + s.depotOrders.length}`,
       from: mail.from,
-      lines: mail.lines,
+      lines,
       status: 'picking',
     };
-    const used = new Map(mail.lines.map((l) => [l.sku, l.qty]));
+    const used = new Map(lines.map((l) => [l.sku, l.qty]));
     return {
       ...s,
       depotMails: s.depotMails.map((m) => (m.id === mailId ? { ...m, status: 'ordered' as const } : m)),

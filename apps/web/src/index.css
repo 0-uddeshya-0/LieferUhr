@@ -82,7 +82,7 @@
 @layer components {
   /* Raised container — the default card on the neu background */
   .neu-card {
-    @apply bg-neu-bg rounded-2xl shadow-neu;
+    @apply bg-neu-bg rounded-2xl shadow-neu p-5;
   }
 
   /* Sunken well — filter bars, info panels, table shells */

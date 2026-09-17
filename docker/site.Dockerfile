@@ -26,6 +26,7 @@ RUN pnpm --filter @lieferradar/shared build \
 
 FROM nginx:1.27-alpine AS runner
 COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+COPY docker/security-headers.conf /etc/nginx/conf.d/security-headers.conf
 COPY --from=build /app/apps/web/dist /usr/share/nginx/html
 COPY --from=build /app/apps/fleet/dist /usr/share/nginx/html/fleet
 COPY --from=build /app/apps/suite/dist /usr/share/nginx/html/suite

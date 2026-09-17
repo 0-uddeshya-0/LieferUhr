@@ -4,6 +4,8 @@ const de = {
   // Suite shell
   'suite.name': 'Betriebsamt',
   'suite.back': 'Lieferuhr',
+  'nav.home': 'Überblick',
+  'nav.flagships': 'Flaggschiffe',
   'suite.tagline': 'KI-Werkzeuge für den Mittelstand',
   'demo.banner': 'Interaktive Demo mit Beispieldaten — keine echten Aufträge oder E-Mails.',
 
@@ -109,6 +111,9 @@ const de = {
   'hvac.sub': 'Aus Anrufnotizen und E-Mails werden Jobs — mit Techniker- und Terminvorschlag.',
   'hvac.inbox': 'Eingang',
   'hvac.extracted': 'Erkannt aus der Anfrage',
+  'hvac.requestText': 'Anfragetext',
+  'hvac.extractNote': 'Bearbeitbar — Extraktion läuft lokal und aktualisiert die Felder sofort.',
+  'hvac.window': 'Wunschtermin',
   'hvac.device': 'Gerät',
   'hvac.urgency': 'Dringlichkeit',
   'hvac.address': 'Adresse',
@@ -140,12 +145,20 @@ const de = {
   'depot.status.picking': 'Kommissionierung',
   'depot.status.shipped': 'Versendet',
   'depot.order': 'Auftrag',
+  'depot.mailBody': 'Mail-Text',
+  'depot.extractNote': 'Bearbeitbar — die Extraktion läuft lokal und aktualisiert die Positionen sofort.',
+  'depot.confidence': 'Konfidenz',
+  'depot.noLines': 'Keine Positionen erkannt.',
+  'depot.unmatched': 'kein Treffer',
+  'depot.noLinesCta': 'Keine zuordenbaren Positionen',
 };
 
 const en: typeof de = {
   // Suite shell
   'suite.name': 'Betriebsamt',
   'suite.back': 'Lieferuhr',
+  'nav.home': 'Overview',
+  'nav.flagships': 'Flagship products',
   'suite.tagline': 'AI tools for the Mittelstand',
   'demo.banner': 'Interactive demo with sample data — no real orders or emails.',
 
@@ -251,6 +264,9 @@ const en: typeof de = {
   'hvac.sub': 'Call notes and emails become jobs — with technician and slot suggestions.',
   'hvac.inbox': 'Inbox',
   'hvac.extracted': 'Detected in the request',
+  'hvac.requestText': 'Request text',
+  'hvac.extractNote': 'Editable — extraction runs locally and updates the fields instantly.',
+  'hvac.window': 'Preferred slot',
   'hvac.device': 'Device',
   'hvac.urgency': 'Urgency',
   'hvac.address': 'Address',
@@ -282,6 +298,12 @@ const en: typeof de = {
   'depot.status.picking': 'Picking',
   'depot.status.shipped': 'Shipped',
   'depot.order': 'Order',
+  'depot.mailBody': 'Mail text',
+  'depot.extractNote': 'Editable — extraction runs locally and updates the positions instantly.',
+  'depot.confidence': 'Confidence',
+  'depot.noLines': 'No positions detected.',
+  'depot.unmatched': 'no match',
+  'depot.noLinesCta': 'No assignable positions',
 };
 
 export const translations: Record<Lang, Record<TranslationKey, string>> = { de, en };

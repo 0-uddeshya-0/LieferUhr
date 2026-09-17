@@ -1,47 +1,72 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Mail, PackageCheck, Truck } from 'lucide-react';
 import { useI18n } from '../i18n';
-import { SuiteHeader } from '../components/SuiteShell';
 import { useSuite, createDepotOrder, shipDepotOrder, type DepotMail } from '../demo/store';
+import { extractOrderLines } from '../demo/extract';
 import { cn } from '../lib/cn';
 import type { TranslationKey } from '../i18n/translations';
 
 function MailDetail({ mail }: { mail: DepotMail }) {
   const { t } = useI18n();
   const { stock } = useSuite();
-  const nameOf = (sku: string) => stock.find((s) => s.sku === sku)?.name ?? sku;
+  const [body, setBody] = useState(mail.body);
+  const extraction = useMemo(() => extractOrderLines(body, stock), [body, stock]);
+  const matchedLines = extraction.lines.filter((l) => l.matched && l.sku);
+  const nameOf = (sku?: string) => stock.find((s) => s.sku === sku)?.name;
 
   return (
     <div className="rounded-2xl bg-neu-raised p-5 shadow-neu">
       <p className="flex items-center gap-2 font-mono text-xs text-subtle"><Mail className="h-3.5 w-3.5" />{mail.from}</p>
       <h3 className="mt-1 font-display text-lg font-bold leading-snug text-ink">{mail.subject}</h3>
 
+      <textarea
+        value={body}
+        onChange={(e) => setBody(e.target.value)}
+        rows={6}
+        aria-label={t('depot.mailBody')}
+        className="mt-4 w-full resize-y rounded-xl bg-neu-inset p-3.5 font-mono text-xs leading-relaxed text-ink shadow-neu-in focus:outline-none focus:ring-2 focus:ring-depot"
+      />
+      <p className="mt-1.5 text-[11px] text-subtle">{t('depot.extractNote')}</p>
+
       <div className="mt-4 rounded-xl bg-neu-inset p-4 shadow-neu-in">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-subtle">{t('depot.parsed')}</p>
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="text-left text-xs text-subtle">
-              <th className="pb-1.5 font-medium">{t('depot.sku')}</th>
-              <th className="pb-1.5 font-medium">{t('depot.item')}</th>
-              <th className="pb-1.5 text-right font-medium">{t('depot.qty')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {mail.lines.map((l) => (
-              <tr key={l.sku} className="border-t border-rule">
-                <td className="py-1.5 font-mono text-xs text-ink-soft">{l.sku}</td>
-                <td className="py-1.5 text-ink">{nameOf(l.sku)}</td>
-                <td className="py-1.5 text-right font-mono font-semibold text-ink">{l.qty}</td>
+        <div className="mb-2 flex items-center justify-between">
+          <p className="text-xs font-semibold uppercase tracking-wide text-subtle">{t('depot.parsed')}</p>
+          <p className="font-mono text-[10px] text-subtle">
+            {t('depot.confidence')}: {Math.round(extraction.confidence * 100)}%
+          </p>
+        </div>
+        {extraction.lines.length === 0 ? (
+          <p className="py-2 text-sm text-ink-soft">{t('depot.noLines')}</p>
+        ) : (
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-left text-xs text-subtle">
+                <th className="pb-1.5 font-medium">{t('depot.sku')}</th>
+                <th className="pb-1.5 font-medium">{t('depot.item')}</th>
+                <th className="pb-1.5 text-right font-medium">{t('depot.qty')}</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {extraction.lines.map((l, i) => (
+                <tr key={`${l.sku ?? 'x'}-${i}`} className="border-t border-rule">
+                  <td className="py-1.5 font-mono text-xs text-ink-soft">{l.sku ?? '—'}</td>
+                  <td className="py-1.5 text-ink">
+                    {nameOf(l.sku) ?? l.name}
+                    {!l.matched && <span className="ml-1.5 text-[10px] font-semibold uppercase text-sev-warn">{t('depot.unmatched')}</span>}
+                  </td>
+                  <td className="py-1.5 text-right font-mono font-semibold text-ink">{l.qty}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
 
       {mail.status === 'new' ? (
-        <button type="button" onClick={() => createDepotOrder(mail.id)}
-          className="mt-4 w-full rounded-xl bg-depot px-4 py-2.5 text-sm font-semibold text-depot-ink shadow-neu-sm transition-all hover:brightness-105 focus:outline-none focus:ring-2 focus:ring-depot">
-          {t('depot.createOrder')}
+        <button type="button" disabled={matchedLines.length === 0}
+          onClick={() => createDepotOrder(mail.id, matchedLines.map((l) => ({ sku: l.sku!, qty: l.qty })))}
+          className="mt-4 w-full rounded-xl bg-depot px-4 py-2.5 text-sm font-semibold text-depot-ink shadow-neu-sm transition-all hover:brightness-105 focus:outline-none focus:ring-2 focus:ring-depot disabled:cursor-not-allowed disabled:opacity-40">
+          {matchedLines.length === 0 ? t('depot.noLinesCta') : t('depot.createOrder')}
         </button>
       ) : (
         <p className="mt-4 flex items-center gap-2 text-sm font-semibold text-depot">
@@ -60,7 +85,6 @@ export default function DepotPage() {
 
   return (
     <>
-      <SuiteHeader product="depot" />
       <main className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
         <h1 className="font-display text-3xl font-bold tracking-tight text-ink">{t('depot.title')}</h1>
         <p className="mt-1 text-sm text-ink-soft">{t('depot.sub')}</p>

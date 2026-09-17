@@ -21,15 +21,15 @@ test('nav demo goes to Einkauf; FrachtRadar section links to its demo', async ({
   await expect(page).toHaveURL(/#\/dashboard/);
   await page.goto('./');
 
-  // FrachtRadar product section: demo link points at the nested fleet app
+  // FrachtRadar product section: demo link goes straight into the dispo demo
   const section = page.locator('#prod-frachtradar');
-  await expect(section.getByRole('link', { name: 'Dispo-Demo öffnen' })).toHaveAttribute('href', /fleet\/$/);
+  await expect(section.getByRole('link', { name: 'Dispo-Demo öffnen' })).toHaveAttribute('href', /fleet\/#\/dispatch$/);
 });
 
 test('all six product sections carry a demo video and a demo link', async ({ page }) => {
   const products: [string, RegExp][] = [
     ['einkauf', /#\/dashboard/],
-    ['frachtradar', /fleet\/$/],
+    ['frachtradar', /fleet\/#\/dispatch$/],
     ['frachtamt', /suite\/#\/dispatch$/],
     ['pruefamt', /suite\/#\/comply$/],
     ['einsatzamt', /suite\/#\/hvac$/],
@@ -43,6 +43,17 @@ test('all six product sections carry a demo video and a demo link', async ({ pag
     await expect(video.locator('source')).toHaveAttribute('src', new RegExp(`videos/${id}\\.mp4$`));
     await expect(section.getByRole('link').first()).toHaveAttribute('href', href);
   }
+});
+
+test('nav anchors scroll in place instead of routing', async ({ page }) => {
+  // Under HashRouter, href="#x" would be parsed as a route — nav must scroll.
+  const nav = page.locator('nav[aria-label="Primary"]');
+  await nav.getByRole('link', { name: 'Integrationen' }).click();
+  await expect(page.locator('#integration')).toBeInViewport();
+  await expect(page).toHaveURL(/#\/$|\/$/); // hash stays a route, not '#integration'
+
+  await page.locator('#produkte').getByRole('link', { name: 'PostAmt' }).click();
+  await expect(page.locator('#prod-postamt')).toBeInViewport();
 });
 
 test('footer links every product and the repository', async ({ page }) => {

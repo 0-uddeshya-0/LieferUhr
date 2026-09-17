@@ -1,3 +1,4 @@
+import type { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { MotionConfig } from 'framer-motion';
 import {
@@ -54,7 +55,7 @@ const PRODUCTS: Product[] = [
     desc: 'landing.fracht.desc',
     features: ['landing.fracht.f1', 'landing.fracht.f2', 'landing.fracht.f3'],
     demo: 'landing.fracht.demo',
-    href: FLEET_BASE,
+    href: `${FLEET_BASE}#/dispatch`,
     external: true,
   },
   {
@@ -108,6 +109,13 @@ const TOOL_ICONS: Record<string, typeof Navigation> = {
   pruefamt: CalendarClock,
   einsatzamt: Wrench,
   postamt: Boxes,
+};
+
+// HashRouter owns location.hash — in-page anchors must scroll without
+// touching it, otherwise every click is parsed as a route change.
+const scrollToId = (id: string) => (e: MouseEvent<HTMLAnchorElement>) => {
+  e.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 };
 
 // Static tone classes — Tailwind needs literals at build time.
@@ -271,24 +279,27 @@ export function LandingPage() {
             aria-label="Primary"
             className="clay-pill fixed left-1/2 top-4 z-50 flex max-w-[calc(100vw-1rem)] -translate-x-1/2 items-center gap-1 py-2 pl-3 pr-2 sm:gap-2 sm:pl-4"
           >
-            <a href="#top" className="mr-1 flex items-center gap-2">
+            <a href="#top" onClick={scrollToId('top')} className="mr-1 flex items-center gap-2">
               <BrandMark className="h-6 w-6" />
               <span className="hidden font-display text-sm font-semibold text-ink min-[430px]:inline">Lieferuhr</span>
             </a>
             <a
               href="#produkte"
+              onClick={scrollToId('produkte')}
               className="hidden rounded-full px-2.5 py-1.5 text-sm font-medium text-ink-soft transition-colors hover:text-ink md:inline"
             >
               {t('landing.nav.products')}
             </a>
             <a
               href="#system"
+              onClick={scrollToId('system')}
               className="hidden rounded-full px-2.5 py-1.5 text-sm font-medium text-ink-soft transition-colors hover:text-ink md:inline"
             >
               {t('landing.nav.system')}
             </a>
             <a
               href="#integration"
+              onClick={scrollToId('integration')}
               className="hidden rounded-full px-2.5 py-1.5 text-sm font-medium text-ink-soft transition-colors hover:text-ink md:inline"
             >
               {t('landing.nav.integration')}
@@ -302,7 +313,7 @@ export function LandingPage() {
               <span className="hidden sm:inline">{t('landing.nav.demoEinkauf')}</span>
             </Link>
             <a
-              href={FLEET_BASE}
+              href={`${FLEET_BASE}#/dispatch`}
               className="flex items-center gap-1.5 whitespace-nowrap rounded-full bg-fork px-3 py-1.5 text-sm font-medium text-fork-ink transition-transform duration-150 hover:-translate-y-px"
             >
               <span className="h-2 w-2 rounded-full bg-fork-ink/60" aria-hidden />
@@ -337,7 +348,7 @@ export function LandingPage() {
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <a
-                href={FLEET_BASE}
+                href={`${FLEET_BASE}#/dispatch`}
                 className="flex items-center gap-2 rounded-full bg-fork px-5 py-2.5 text-sm font-semibold text-fork-ink transition-transform duration-150 hover:-translate-y-px"
               >
                 {t('landing.fracht.demo')}
@@ -359,6 +370,7 @@ export function LandingPage() {
                 <a
                   key={product.id}
                   href={`#prod-${product.id}`}
+                  onClick={scrollToId(`prod-${product.id}`)}
                   className="clay-card group flex flex-col items-center gap-2.5 px-3 py-5 text-center transition-transform duration-200 hover:-translate-y-1"
                 >
                   <ProductMark product={product} className="h-10 w-10" />
@@ -461,7 +473,11 @@ export function LandingPage() {
                 <ul className="mt-3.5 space-y-2 text-sm">
                   {PRODUCTS.map((product) => (
                     <li key={product.id}>
-                      <a href={`#prod-${product.id}`} className="text-ink-soft transition-colors hover:text-ink">
+                      <a
+                        href={`#prod-${product.id}`}
+                        onClick={scrollToId(`prod-${product.id}`)}
+                        className="text-ink-soft transition-colors hover:text-ink"
+                      >
                         {t(product.name)}
                       </a>
                     </li>
@@ -488,7 +504,11 @@ export function LandingPage() {
                     </a>
                   </li>
                   <li>
-                    <a href="#integration" className="text-ink-soft transition-colors hover:text-ink">
+                    <a
+                      href="#integration"
+                      onClick={scrollToId('integration')}
+                      className="text-ink-soft transition-colors hover:text-ink"
+                    >
                       {t('landing.nav.integration')}
                     </a>
                   </li>

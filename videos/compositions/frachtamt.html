@@ -8,106 +8,226 @@
 <style>
 @font-face { font-family: 'Geist'; src: url('assets/fonts/geist.woff2') format('woff2'); font-weight: 100 900; }
 @font-face { font-family: 'Space Grotesk'; src: url('assets/fonts/space-grotesk.woff2') format('woff2'); font-weight: 100 900; }
+@font-face { font-family: 'Geist Mono'; src: url('assets/fonts/geist-mono.woff2') format('woff2'); font-weight: 100 900; }
 
 @page { margin: 0; }
 * { box-sizing: border-box; }
 body { margin: 0; background: #e8ecf3; }
 #root { position: relative; width: 100%; height: 100%; overflow: hidden;
         font-family: 'Geist', system-ui, sans-serif; color: #1c2430; }
-.clip { position: absolute; inset: 0; }
+.clip { position: absolute; inset: 0; overflow: hidden; }
 .bg { position: absolute; inset: 0;
-  background:
-    radial-gradient(120% 90% at 20% 10%, #f4f6fa 0%, #e8ecf3 55%, #dfe4ee 100%);
-}
+  background: radial-gradient(120% 90% at 20% 10%, #f4f6fa 0%, #e8ecf3 55%, #dfe4ee 100%); }
 .center { position: absolute; inset: 0; display: flex; flex-direction: column;
           align-items: center; justify-content: center; text-align: center; }
-.mark { width: 96px; height: 96px; border-radius: 26px; display: flex;
+
+/* hook — dark, kinetic */
+.hook-bg { position: absolute; inset: 0; background: #10151d; }
+.hook-glow { position: absolute; inset: -20%; opacity: .5; }
+.hook-center { position: absolute; inset: 0; display: flex; flex-direction: column;
+               align-items: center; justify-content: center; text-align: center; padding: 0 90px; }
+.hook-kick { font-family: 'Geist Mono', monospace; font-size: 17px; letter-spacing: .22em;
+             text-transform: uppercase; margin: 0 0 30px; }
+.hook-line { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 76px;
+             letter-spacing: -0.025em; line-height: 1.04; margin: 0; color: #eef1f6; }
+.hook-line .accent { display: block; }
+.hook-bar { height: 6px; border-radius: 3px; margin-top: 34px; width: 0; }
+
+/* reveal */
+.mark { width: 104px; height: 104px; border-radius: 28px; display: flex;
         align-items: center; justify-content: center;
-        box-shadow: 8px 8px 20px rgba(94,110,140,.28), -6px -6px 16px rgba(255,255,255,.85); }
-.mark svg { width: 52px; height: 52px; }
-h1 { font-family: 'Space Grotesk', 'Geist', sans-serif; font-weight: 700;
-     font-size: 72px; letter-spacing: -0.02em; margin: 26px 0 0; }
-.aud { margin: 12px 0 0; font-size: 24px; font-weight: 600; }
-.claim { margin: 20px 0 0; font-size: 21px; color: #5a6678; }
-.shot-wrap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
-.shot { border-radius: 22px; overflow: hidden;
-        box-shadow: 18px 22px 44px rgba(94,110,140,.38), -10px -10px 26px rgba(255,255,255,.8);
-        border: 1px solid rgba(255,255,255,.7); }
-.shot img { display: block; }
-.cap { position: absolute; left: 72px; bottom: 64px; display: flex; align-items: center;
-       gap: 10px; background: #eef1f6; border-radius: 999px; padding: 12px 22px;
-       font-size: 19px; font-weight: 600; color: #2a3442;
-       box-shadow: 6px 6px 16px rgba(94,110,140,.3), -4px -4px 12px rgba(255,255,255,.8); }
-.cap .dot { width: 10px; height: 10px; border-radius: 50%; }
-.beats-card { background: #edf0f6; border-radius: 26px; padding: 44px 52px;
-  box-shadow: 14px 16px 36px rgba(94,110,140,.3), -8px -8px 20px rgba(255,255,255,.8);
-  display: flex; flex-direction: column; gap: 26px; }
-.beat { display: flex; align-items: center; gap: 18px; font-size: 30px; font-weight: 600; }
-.beat .tick { width: 34px; height: 34px; border-radius: 50%; flex: none;
-  display: flex; align-items: center; justify-content: center; }
-.beat .tick svg { width: 18px; height: 18px; }
-.end-name { font-family: 'Space Grotesk', sans-serif; font-size: 54px; font-weight: 700;
-            letter-spacing: -0.02em; margin: 0; }
-.end-tag { margin: 14px 0 0; font-size: 19px; color: #5a6678; font-weight: 500; }
-.end-bar { width: 0; height: 5px; border-radius: 3px; margin-top: 26px; }
+        box-shadow: 10px 10px 26px rgba(94,110,140,.32), -6px -6px 18px rgba(255,255,255,.85); }
+.mark svg { width: 56px; height: 56px; }
+.ring { position: absolute; width: 104px; height: 104px; border-radius: 32px;
+        border: 3px solid; opacity: 0; }
+.rv-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 68px;
+           letter-spacing: -0.02em; margin: 30px 0 0; color: #161c26; }
+.rv-aud { font-size: 23px; font-weight: 600; margin: 12px 0 0; }
+
+/* flow — full-bleed UI with camera */
+.cam { position: absolute; inset: 0; }
+.cam img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cam-tall { position: absolute; inset: 0; display: flex; align-items: center; justify-content: flex-end; padding-right: 12%; }
+.cam-tall img { height: 620px; border-radius: 30px; display: block;
+  box-shadow: 24px 30px 60px rgba(16,21,29,.45), 0 0 0 1px rgba(255,255,255,.35); }
+.spot { position: absolute; border-radius: 18px; border: 3px solid;
+        box-shadow: 0 0 0 4px rgba(255,255,255,.25), 0 0 34px 4px currentColor; opacity: 0; }
+.cursor { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 5; }
+.cursor-dot { position: absolute; left: -9px; top: -9px; width: 18px; height: 18px;
+  border-radius: 50%; background: #10151d; border: 2.5px solid #fff;
+  box-shadow: 0 2px 10px rgba(16,21,29,.5); }
+.cursor-ring { position: absolute; left: -22px; top: -22px; width: 44px; height: 44px;
+  border-radius: 50%; border: 3px solid #fff; opacity: 0; }
+.capbar { position: absolute; left: 56px; bottom: 52px; display: flex; align-items: center;
+  gap: 12px; background: rgba(16,21,29,.88); border-radius: 999px; padding: 15px 26px;
+  box-shadow: 0 14px 34px rgba(16,21,29,.4); z-index: 4; }
+.capbar .dot { width: 11px; height: 11px; border-radius: 50%; flex: none; }
+.cap-texts { height: 1.45em; overflow: hidden; }
+.cap-col { display: flex; flex-direction: column; }
+.cap-t { height: 1.45em; line-height: 1.45em; font-size: 22px; font-weight: 600;
+         color: #f2f4f8; white-space: nowrap; }
+.prod-tab { position: absolute; right: 56px; top: 46px; display: flex; align-items: center;
+  gap: 10px; background: rgba(238,241,246,.92); border-radius: 999px; padding: 9px 18px;
+  font-family: 'Geist Mono', monospace; font-size: 14px; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase; color: #2a3442;
+  box-shadow: 0 6px 18px rgba(16,21,29,.18); z-index: 4; }
+.prod-tab .dot { width: 9px; height: 9px; border-radius: 50%; }
+
+/* chips */
+.chips-wrap { position: absolute; inset: 0; display: flex; flex-direction: column;
+              justify-content: center; padding-left: 110px; gap: 24px; }
+.chips-kick { font-family: 'Geist Mono', monospace; font-size: 16px; letter-spacing: .2em;
+              text-transform: uppercase; color: #5a6678; margin-bottom: 6px; }
+.chip { display: flex; align-items: center; gap: 18px; width: fit-content;
+        background: #edf0f6; border-radius: 20px; padding: 20px 34px 20px 22px;
+        font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 600;
+        color: #1c2430;
+        box-shadow: 12px 14px 30px rgba(94,110,140,.3), -6px -6px 18px rgba(255,255,255,.8); }
+.chip .tick { width: 36px; height: 36px; border-radius: 50%; flex: none;
+              display: flex; align-items: center; justify-content: center; }
+.chip .tick svg { width: 19px; height: 19px; }
+
+/* end card */
+.end-cta { display: inline-flex; align-items: center; gap: 12px; border-radius: 999px;
+  padding: 18px 38px; font-family: 'Space Grotesk', sans-serif; font-size: 27px;
+  font-weight: 700; color: #fff; margin-top: 38px;
+  box-shadow: 12px 14px 34px rgba(94,110,140,.4); }
+.end-tag { font-family: 'Geist Mono', monospace; font-size: 15px; letter-spacing: .18em;
+           text-transform: uppercase; color: #5a6678; margin-top: 30px; }
 
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="frachtamt" data-start="0" data-width="1280" data-height="720" data-duration="19">
+<div id="root" data-composition-id="frachtamt" data-start="0" data-width="1280" data-height="720" data-duration="23.4">
 
-  <section class="clip" data-start="0" data-duration="2.6">
+  <section class="clip" data-start="0" data-duration="2.8">
+    <div class="hook-bg"></div>
+    <div class="hook-glow" style="background: radial-gradient(50% 45% at 50% 60%, oklch(50% 0.13 180) 0%, transparent 70%);"></div>
+    <div class="hook-center">
+      <p class="hook-kick" id="frachtamt-kick" style="color:oklch(50% 0.13 180)">Betriebsamt · von Lieferuhr</p>
+      <h1 class="hook-line"><span id="frachtamt-h1">Das Postfach entscheidet</span>
+        <span class="accent" id="frachtamt-h2" style="color:oklch(50% 0.13 180)">den Tag.</span></h1>
+      <div class="hook-bar" id="frachtamt-hbar" style="background:oklch(50% 0.13 180)"></div>
+    </div>
+  </section>
+  <section class="clip" data-start="2.8" data-duration="2.23">
     <div class="bg"></div>
     <div class="center">
-      <div class="mark" id="frachtamt-mark" style="background:oklch(50% 0.13 180)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="oklch(98% 0.005 200)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-8-7 18-2.5-7.5z"/><path d="M11.5 13.5L21 3" opacity="0.7"/></svg>
+      <div class="mark" id="frachtamt-mark" style="background:oklch(50% 0.13 180)"><svg viewBox="0 0 24 24" fill="none" stroke="oklch(98% 0.005 200)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-8-7 18-2.5-7.5z"/><path d="M11.5 13.5L21 3" opacity="0.7"/></svg></div>
+      <div class="ring" id="frachtamt-ring" style="border-color:oklch(50% 0.13 180)"></div>
+      <h1 class="rv-name" id="frachtamt-name">FrachtAmt</h1>
+      <p class="rv-aud" id="frachtamt-aud" style="color:oklch(50% 0.13 180)">Für Fuhrunternehmen 3–30 LKW</p>
+    </div>
+  </section>
+  <section class="clip" data-start="5.03" data-duration="5.49">
+    <div class="bg" style="background: radial-gradient(110% 90% at 80% 15%, #f0f3f8 0%, #e8ecf3 60%, #dde2ec 100%);"></div>
+    <div class="cam" id="frachtamt-f0-cam"><img src="assets/suite-dispatch.png" /></div>
+    <div class="spot" id="frachtamt-f0-spot" style="left:19%;top:22%;width:48%;height:26%;border-color:oklch(50% 0.13 180);color:oklch(50% 0.13 180)"></div>
+    <div class="cursor" id="frachtamt-f0-cur">
+      <div class="cursor-ring" id="frachtamt-f0-ring"></div>
+      <div class="cursor-dot"></div>
+    </div>
+    <div class="prod-tab"><span class="dot" style="background:oklch(50% 0.13 180)"></span>FrachtAmt</div>
+    <div class="capbar" id="frachtamt-f0-capbar">
+      <span class="dot" style="background:oklch(50% 0.13 180)"></span>
+      <div class="cap-texts"><div class="cap-col" id="frachtamt-f0-caps">
+        <span class="cap-t">Angebote aus TIMOCOM und Mail.</span>
+        <span class="cap-t">Bewertet, nicht verloren.</span>
+      </div></div>
+    </div>
+  </section>
+  <section class="clip" data-start="10.52" data-duration="5.00">
+    <div class="bg" style="background: radial-gradient(110% 90% at 80% 15%, #f0f3f8 0%, #e8ecf3 60%, #dde2ec 100%);"></div>
+    <div class="cam" id="frachtamt-f1-cam"><img src="assets/suite-dispatch.png" /></div>
+    <div class="spot" id="frachtamt-f1-spot" style="left:68.5%;top:39%;width:27%;height:8%;border-color:oklch(50% 0.13 180);color:oklch(50% 0.13 180)"></div>
+    <div class="cursor" id="frachtamt-f1-cur">
+      <div class="cursor-ring" id="frachtamt-f1-ring"></div>
+      <div class="cursor-dot"></div>
+    </div>
+    <div class="prod-tab"><span class="dot" style="background:oklch(50% 0.13 180)"></span>FrachtAmt</div>
+    <div class="capbar" id="frachtamt-f1-capbar">
+      <span class="dot" style="background:oklch(50% 0.13 180)"></span>
+      <div class="cap-texts"><div class="cap-col" id="frachtamt-f1-caps">
+        <span class="cap-t">Konter als fertiger Entwurf.</span>
+        <span class="cap-t">Buchung samt Papieren.</span>
+      </div></div>
+    </div>
+  </section>
+  <section class="clip" data-start="15.52" data-duration="3.50">
+    <div class="bg"></div>
+    <div class="chips-wrap">
+      <p class="chips-kick" id="frachtamt-ckick">FrachtAmt</p>
+      <div class="chip" id="frachtamt-chip-0"><span class="tick" style="background:oklch(50% 0.13 180)"><svg viewBox="0 0 24 24" fill="none" stroke="oklch(98% 0.005 200)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>Konter-Mail in Sekunden</div><div class="chip" id="frachtamt-chip-1"><span class="tick" style="background:oklch(50% 0.13 180)"><svg viewBox="0 0 24 24" fill="none" stroke="oklch(98% 0.005 200)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>Papiere in einem Fluss</div><div class="chip" id="frachtamt-chip-2"><span class="tick" style="background:oklch(50% 0.13 180)"><svg viewBox="0 0 24 24" fill="none" stroke="oklch(98% 0.005 200)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>Übergabe an FrachtRadar</div>
+    </div>
+  </section>
+  <section class="clip" data-start="19.02" data-duration="4.38">
+    <div class="bg"></div>
+    <div class="hook-glow" style="background: radial-gradient(55% 50% at 50% 55%, oklch(50% 0.13 180)22 0%, transparent 70%); opacity:1;"></div>
+    <div class="center">
+      <div class="mark" id="frachtamt-emark" style="background:oklch(50% 0.13 180); width:76px; height:76px; border-radius:22px;"><svg viewBox="0 0 24 24" fill="none" stroke="oklch(98% 0.005 200)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-8-7 18-2.5-7.5z"/><path d="M11.5 13.5L21 3" opacity="0.7"/></svg></div>
+      <h1 class="rv-name" id="frachtamt-ename" style="font-size:60px;">FrachtAmt</h1>
+      <div class="end-cta" id="frachtamt-cta" style="background:oklch(50% 0.13 180)">Demo testen
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </div>
-      <h1 id="frachtamt-name">FrachtAmt</h1>
-      <p class="aud" id="frachtamt-aud" style="color:oklch(50% 0.13 180)">Für Fuhrunternehmen 3–30 LKW</p>
-      <p class="claim" id="frachtamt-claim">Der Posteingang wird disponiert.</p>
-    </div>
-  </section>
-  <section class="clip" data-start="2.6" data-duration="6.2">
-    <div class="bg"></div>
-    <div class="shot-wrap">
-      <div class="shot" id="frachtamt-shot-2.6" style="width: 1000px;">
-        <img src="assets/suite-dispatch.png" style="width:100%;height:100%;object-fit:cover;object-position:top center;" />
-      </div>
-    </div>
-    <div class="cap" id="frachtamt-cap-2.6">
-      <span class="dot" style="background:oklch(50% 0.13 180)"></span>Angebote bewerten, kontern, buchen
-    </div>
-  </section>
-  <section class="clip" data-start="8.8" data-duration="6.6">
-    <div class="bg"></div>
-    <div class="center">
-      <div class="beats-card"><div class="beat" id="frachtamt-beat-0"><span class="tick" style="background:oklch(50% 0.13 180)"><svg viewBox="0 0 24 24" fill="none" stroke="oklch(98% 0.005 200)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>Konter als fertiger E-Mail-Entwurf</div><div class="beat" id="frachtamt-beat-1"><span class="tick" style="background:oklch(50% 0.13 180)"><svg viewBox="0 0 24 24" fill="none" stroke="oklch(98% 0.005 200)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>Papiere und Buchung in einem Fluss</div><div class="beat" id="frachtamt-beat-2"><span class="tick" style="background:oklch(50% 0.13 180)"><svg viewBox="0 0 24 24" fill="none" stroke="oklch(98% 0.005 200)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>Übergabe an FrachtRadar</div></div>
-    </div>
-  </section>
-  <section class="clip" data-start="15.4" data-duration="3.5999999999999996">
-    <div class="bg"></div>
-    <div class="center">
-      <p class="end-name" id="frachtamt-endname">FrachtAmt</p>
-      <div class="end-bar" id="frachtamt-endbar" style="background:oklch(50% 0.13 180)"></div>
-      <p class="end-tag" id="frachtamt-endtag">Betriebsamt · die Werkzeuge von Lieferuhr</p>
+      <p class="end-tag" id="frachtamt-etag">Betriebsamt · die Werkzeuge von Lieferuhr</p>
     </div>
   </section>
 </div>
+<audio id="frachtamt-music" src="assets/music/happy-beats.mp3" data-start="0" data-duration="23.4" data-volume="0.3"></audio>
+<audio id="frachtamt-sfx-0" src="assets/sfx/impact-light.ogg" data-start="0.45" data-volume="0.5"></audio>
+<audio id="frachtamt-sfx-1" src="assets/sfx/impact-light.ogg" data-start="1.35" data-volume="0.35"></audio>
+<audio id="frachtamt-sfx-2" src="assets/sfx/impact-light.ogg" data-start="3.02" data-volume="0.45"></audio>
+<audio id="frachtamt-sfx-3" src="assets/sfx/click.ogg" data-start="7.02" data-volume="0.6"></audio>
+<audio id="frachtamt-sfx-4" src="assets/sfx/click.ogg" data-start="13.01" data-volume="0.6"></audio>
+<audio id="frachtamt-sfx-5" src="assets/sfx/tick.ogg" data-start="16.02" data-volume="0.5"></audio>
+<audio id="frachtamt-sfx-6" src="assets/sfx/tick.ogg" data-start="16.52" data-volume="0.5"></audio>
+<audio id="frachtamt-sfx-7" src="assets/sfx/tick.ogg" data-start="17.02" data-volume="0.5"></audio>
+<audio id="frachtamt-sfx-8" src="assets/sfx/select.ogg" data-start="19.02" data-volume="0.55"></audio>
 <script>
   const tl = gsap.timeline({ paused: true });
-  tl.from('#frachtamt-mark', { scale: 0.6, opacity: 0, duration: 0.5, ease: 'back.out(1.8)' }, 0.15)
-    .from('#frachtamt-name', { y: 34, opacity: 0, duration: 0.55, ease: 'power3.out' }, 0.3)
-    .from('#frachtamt-aud', { y: 20, opacity: 0, duration: 0.5, ease: 'power3.out' }, 0.5)
-    .from('#frachtamt-claim', { opacity: 0, duration: 0.5 }, 0.7);
-  tl.fromTo('#frachtamt-shot-2.6', { scale: 0.94, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.7, ease: 'power2.out' }, 2.7)
-    .fromTo('#frachtamt-shot-2.6 img', { scale: 1 }, { scale: 1.07, duration: 6.2, ease: 'none' }, 2.6)
-    .from('#frachtamt-cap-2.6', { y: 18, opacity: 0, duration: 0.45, ease: 'power2.out' }, 3.2);
-  tl.from('#frachtamt-beat-0', { x: -30, opacity: 0, duration: 0.45, ease: 'power2.out' }, 9.100000000000001);
-  tl.from('#frachtamt-beat-1', { x: -30, opacity: 0, duration: 0.45, ease: 'power2.out' }, 9.600000000000001);
-  tl.from('#frachtamt-beat-2', { x: -30, opacity: 0, duration: 0.45, ease: 'power2.out' }, 10.100000000000001);
-  tl.from('#frachtamt-endname', { y: 26, opacity: 0, duration: 0.5, ease: 'power3.out' }, 15.55)
-    .to('#frachtamt-endbar', { width: 320, duration: 0.7, ease: 'power2.inOut' }, 15.9)
-    .from('#frachtamt-endtag', { opacity: 0, duration: 0.5 }, 16.3);
+  // hook — word slam + underline sweep
+  tl.from('#frachtamt-kick', { opacity: 0, duration: 0.4 }, 0.2)
+    .from('#frachtamt-h1', { y: 70, opacity: 0, rotation: -2, duration: 0.55, ease: 'power4.out' }, 0.4)
+    .from('#frachtamt-h2', { y: 90, opacity: 0, duration: 0.6, ease: 'power4.out' }, 1.3)
+    .to('#frachtamt-hbar', { width: 340, duration: 0.55, ease: 'power3.inOut' }, 1.75);
+  // reveal — mark punch on the first beat (3.02)
+  tl.from('#frachtamt-mark', { scale: 0.4, opacity: 0, duration: 0.55, ease: 'back.out(2)' }, 3.02)
+    .fromTo('#frachtamt-ring', { scale: 0.8, opacity: 0.9 }, { scale: 1.9, opacity: 0, duration: 0.8, ease: 'power2.out' }, 3.07)
+    .from('#frachtamt-name', { y: 38, opacity: 0, duration: 0.5, ease: 'power3.out' }, 3.27)
+    .from('#frachtamt-aud', { y: 22, opacity: 0, duration: 0.45, ease: 'power3.out' }, 3.47);
+  tl.fromTo('#frachtamt-f0-cam', { opacity: 0 }, { opacity: 1, duration: 0.35 }, 5.03)
+    .fromTo('#frachtamt-f0-cam', { scale: 1.0, transformOrigin: '40% 32%' },
+           { scale: 1.15, duration: 5.49, ease: 'none', immediateRender: false }, 5.03);
+  tl.fromTo('#frachtamt-f0-spot', { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.6)', immediateRender: false }, 6.18)
+    .to('#frachtamt-f0-spot', { opacity: 0, duration: 0.3 }, 10.17);
+  tl.fromTo('#frachtamt-f0-cur', { x: 574.0, y: 760, opacity: 0 },
+           { x: 384.0, y: 201.6, opacity: 1, duration: 1.1, ease: 'power2.inOut' }, 5.869999999999999)
+    .fromTo('#frachtamt-f0-ring', { scale: 0.3, opacity: 0.9 }, { scale: 1.9, opacity: 0, duration: 0.6, ease: 'power2.out', immediateRender: false }, 7.02)
+    .fromTo('#frachtamt-f0-cur .cursor-dot', { scale: 1 }, { scale: 0.75, duration: 0.12, yoyo: true, repeat: 1, immediateRender: false }, 7.02)
+    .to('#frachtamt-f0-cur', { x: 512.0, y: 360.0, opacity: 0, duration: 0.9, ease: 'power2.in' }, 9.52)
+    .fromTo('#frachtamt-f0-caps', { y: 0 }, { y: '-1.45em', duration: 0.5, ease: 'power3.inOut', immediateRender: false }, 8.0495)
+    .from('#frachtamt-f0-capbar', { y: 24, opacity: 0, duration: 0.5, ease: 'power3.out' }, 5.430000000000001);
+  tl.fromTo('#frachtamt-f1-cam', { opacity: 0 }, { opacity: 1, duration: 0.35 }, 10.52)
+    .fromTo('#frachtamt-f1-cam', { scale: 1.0, transformOrigin: '84% 35%' },
+           { scale: 1.22, duration: 5.00, ease: 'none', immediateRender: false }, 10.52);
+  tl.fromTo('#frachtamt-f1-spot', { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.6)', immediateRender: false }, 11.67)
+    .to('#frachtamt-f1-spot', { opacity: 0, duration: 0.3 }, 15.17);
+  tl.fromTo('#frachtamt-f1-cur', { x: 1252.4, y: 760, opacity: 0 },
+           { x: 1062.4, y: 309.6, opacity: 1, duration: 1.1, ease: 'power2.inOut' }, 11.86)
+    .fromTo('#frachtamt-f1-ring', { scale: 0.3, opacity: 0.9 }, { scale: 1.9, opacity: 0, duration: 0.6, ease: 'power2.out', immediateRender: false }, 13.01)
+    .fromTo('#frachtamt-f1-cur .cursor-dot', { scale: 1 }, { scale: 0.75, duration: 0.12, yoyo: true, repeat: 1, immediateRender: false }, 13.01)
+    .to('#frachtamt-f1-cur', { x: 1190.4, y: 468.0, opacity: 0, duration: 0.9, ease: 'power2.in' }, 14.52)
+    .fromTo('#frachtamt-f1-caps', { y: 0 }, { y: '-1.45em', duration: 0.5, ease: 'power3.inOut', immediateRender: false }, 13.27)
+    .from('#frachtamt-f1-capbar', { y: 24, opacity: 0, duration: 0.5, ease: 'power3.out' }, 10.92);
+  tl.from('#frachtamt-ckick', { opacity: 0, y: 14, duration: 0.4 }, 15.67);
+  tl.from('#frachtamt-chip-0', { x: -70, opacity: 0, duration: 0.45, ease: 'power3.out' }, 16.02);
+  tl.from('#frachtamt-chip-1', { x: -70, opacity: 0, duration: 0.45, ease: 'power3.out' }, 16.52);
+  tl.from('#frachtamt-chip-2', { x: -70, opacity: 0, duration: 0.45, ease: 'power3.out' }, 17.02);
+  tl.from('#frachtamt-emark', { scale: 0.5, opacity: 0, duration: 0.5, ease: 'back.out(2)' }, 19.14)
+    .from('#frachtamt-ename', { y: 30, opacity: 0, duration: 0.5, ease: 'power3.out' }, 19.3)
+    .from('#frachtamt-cta', { scale: 0.8, opacity: 0, duration: 0.5, ease: 'back.out(1.8)' }, 19.57)
+    .to('#frachtamt-cta', { scale: 1.05, duration: 0.35, yoyo: true, repeat: 1, ease: 'power2.inOut' }, 20.52)
+    .from('#frachtamt-etag', { opacity: 0, duration: 0.45 }, 19.87);
   window.__timelines['frachtamt'] = tl;
 </script>
 </body>

@@ -1,0 +1,56 @@
+# Production stack for a single VPS.
+#   docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
+# Everything external terminates at `site` (nginx). Put TLS in front via Caddy/Traefik
+# or your hoster's load balancer.
+name: lieferuhr
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: lieferradar
+      POSTGRES_USER: lieferradar
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .env.prod}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lieferradar"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks: [internal]
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    restart: unless-stopped
+    env_file: .env.prod
+    environment:
+      DATABASE_URL: postgresql://lieferradar:${DB_PASSWORD}@db:5432/lieferradar
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - uploads:/app/apps/api/uploads
+    networks: [internal]
+
+  site:
+    build:
+      context: .
+      dockerfile: docker/site.Dockerfile
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_started
+    ports:
+      - "${HTTP_PORT:-8080}:80"
+    networks: [internal]
+
+volumes:
+  pg_data:
+  uploads:
+
+networks:
+  internal:

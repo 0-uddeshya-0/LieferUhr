@@ -11,7 +11,7 @@ import { DEMO_SUPPLIER_STATUS } from '../demo/mockData';
 import type { OrderStatus } from '../types';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost:3001',
+  baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost:3001/api',
 });
 
 type SupplierOrder = {

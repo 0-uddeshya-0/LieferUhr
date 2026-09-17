@@ -8,13 +8,13 @@
  *
  * Required environment:
  *   LIEFERRADAR_API_KEY  — created under Settings → API keys (starts with lr_)
- *   LIEFERRADAR_API_URL  — API base URL (default: http://localhost:3001)
+ *   LIEFERRADAR_API_URL  — API base URL (default: http://localhost:3001/api)
  */
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
 
-const API_URL = process.env.LIEFERRADAR_API_URL ?? 'http://localhost:3001';
+const API_URL = process.env.LIEFERRADAR_API_URL ?? 'http://localhost:3001/api';
 const API_KEY = process.env.LIEFERRADAR_API_KEY;
 
 if (!API_KEY) {

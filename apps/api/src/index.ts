@@ -19,6 +19,7 @@ import { startReminderJob } from './jobs/reminderJob';
 import { startDigestJob } from './jobs/digestJob';
 import { startFleetJob } from './jobs/fleetJob';
 import { config } from './config';
+import { prisma } from './db';
 
 export async function buildApp() {
   const app = Fastify({
@@ -44,22 +45,40 @@ export async function buildApp() {
     });
   });
 
+  // Ops endpoints — no auth, used by the container healthcheck and uptime monitors.
+  app.get('/healthz', async () => ({ status: 'ok' }));
+  app.get('/readyz', async (_request, reply) => {
+    try {
+      await prisma.$queryRaw`SELECT 1`;
+      return { status: 'ready' };
+    } catch {
+      return reply.status(503).send({ status: 'unavailable' });
+    }
+  });
+
   await registerCors(app);
   await registerAuth(app);
   await registerRateLimit(app);
   await app.register(multipart, { limits: { fileSize: 5 * 1024 * 1024 } });
 
-  await app.register(authRoutes);
-  await app.register(supplierRoutes);
-  await app.register(orderRoutes);
-  await app.register(supplierStatusRoutes);
-  await app.register(dashboardRoutes);
-  await app.register(organizationRoutes);
-  await app.register(settingsRoutes);
-  await app.register(teamRoutes);
-  await app.register(fleetRoutes);
-  await app.register(driverRoutes);
-  await app.register(trackingRoutes);
+  // All product routes live under /api so the production site can proxy them
+  // on the same origin. Health endpoints above stay unprefixed.
+  await app.register(
+    async (api) => {
+      await api.register(authRoutes);
+      await api.register(supplierRoutes);
+      await api.register(orderRoutes);
+      await api.register(supplierStatusRoutes);
+      await api.register(dashboardRoutes);
+      await api.register(organizationRoutes);
+      await api.register(settingsRoutes);
+      await api.register(teamRoutes);
+      await api.register(fleetRoutes);
+      await api.register(driverRoutes);
+      await api.register(trackingRoutes);
+    },
+    { prefix: '/api' },
+  );
 
   if (config.NODE_ENV !== 'test') {
     startReminderJob(app.log);

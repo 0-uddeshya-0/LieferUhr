@@ -17,12 +17,45 @@ const de = {
 
   // Landing page — umbrella + two products
   'landing.cta.demo': 'Demo starten',
+  'landing.nav.journey': 'Der Weg',
+  'landing.nav.demoEinkauf': 'Einkauf-Demo',
+  'landing.nav.demoFracht': 'FrachtRadar-Demo',
   'landing.hero.title': 'Wissen, wann Ware ankommt.',
   'landing.hero.sub':
-    'Lieferuhr verbindet die zwei Seiten des Liefertermins: Einkaufsteams, die Lieferanten nachfassen, und Fuhrunternehmen, die liefern. Status per Link statt Telefon — auf beiden Seiten.',
-  'landing.hero.note': 'Eine Plattform, ein Konto · DSGVO-konform · Hosting in Deutschland',
-  'landing.products.title': 'Zwei Werkzeuge, ein Liefertermin',
-  'landing.products.sub': 'Beide Produkte laufen auf derselben Plattform. Wählen Sie Ihre Seite der Lieferkette.',
+    'Lieferuhr führt die zwei Seiten eines Liefertermins zusammen: den Einkauf, der auf Ware wartet — und das Fuhrunternehmen, das sie bringt. Ein Termin, ein Status, kein Telefonat.',
+  'landing.hero.note': 'Eine Plattform · ein Konto · DSGVO-konform · Hosting in Deutschland',
+  'landing.journey.title': 'Der Weg eines Liefertermins',
+  'landing.journey.sub': 'Vom Bestellungseingang bis zur Rechnung — verfolgt an einem einzigen Termin.',
+  'landing.side.einkauf': 'Einkauf',
+  'landing.side.fracht': 'FrachtRadar',
+  'landing.art.confirm': '14. Mär · bestätigt',
+  'landing.art.confirmMeta': '1 Klick',
+  'landing.art.risk': 'Erinnerung raus',
+  'landing.art.pod': 'Lieferschein',
+  'landing.art.podMeta': 'Foto ✓',
+  'landing.stage1.title': 'Bestellung raus',
+  'landing.stage1.desc':
+    'Offene Bestellungen kommen per CSV oder API in Lieferuhr Einkauf. Der Lieferant bekommt einen Link — kein Portal, kein Login.',
+  'landing.stage2.title': 'Zusage per Klick',
+  'landing.stage2.desc':
+    'Der Lieferant tippt Status und Datum auf einer Seite, die ohne Login auskommt. Ihr Dashboard aktualisiert sich sofort.',
+  'landing.stage3.title': 'Funkstille wird sichtbar',
+  'landing.stage3.desc':
+    'Antwortet niemand, erinnert Lieferuhr automatisch nach 2 und 5 Tagen. Die Risiko-Ampel zeigt, welche Bestellung die Produktion gefährdet.',
+  'landing.fork.title': 'Ein Termin, zwei Seiten.',
+  'landing.fork.desc':
+    'Was der Einkauf als Zusage sieht, wird beim Fuhrunternehmer zur Tour. Dieselbe Information — zwei Arbeitsplätze.',
+  'landing.stage4.title': 'Tour disponiert',
+  'landing.stage4.desc':
+    'FrachtRadar legt die Tour an. Der Fahrer bekommt seinen Link per WhatsApp oder E-Mail, Ihr Kunde einen Tracking-Link.',
+  'landing.stage5.title': 'Unterwegs und dokumentiert',
+  'landing.stage5.desc':
+    'Der Fahrer tippt seinen Status und fotografiert den unterschriebenen Lieferschein. Das Büro sieht jeden Schritt live.',
+  'landing.stage6.title': 'Abgerechnet',
+  'landing.stage6.desc':
+    'Aus der gelieferten Tour wird eine PDF-Rechnung mit laufender Nummer und USt-Ausweis. Ein Klick, fertig.',
+  'landing.doors.title': 'Zwei Werkzeuge, ein Termin',
+  'landing.doors.sub': 'Beide Produkte laufen auf derselben Plattform. Wählen Sie Ihre Seite der Lieferkette.',
   'landing.einkauf.name': 'Lieferuhr Einkauf',
   'landing.einkauf.audience': 'Für Einkaufsteams in Maschinenbau und Metallverarbeitung',
   'landing.einkauf.desc':
@@ -32,6 +65,7 @@ const de = {
   'landing.einkauf.f3': 'Risiko-Ampel und Lieferanten-Scorecard',
   'landing.einkauf.demo': 'Dashboard-Demo öffnen',
   'landing.einkauf.demoAlt': 'Lieferanten-Seite ansehen',
+  'landing.einkauf.shotAlt': 'Lieferuhr-Einkauf-Dashboard: offene Bestellungen, Risiken und Liefertermine',
   'landing.fracht.name': 'FrachtRadar',
   'landing.fracht.by': 'von Lieferuhr',
   'landing.fracht.audience': 'Für Fuhrunternehmen mit 3–30 LKW',
@@ -43,6 +77,7 @@ const de = {
   'landing.fracht.demo': 'Dispo-Demo öffnen',
   'landing.fracht.demoDriver': 'Fahrer-Ansicht',
   'landing.fracht.demoTrack': 'Sendungsverfolgung',
+  'landing.fracht.shotAlt': 'FrachtRadar-Disposition: Touren, Fahrer und Status auf einem Board',
   'landing.why.title': 'Warum das zusammengehört',
   'landing.why.desc':
     'Einkäufer warten auf den Termin, Fahrer liefern ihn. Beide Seiten arbeiten heute mit Telefon und Excel — Lieferuhr gibt beiden dasselbe Fundament: Status per Link, Erinnerungen automatisch.',
@@ -63,6 +98,7 @@ const de = {
     'Wir suchen Einkaufsteams aus Maschinenbau und Metallverarbeitung sowie regionale Fuhrunternehmen (3–30 LKW) für acht Wochen kostenlose Pilotphase, Einrichtung inklusive.',
   'landing.pilot.cta': 'Pilotprojekt anfragen',
   'landing.pilot.note': 'Kostenlos in der Pilotphase · jederzeit beendbar · Daten in Deutschland',
+  'landing.footer.line': 'Der Termin gehört beiden Seiten.',
   'landing.footer.full': 'Vollständige Installation mit API, PostgreSQL und E-Mail-Versand:',
   'landing.footer.repo': 'GitHub Repository',
 
@@ -254,12 +290,45 @@ const en: Record<TranslationKey, string> = {
   'demo.mock.pod': 'Proof of delivery',
 
   'landing.cta.demo': 'Start demo',
+  'landing.nav.journey': 'The journey',
+  'landing.nav.demoEinkauf': 'Einkauf demo',
+  'landing.nav.demoFracht': 'FrachtRadar demo',
   'landing.hero.title': 'Know when goods arrive.',
   'landing.hero.sub':
-    'Lieferuhr connects the two sides of the delivery date: purchasing teams chasing suppliers, and the carriers who deliver. Status via link instead of phone calls — on both sides.',
-  'landing.hero.note': 'One platform, one account · GDPR-compliant · Hosted in Germany',
-  'landing.products.title': 'Two tools, one delivery date',
-  'landing.products.sub': 'Both products run on the same platform. Pick your side of the supply chain.',
+    'Lieferuhr joins the two sides of a delivery date: the purchasing team waiting for goods — and the carrier bringing them. One date, one status, no phone calls.',
+  'landing.hero.note': 'One platform · one account · GDPR-compliant · Hosted in Germany',
+  'landing.journey.title': 'The journey of a delivery date',
+  'landing.journey.sub': 'From purchase order to invoice — told through a single date.',
+  'landing.side.einkauf': 'Purchasing',
+  'landing.side.fracht': 'FrachtRadar',
+  'landing.art.confirm': 'Mar 14 · confirmed',
+  'landing.art.confirmMeta': '1 click',
+  'landing.art.risk': 'Reminder sent',
+  'landing.art.pod': 'Delivery slip',
+  'landing.art.podMeta': 'Photo ✓',
+  'landing.stage1.title': 'Order out',
+  'landing.stage1.desc':
+    'Open orders land in Lieferuhr Einkauf via CSV or API. The supplier gets a link — no portal, no login.',
+  'landing.stage2.title': 'Confirmed in one click',
+  'landing.stage2.desc':
+    'The supplier taps status and date on a page that needs no login. Your dashboard updates immediately.',
+  'landing.stage3.title': 'Silence becomes visible',
+  'landing.stage3.desc':
+    'No answer? Lieferuhr follows up automatically after 2 and 5 days. The risk light shows which order endangers production.',
+  'landing.fork.title': 'One date. Two sides.',
+  'landing.fork.desc':
+    'What purchasing sees as a confirmation becomes a tour at the carrier. The same information — two workplaces.',
+  'landing.stage4.title': 'Tour dispatched',
+  'landing.stage4.desc':
+    'FrachtRadar creates the tour. The driver gets a link via WhatsApp or email, your customer a tracking link.',
+  'landing.stage5.title': 'En route and documented',
+  'landing.stage5.desc':
+    'The driver taps a status and photographs the signed delivery slip. The office sees every step live.',
+  'landing.stage6.title': 'Invoiced',
+  'landing.stage6.desc':
+    'The delivered tour becomes a PDF invoice with sequential numbering and VAT shown. One click, done.',
+  'landing.doors.title': 'Two tools, one date',
+  'landing.doors.sub': 'Both products run on the same platform. Pick your side of the supply chain.',
   'landing.einkauf.name': 'Lieferuhr Einkauf',
   'landing.einkauf.audience': 'For purchasing teams in machine building and metal processing',
   'landing.einkauf.desc':
@@ -269,6 +338,7 @@ const en: Record<TranslationKey, string> = {
   'landing.einkauf.f3': 'Risk traffic light and supplier scorecard',
   'landing.einkauf.demo': 'Open the dashboard demo',
   'landing.einkauf.demoAlt': 'View the supplier page',
+  'landing.einkauf.shotAlt': 'Lieferuhr Einkauf dashboard: open orders, risks and delivery dates',
   'landing.fracht.name': 'FrachtRadar',
   'landing.fracht.by': 'by Lieferuhr',
   'landing.fracht.audience': 'For carriers with 3–30 trucks',
@@ -280,6 +350,7 @@ const en: Record<TranslationKey, string> = {
   'landing.fracht.demo': 'Open the dispatch demo',
   'landing.fracht.demoDriver': 'Driver view',
   'landing.fracht.demoTrack': 'Shipment tracking',
+  'landing.fracht.shotAlt': 'FrachtRadar dispatch board: tours, drivers and statuses',
   'landing.why.title': 'Why these belong together',
   'landing.why.desc':
     'Buyers wait for the date, drivers deliver it. Both sides still work with phones and spreadsheets — Lieferuhr gives them the same foundation: status via link, reminders automatic.',
@@ -300,6 +371,7 @@ const en: Record<TranslationKey, string> = {
     'We are looking for purchasing teams in machine building and metal processing as well as regional carriers (3–30 trucks) for eight weeks of free piloting, setup included.',
   'landing.pilot.cta': 'Request a pilot',
   'landing.pilot.note': 'Free during the pilot · stop anytime · data hosted in Germany',
+  'landing.footer.line': 'The date belongs to both sides.',
   'landing.footer.full': 'Full installation with API, PostgreSQL, and email delivery:',
   'landing.footer.repo': 'GitHub repository',
 

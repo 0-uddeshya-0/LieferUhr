@@ -1,0 +1,32 @@
+{
+  "version": "1.1.0",
+  "runs": [
+    {
+      "at": "2026-09-17",
+      "app": "apps/web",
+      "action": "redesign",
+      "genre": "modern-minimal",
+      "macrostructure": "narrative-workflow",
+      "nav": "N5-floating-pill",
+      "footer": "Ft5-statement",
+      "theme": "custom",
+      "fonts": { "display": "Space Grotesk", "body": "Geist", "outlier": "Geist Mono" },
+      "paper": "oklch(96.8% 0.006 250)",
+      "accent": "oklch(46% 0.185 265)",
+      "fork": "oklch(58% 0.175 55)",
+      "notes": "Delivery-date journey spine forks into two product doors; whole-card demo links; real product captures in door cards"
+    },
+    {
+      "at": "2026-09-17",
+      "app": "apps/fleet",
+      "action": "redesign",
+      "genre": "modern-minimal",
+      "macrostructure": "workbench",
+      "nav": "N9-edge-aligned",
+      "footer": "Ft2-inline-rule",
+      "theme": "custom (Lieferuhr system, amber accent role)",
+      "fonts": { "display": "Space Grotesk", "body": "Geist", "outlier": "Geist Mono" },
+      "notes": "Guided tour of real product screenshots: dispatch, driver PWA, tracking, invoice"
+    }
+  ]
+}

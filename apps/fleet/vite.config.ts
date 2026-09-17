@@ -5,8 +5,9 @@ import path from 'path';
 // Demo builds ship inside the Lieferuhr Pages site under /lieferradar/fleet/.
 const isDemoBuild = process.env.VITE_DEMO_MODE === 'true';
 
-export default defineConfig({
-  base: isDemoBuild ? '/lieferradar/fleet/' : '/',
+export default defineConfig(({ command }) => ({
+  // Demo (Pages) nests under /lieferradar/fleet/; production serves it at /fleet/.
+  base: isDemoBuild ? '/lieferradar/fleet/' : command === 'serve' ? '/' : '/fleet/',
   plugins: [react()],
   resolve: {
     alias: {
@@ -19,8 +20,7 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:3001',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },
-});
+}));

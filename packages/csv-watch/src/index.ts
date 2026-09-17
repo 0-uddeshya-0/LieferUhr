@@ -11,13 +11,13 @@
  * Required environment:
  *   LIEFERRADAR_API_KEY   — API key (starts with lr_)
  *   LIEFERRADAR_WATCH_DIR — folder to watch for *.csv files
- *   LIEFERRADAR_API_URL   — API base URL (default: http://localhost:3001)
+ *   LIEFERRADAR_API_URL   — API base URL (default: http://localhost:3001/api)
  *   LIEFERRADAR_POLL_MS   — poll interval in ms (default: 10000)
  */
 import { readdir, readFile, mkdir, rename } from 'node:fs/promises';
 import path from 'node:path';
 
-const API_URL = process.env.LIEFERRADAR_API_URL ?? 'http://localhost:3001';
+const API_URL = process.env.LIEFERRADAR_API_URL ?? 'http://localhost:3001/api';
 const API_KEY = process.env.LIEFERRADAR_API_KEY;
 const WATCH_DIR = process.env.LIEFERRADAR_WATCH_DIR;
 const POLL_MS = Number(process.env.LIEFERRADAR_POLL_MS ?? 10_000);

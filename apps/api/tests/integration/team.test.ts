@@ -15,7 +15,7 @@ describe('Team invites integration', () => {
 
     const registerRes = await app.inject({
       method: 'POST',
-      url: '/auth/register',
+      url: '/api/auth/register',
       payload: {
         orgName: 'Team Test GmbH',
         email: ownerEmail,
@@ -34,7 +34,7 @@ describe('Team invites integration', () => {
   it('invites a colleague who can accept and log in to the same org', async () => {
     const inviteRes = await app.inject({
       method: 'POST',
-      url: '/team/invites',
+      url: '/api/team/invites',
       cookies: { accessToken },
       payload: { email: inviteeEmail },
     });
@@ -43,31 +43,31 @@ describe('Team invites integration', () => {
     const invite = await prisma.invite.findFirst({ where: { email: inviteeEmail } });
     expect(invite).not.toBeNull();
 
-    const infoRes = await app.inject({ method: 'GET', url: `/invites/${invite!.token}` });
+    const infoRes = await app.inject({ method: 'GET', url: `/api/invites/${invite!.token}` });
     expect(infoRes.statusCode).toBe(200);
     expect(infoRes.json()).toMatchObject({ email: inviteeEmail, orgName: 'Team Test GmbH' });
 
     const acceptRes = await app.inject({
       method: 'POST',
-      url: `/invites/${invite!.token}/accept`,
+      url: `/api/invites/${invite!.token}/accept`,
       payload: { name: 'Colleague', password: 'Test1234!' },
     });
     expect(acceptRes.statusCode).toBe(200);
 
     // Token is single-use.
-    const reuse = await app.inject({ method: 'GET', url: `/invites/${invite!.token}` });
+    const reuse = await app.inject({ method: 'GET', url: `/api/invites/${invite!.token}` });
     expect(reuse.statusCode).toBe(404);
 
     const loginRes = await app.inject({
       method: 'POST',
-      url: '/auth/login',
+      url: '/api/auth/login',
       payload: { email: inviteeEmail, password: 'Test1234!' },
     });
     expect(loginRes.statusCode).toBe(200);
 
     const membersRes = await app.inject({
       method: 'GET',
-      url: '/team/members',
+      url: '/api/team/members',
       cookies: { accessToken },
     });
     expect(membersRes.statusCode).toBe(200);

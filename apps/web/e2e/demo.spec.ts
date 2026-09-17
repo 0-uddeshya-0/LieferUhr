@@ -14,6 +14,18 @@ test('landing page renders in German and toggles to English', async ({ page }) =
   await expect(page.getByRole('heading', { name: 'Looking for pilot customers' })).toBeVisible();
 });
 
+test('nav demo goes to Einkauf; FrachtRadar card is its demo door', async ({ page }) => {
+  // Nav: the blue pill opens the Einkauf demo
+  const nav = page.getByRole('navigation');
+  await nav.getByRole('link', { name: 'Einkauf-Demo' }).click();
+  await expect(page).toHaveURL(/#\/dashboard/);
+  await page.goto('./');
+
+  // FrachtRadar: the product card itself is the demo door (stretched link)
+  const frachtCard = page.locator('a[aria-label="Dispo-Demo öffnen"]');
+  await expect(frachtCard).toHaveAttribute('href', /fleet\/$/);
+});
+
 test('dashboard shows live demo data with risk indicators', async ({ page }) => {
   await page.getByRole('link', { name: 'Dashboard-Demo öffnen' }).first().click();
 

@@ -5,6 +5,20 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Marketing-layer tokens — resolve to the OKLCH custom properties in index.css
+        paper: 'var(--color-paper)',
+        clay: 'var(--color-clay)',
+        ink: {
+          DEFAULT: 'var(--color-ink)',
+          soft: 'var(--color-ink-2)',
+        },
+        subtle: 'var(--color-muted)',
+        rule: 'var(--color-rule)',
+        accent: {
+          DEFAULT: 'var(--color-accent)',
+          soft: 'var(--color-accent-soft)',
+          ink: 'var(--color-accent-ink)',
+        },
         neu: {
           bg: '#e8ecf3',
           raised: '#eef1f7',
@@ -42,9 +56,9 @@ export default {
         'neu-inset-sm': 'inset 2px 2px 4px #c3cbdb, inset -2px -2px 4px #ffffff',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Outfit Variable', 'Inter', 'system-ui', 'sans-serif'],
-        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+        sans: ['"Geist Variable"', 'system-ui', 'sans-serif'],
+        display: ['"Space Grotesk Variable"', '"Geist Variable"', 'system-ui', 'sans-serif'],
+        mono: ['"Geist Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
     },
   },

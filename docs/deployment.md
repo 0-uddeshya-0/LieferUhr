@@ -3,132 +3,84 @@
 ## Recommended infrastructure
 
 - **Provider:** Hetzner Cloud (Germany) — EU data residency
-- **Server:** CX21 or larger (2 vCPU, 4 GB RAM, 40 GB SSD)
-- **Database:** Managed PostgreSQL or co-located Postgres 16
+- **Server:** CX22 or larger (2 vCPU, 4 GB RAM, 40 GB SSD) running Docker
+- **Database:** co-located Postgres 16 (compose service) or managed PostgreSQL
 - **SMTP:** Mailgun, Postmark, or Hetzner-compatible relay
+- **TLS:** Caddy or Traefik in front of the `site` container (terminates HTTPS)
 
-## Build
+## Production stack (Docker)
+
+One origin serves everything: Lieferuhr Einkauf at `/`, FrachtRadar at
+`/fleet/`, the API at `/api` (proxied to the `api` container). Same origin
+means no CORS surface and `SameSite=strict` cookies just work.
+
+```bash
+cp .env.prod.example .env.prod   # fill in secrets + your domain
+docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
+```
+
+| Service | Image | Role |
+|---|---|---|
+| `db` | postgres:16-alpine | persistent `pg_data` volume |
+| `api` | `apps/api/Dockerfile` | runs `prisma migrate deploy` on boot, then serves on :3001 |
+| `site` | `docker/site.Dockerfile` | nginx: web at `/`, fleet at `/fleet/`, `/api` → api:3001 |
+
+Ops endpoints (unauthenticated, for monitors):
+
+- `GET /healthz` — process up
+- `GET /readyz` — 200 when the DB answers, 503 otherwise
+
+Point your TLS terminator at `site` (`HTTP_PORT`, default 8080) and you're live.
+
+## Environment (production)
+
+See `.env.prod.example` for the full template. The URL model changed with the
+same-origin layout:
+
+```env
+API_URL="https://app.yourdomain.de/api"
+WEB_URL="https://app.yourdomain.de"
+FLEET_URL="https://app.yourdomain.de/fleet"
+```
+
+All product API routes are mounted under `/api` (`/api/auth/login`,
+`/api/loads`, …). `healthz`/`readyz` stay unprefixed.
+
+`FLEET_URL` feeds the driver/tracking links in outbound emails. `UPLOAD_DIR`
+must be a persistent, backed-up directory: it holds POD photos and generated
+invoice PDFs. For multi-instance setups move this to object storage — the file
+serving endpoints are the only consumers.
+
+Cookies use `Secure=true` in production and `SameSite=strict`. The same-origin
+layout satisfies both; if you ever split the apps onto different registrable
+domains you must relax `sameSite` and extend CORS.
+
+## Manual deploy (no Docker)
 
 ```bash
 pnpm install
 pnpm db:generate
-pnpm --filter @lieferradar/shared build
-pnpm --filter @lieferradar/api build
-pnpm --filter @lieferradar/web build
-pnpm --filter @lieferradar/fleet build
+pnpm db:migrate:deploy
+pnpm build
+
+cd apps/api && node dist/server.js   # or pm2 start … --name lieferuhr-api
 ```
 
-Artifacts:
-
-- API: `apps/api/dist/`
-- Web: `apps/web/dist/` (static files)
-- Fleet: `apps/fleet/dist/` (static files + service worker + manifest)
-
-## Environment (production)
-
-Set `NODE_ENV=production` and use strong secrets:
-
-```env
-DATABASE_URL="postgresql://user:pass@db-host:5432/lieferradar"
-JWT_SECRET="<64+ random characters>"
-SMTP_HOST="smtp.example.com"
-SMTP_PORT="587"
-SMTP_SECURE="false"
-SMTP_USER="..."
-SMTP_PASS="..."
-EMAIL_FROM_ADDRESS="noreply@yourdomain.de"
-API_URL="https://api.yourdomain.de"
-WEB_URL="https://app.yourdomain.de"
-FLEET_URL="https://fleet.yourdomain.de"
-UPLOAD_DIR="/var/lib/lieferradar/uploads"
-```
-
-`FLEET_URL` is the public origin of the FrachtRadar app — it feeds CORS and
-the driver/tracking links in outbound emails. `UPLOAD_DIR` must be a
-persistent, backed-up directory: it holds POD photos and generated invoice
-PDFs. For multi-instance setups move this to object storage — the file
-serving endpoints are the only consumers.
-
-Cookies use `Secure=true` automatically in production. Session cookies are
-`SameSite=strict`, so keep each frontend and the API on the same registrable
-domain (e.g. `fleet.example.de` → `api.example.de` is fine; a different
-domain entirely is not).
-
-## Process management
-
-```bash
-# API
-cd apps/api && node dist/server.js
-
-# Or with PM2
-pm2 start apps/api/dist/server.js --name lieferradar-api
-```
-
-Serve the web `dist/` folder via nginx or Caddy.
-
-## Nginx example
-
-```nginx
-server {
-    listen 443 ssl;
-    server_name app.yourdomain.de;
-
-    root /var/www/lieferradar/web/dist;
-    index index.html;
-
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-}
-
-server {
-    listen 443 ssl;
-    server_name api.yourdomain.de;
-
-    location / {
-        proxy_pass http://127.0.0.1:3001;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-
-server {
-    listen 443 ssl;
-    server_name fleet.yourdomain.de;
-
-    root /var/www/lieferradar/fleet/dist;
-    index index.html;
-
-    # PWA: never serve a stale service worker
-    location = /sw.js {
-        add_header Cache-Control "no-cache";
-    }
-
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-}
-```
-
-## Database migrations
-
-```bash
-pnpm exec prisma migrate deploy
-```
-
-Run on deploy before starting the API.
+Serve `apps/web/dist` and `apps/fleet/dist` via your web server; use
+`docker/nginx.conf` as the reference config (fleet nested at `/fleet/`).
 
 ## Cron jobs
 
-Reminder and digest jobs run inside the API process via `node-cron`. Only one API instance should run cron in production, or extract jobs to a separate worker.
+Reminder, digest and fleet-ping jobs run inside the API process via
+`node-cron`. Run exactly one API instance, or extract jobs to a worker before
+scaling horizontally.
 
 ## Checklist
 
-- [ ] Strong `JWT_SECRET` and database credentials
-- [ ] HTTPS on all domains (web, fleet, API)
-- [ ] `WEB_URL` and `FLEET_URL` match actual frontend origins (CORS)
+- [ ] Strong `JWT_SECRET`, `DB_PASSWORD`
+- [ ] TLS in front of `site` (HTTPS required for `Secure` cookies)
+- [ ] `WEB_URL`/`FLEET_URL`/`API_URL` match the public domain
 - [ ] SMTP verified with production relay
-- [ ] `prisma migrate deploy` applied
-- [ ] `UPLOAD_DIR` on persistent storage, included in backups
-- [ ] MailHog **not** used in production
-- [ ] Backups configured for PostgreSQL
+- [ ] `pg_data` + `uploads` volumes in the backup plan
+- [ ] `GET /readyz` returns 200 after `up`
+- [ ] MailHog not reachable in production

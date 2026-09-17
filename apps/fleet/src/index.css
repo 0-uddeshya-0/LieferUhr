@@ -1,8 +1,36 @@
+/* Hallmark · macrostructure: Workbench · nav: N9 edge-aligned · footer: Ft2 inline-rule
+ * theme: custom (Lieferuhr system, FrachtRadar accent role) · paper: oklch(96.8% 0.006 250) · accent: oklch(58% 0.175 55)
+ * display: Space Grotesk · body: Geist · axes: light / geometric-sans / warm
+ * studied: no · context: user-provided · v1.1.0
+ */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-paper:       oklch(96.8% 0.006 250);
+    --color-clay:        oklch(98.2% 0.004 250);
+    --color-paper-2:     oklch(94.2% 0.009 250);
+    --color-ink:         oklch(21%  0.020 258);
+    --color-ink-2:       oklch(37%  0.016 258);
+    --color-muted:       oklch(50%  0.012 258);
+    --color-rule:        oklch(86%  0.010 255);
+    /* FrachtRadar accent — the warm branch of the Lieferuhr system */
+    --color-accent:      oklch(58%  0.175 55);
+    --color-accent-soft: oklch(94%  0.032 75);
+    --color-accent-ink:  oklch(99%  0.003 80);
+    --color-uhr:         oklch(46%  0.185 265);
+    --color-focus:       oklch(60%  0.20  55);
+    --shadow-dark:       oklch(78%  0.014 255);
+    --shadow-light:      oklch(99.6% 0.002 250);
+    --ease-out:          cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in:           cubic-bezier(0.7, 0, 0.84, 0);
+    --dur-micro:         120ms;
+    --dur-short:         220ms;
+    --dur-long:          420ms;
+  }
+
   body {
     @apply bg-neu-bg text-neu-text font-sans antialiased;
     caret-color: #ea580c;
@@ -31,6 +59,15 @@
   a {
     text-underline-offset: 3px;
   }
+
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  html, body {
+    overflow-x: clip;
+  }
 }
 
 @layer components {
@@ -53,4 +90,44 @@
   .neu-btn {
     @apply bg-neu-raised shadow-neu-sm transition-shadow duration-150 active:shadow-neu-inset-sm active:bg-neu-sunken/70;
   }
+
+  .clay-card {
+    background: var(--color-clay);
+    border-radius: 1.25rem;
+    box-shadow:
+      10px 10px 24px var(--shadow-dark),
+      -10px -10px 24px var(--shadow-light),
+      inset 0 1px 0 oklch(100% 0 0 / 0.65);
+  }
+  .clay-pill {
+    background: var(--color-clay);
+    border-radius: 999px;
+    box-shadow:
+      6px 6px 14px var(--shadow-dark),
+      -6px -6px 14px var(--shadow-light),
+      inset 0 1px 0 oklch(100% 0 0 / 0.7);
+  }
+  .clay-inset {
+    background: var(--color-paper-2);
+    border-radius: 1rem;
+    box-shadow:
+      inset 4px 4px 10px var(--shadow-dark),
+      inset -4px -4px 10px var(--shadow-light);
+  }
+}
+
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fr-reveal var(--dur-long) var(--ease-out) forwards;
+    animation-delay: calc(var(--i, 0) * 70ms);
+  }
+  @keyframes fr-reveal {
+    to { opacity: 1; transform: none; }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { animation: none; opacity: 1; transform: none; }
 }

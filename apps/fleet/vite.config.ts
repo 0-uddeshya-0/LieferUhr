@@ -2,12 +2,12 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
-// Demo builds ship inside the Lieferuhr Pages site under /lieferradar/fleet/.
+// Demo builds ship inside the Lieferuhr Pages site under /lieferuhr/fleet/.
 const isDemoBuild = process.env.VITE_DEMO_MODE === 'true';
 
 export default defineConfig(({ command }) => ({
-  // Demo (Pages) nests under /lieferradar/fleet/; production serves it at /fleet/.
-  base: isDemoBuild ? '/lieferradar/fleet/' : command === 'serve' ? '/' : '/fleet/',
+  // Demo (Pages) nests under /lieferuhr/fleet/; production serves it at /fleet/.
+  base: isDemoBuild ? '/lieferuhr/fleet/' : command === 'serve' ? '/' : '/fleet/',
   plugins: [react()],
   resolve: {
     alias: {

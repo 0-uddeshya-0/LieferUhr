@@ -1,6 +1,6 @@
 # Lieferuhr
 
-[![CI](https://github.com/0-uddeshya-0/lieferradar/actions/workflows/ci.yml/badge.svg)](https://github.com/0-uddeshya-0/lieferradar/actions/workflows/ci.yml)
+[![CI](https://github.com/0-uddeshya-0/LieferUhr/actions/workflows/ci.yml/badge.svg)](https://github.com/0-uddeshya-0/LieferUhr/actions/workflows/ci.yml)
 
 **Wissen, wann Ware ankommt.** — *Know when goods arrive.*
 
@@ -11,7 +11,7 @@ Lieferuhr is the umbrella for two lean tools built around the delivery date, sha
 
 See [docs/fleet-expansion.md](docs/fleet-expansion.md) and [docs/rollout-plan.md](docs/rollout-plan.md).
 
-**Live demo (both products):** https://0-uddeshya-0.github.io/lieferradar/ — the umbrella page links into each product's interactive demo; FrachtRadar ships nested under [`/lieferradar/fleet/`](https://0-uddeshya-0.github.io/lieferradar/fleet/).
+**Live demo (both products):** https://0-uddeshya-0.github.io/lieferuhr/ — the umbrella page links into each product's interactive demo; FrachtRadar ships nested under [`/lieferuhr/fleet/`](https://0-uddeshya-0.github.io/lieferuhr/fleet/).
 
 ## What works on GitHub Pages vs full deploy
 
@@ -87,7 +87,7 @@ Sequenced by what pilot customers need next — see [docs/strategy.md](docs/stra
 Monorepo layout (pnpm workspaces):
 
 ```
-lieferradar/
+lieferuhr/
 ├── apps/api/          # Fastify backend
 ├── apps/web/          # Lieferuhr Einkauf frontend (purchasing)
 ├── apps/fleet/        # FrachtRadar PWA (carriers)
@@ -110,8 +110,8 @@ See [docs/architecture.md](docs/architecture.md) for details.
 ## Setup
 
 ```bash
-git clone https://github.com/0-uddeshya-0/lieferradar.git
-cd lieferradar
+git clone https://github.com/0-uddeshya-0/LieferUhr.git
+cd LieferUhr
 pnpm install
 
 cp .env.example .env

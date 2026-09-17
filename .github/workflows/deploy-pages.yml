@@ -39,7 +39,7 @@ jobs:
           VITE_DEMO_MODE: "true"
 
       # The umbrella page links out to the fleet demo, which ships nested
-      # under /lieferradar/fleet/ inside the same Pages artifact.
+      # under /lieferuhr/fleet/ inside the same Pages artifact.
       - name: Build fleet demo for GitHub Pages
         run: pnpm --filter @lieferradar/fleet build
         env:

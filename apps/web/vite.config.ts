@@ -5,7 +5,7 @@ import path from 'path';
 const isPagesBuild = process.env.VITE_DEMO_MODE === 'true';
 
 export default defineConfig({
-  base: isPagesBuild ? '/lieferradar/' : '/',
+  base: isPagesBuild ? '/lieferuhr/' : '/',
   plugins: [react()],
   resolve: {
     alias: {

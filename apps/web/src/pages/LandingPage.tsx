@@ -556,7 +556,7 @@ export function LandingPage() {
             <p className="text-sm text-subtle">
               {t('landing.footer.full')}{' '}
               <a
-                href="https://github.com/0-uddeshya-0/lieferradar"
+                href="https://github.com/0-uddeshya-0/LieferUhr"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium text-accent hover:underline"

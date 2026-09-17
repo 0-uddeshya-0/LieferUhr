@@ -43,6 +43,9 @@ Events:
 | `order.supplier_responded` | A supplier submits a status via magic link |
 | `order.status_changed` | Purchasing or the system changes an order status |
 | `order.reminder_sent` | An automatic or manual reminder email goes out |
+| `load.status_changed` | Dispatcher or assignment changes a load status (FrachtRadar) |
+| `load.driver_responded` | A driver updates status via the `/t/` link |
+| `invoice.issued` | An invoice is created for a delivered load |
 
 Payload:
 

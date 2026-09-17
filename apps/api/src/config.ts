@@ -1,8 +1,13 @@
 import { z } from 'zod';
+import dotenv from 'dotenv';
+
+// Repo-root .env first (cwd is apps/api under pnpm --filter), then local .env.
+dotenv.config({ path: ['../../.env', '.env'] });
 
 const envSchema = z.object({
   DATABASE_URL: z.string().url(),
   JWT_SECRET: z.string().min(32),
+  PORT: z.coerce.number().default(3001),
   JWT_EXPIRES_IN: z.string().default('15m'),
   REFRESH_TOKEN_EXPIRES_IN_DAYS: z.coerce.number().default(30),
   SMTP_HOST: z.string(),
@@ -14,9 +19,12 @@ const envSchema = z.object({
   EMAIL_FROM_ADDRESS: z.string().email(),
   API_URL: z.string().url(),
   WEB_URL: z.string().url(),
+  FLEET_URL: z.string().url().default('http://localhost:5174'),
+  UPLOAD_DIR: z.string().default('./uploads'),
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   REMINDER_CRON: z.string().default('0 * * * *'),
   DIGEST_CRON: z.string().default('0 8 * * 1'),
+  FLEET_PING_CRON: z.string().default('15 * * * *'),
 });
 
 function parseEnv() {

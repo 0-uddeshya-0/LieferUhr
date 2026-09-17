@@ -1,5 +1,6 @@
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
+import { UpdateOrgBillingSchema } from '@lieferradar/shared';
 import { prisma } from '../db';
 import { requireAuth } from '../middleware/requireAuth';
 import * as apiKeyService from '../services/apiKeyService';
@@ -58,6 +59,23 @@ export async function settingsRoutes(app: FastifyInstance) {
       select: { webhookUrl: true },
     });
     return { url: org?.webhookUrl ?? null };
+  });
+
+  app.get('/settings/billing', async (request) => {
+    const org = await prisma.organization.findUnique({
+      where: { id: request.user.orgId },
+      select: { street: true, zip: true, city: true, taxId: true, invoicePrefix: true },
+    });
+    return org;
+  });
+
+  app.put('/settings/billing', async (request) => {
+    const body = UpdateOrgBillingSchema.parse(request.body);
+    return prisma.organization.update({
+      where: { id: request.user.orgId },
+      data: body,
+      select: { street: true, zip: true, city: true, taxId: true, invoicePrefix: true },
+    });
   });
 
   app.delete('/settings/webhook', async (request) => {

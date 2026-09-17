@@ -3,6 +3,8 @@ import type { FastifyInstance } from 'fastify';
 
 export async function registerRateLimit(app: FastifyInstance) {
   await app.register(rateLimit, {
-    global: false,
+    global: true,
+    max: 300,
+    timeWindow: '1 minute',
   });
 }

@@ -101,6 +101,95 @@ A `confirmedDate` later than the order's `dueDate` marks the order critical
 | GET | `/invites/:token` | No | Invite info for the accept page |
 | POST | `/invites/:token/accept` | No | Create the account (`name`, `password`) |
 
+## Fleet (FrachtRadar)
+
+All routes require authentication and are scoped to the caller's `orgId`.
+Referenced entities (customer, driver, vehicle) are verified to belong to the
+same org — a foreign ID returns `400`, a foreign load returns `404`.
+
+### Customers (shippers)
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/customers` | List with load counts |
+| POST | `/customers` | Create (`name`, optional `contactName`, `contactEmail`, `address`, `notes`) |
+| PATCH | `/customers/:id` | Update |
+| DELETE | `/customers/:id` | Delete |
+| POST | `/customers/import` | CSV bulk import (multipart, max 5 MB, 500 rows) |
+
+### Drivers
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/drivers` | List with open-load counts |
+| POST | `/drivers` | Create (`name`, `phone`, `email`, `licenseValidUntil`, `notes`) |
+| PATCH | `/drivers/:id` | Update |
+| DELETE | `/drivers/:id` | Delete |
+
+### Vehicles
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/vehicles` | List |
+| POST | `/vehicles` | Create (`plate`, `type`, `nextInspectionAt`, `notes`) |
+| PATCH | `/vehicles/:id` | Update |
+| DELETE | `/vehicles/:id` | Delete |
+
+### Loads
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/loads` | List with filters (`status`, `driverId`, `customerId`, `unassignedOnly`, `search`) |
+| POST | `/loads` | Create load; assigning `driverId` up front sets status `DISPATCHED` and sends the driver link |
+| GET | `/loads/:id` | Detail with customer, driver, vehicle, pods, events |
+| PATCH | `/loads/:id` | Update fields (assignment goes through `/assign`) |
+| POST | `/loads/:id/assign` | Assign/unassign `driverId`, `vehicleId`; `sendDriverEmail` controls the dispatch email |
+| PATCH | `/loads/:id/status` | Dispatcher status transition (`status`, `note`) |
+| POST | `/loads/:id/ping-driver` | Email reminder to the driver (throttled: 1 per 30 min) |
+| GET | `/loads/:id/pod/:podId` | Download a POD file (org-scoped) |
+| POST | `/loads/import` | CSV bulk import (max 5 MB, 500 rows); customers matched by name or created |
+| GET | `/fleet/overview` | Dispatch KPIs + expiring licenses/inspections |
+
+Status machine: `NEW → DISPATCHED → PICKED_UP → IN_TRANSIT → DELIVERED →
+INVOICED`, plus `CANCELLED`. Illegal transitions return `409`.
+
+### Invoices
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/invoices` | List with load numbers |
+| POST | `/loads/:id/invoice` | Issue invoice for a delivered load (`netCents`? default = load price, `taxRateBps` default 1900, `dueDays` default 14) |
+| GET | `/invoices/:id/pdf` | Invoice PDF |
+| PATCH | `/invoices/:id/paid` | Mark ISSUED → PAID |
+
+Invoice numbers are sequential per org (`invoicePrefix` + 4-digit counter,
+transaction-safe). Re-issuing for the same load returns `409`.
+
+### Billing settings
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/settings/billing` | Org address, `taxId`, `invoicePrefix` |
+| PUT | `/settings/billing` | Update billing fields (`invoicePrefix`: `[A-Za-z0-9-]`, max 20) |
+
+## Driver link (public)
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/t/:token` | Tour details + allowed transitions for the driver |
+| POST | `/t/:token/status` | Driver status update (`PICKED_UP`, `IN_TRANSIT`, `DELIVERED` + optional `note`) |
+| POST | `/t/:token/pod` | POD photo/PDF upload (multipart, max 5 MB) |
+
+Tokens are `nanoid(32)` capability strings; invalid tokens return `404`.
+Writes are rate-limited per token (20/hour), reads 60/hour.
+
+## Tracking link (public, read-only)
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/l/:token` | Load status, time windows, event timeline, POD availability |
+| GET | `/l/:token/pod` | Download latest POD (attachment) |
+
 ## Organizations
 
 | Method | Path | Description |

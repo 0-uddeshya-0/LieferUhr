@@ -15,12 +15,14 @@ pnpm db:generate
 pnpm --filter @lieferradar/shared build
 pnpm --filter @lieferradar/api build
 pnpm --filter @lieferradar/web build
+pnpm --filter @lieferradar/fleet build
 ```
 
 Artifacts:
 
 - API: `apps/api/dist/`
 - Web: `apps/web/dist/` (static files)
+- Fleet: `apps/fleet/dist/` (static files + service worker + manifest)
 
 ## Environment (production)
 
@@ -37,9 +39,20 @@ SMTP_PASS="..."
 EMAIL_FROM_ADDRESS="noreply@yourdomain.de"
 API_URL="https://api.yourdomain.de"
 WEB_URL="https://app.yourdomain.de"
+FLEET_URL="https://fleet.yourdomain.de"
+UPLOAD_DIR="/var/lib/lieferradar/uploads"
 ```
 
-Cookies use `Secure=true` automatically in production.
+`FLEET_URL` is the public origin of the FrachtRadar app — it feeds CORS and
+the driver/tracking links in outbound emails. `UPLOAD_DIR` must be a
+persistent, backed-up directory: it holds POD photos and generated invoice
+PDFs. For multi-instance setups move this to object storage — the file
+serving endpoints are the only consumers.
+
+Cookies use `Secure=true` automatically in production. Session cookies are
+`SameSite=strict`, so keep each frontend and the API on the same registrable
+domain (e.g. `fleet.example.de` → `api.example.de` is fine; a different
+domain entirely is not).
 
 ## Process management
 
@@ -78,6 +91,23 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
     }
 }
+
+server {
+    listen 443 ssl;
+    server_name fleet.yourdomain.de;
+
+    root /var/www/lieferradar/fleet/dist;
+    index index.html;
+
+    # PWA: never serve a stale service worker
+    location = /sw.js {
+        add_header Cache-Control "no-cache";
+    }
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
 ```
 
 ## Database migrations
@@ -95,9 +125,10 @@ Reminder and digest jobs run inside the API process via `node-cron`. Only one AP
 ## Checklist
 
 - [ ] Strong `JWT_SECRET` and database credentials
-- [ ] HTTPS on both web and API domains
-- [ ] `WEB_URL` matches actual frontend origin (CORS)
+- [ ] HTTPS on all domains (web, fleet, API)
+- [ ] `WEB_URL` and `FLEET_URL` match actual frontend origins (CORS)
 - [ ] SMTP verified with production relay
 - [ ] `prisma migrate deploy` applied
+- [ ] `UPLOAD_DIR` on persistent storage, included in backups
 - [ ] MailHog **not** used in production
 - [ ] Backups configured for PostgreSQL

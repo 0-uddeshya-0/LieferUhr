@@ -4,7 +4,10 @@ import { prisma } from '../db';
 export type WebhookEvent =
   | 'order.status_changed'
   | 'order.supplier_responded'
-  | 'order.reminder_sent';
+  | 'order.reminder_sent'
+  | 'load.status_changed'
+  | 'load.driver_responded'
+  | 'invoice.issued';
 
 const DISPATCH_TIMEOUT_MS = 5000;
 
@@ -51,6 +54,28 @@ export async function dispatchWebhook(
   } catch {
     // Delivery is best-effort; consumers can poll the API as fallback.
   }
+}
+
+export function loadWebhookPayload(load: {
+  id: string;
+  loadNumber: string;
+  status: string;
+  statusNote?: string | null;
+  pickupAt: Date;
+  deliveryAt: Date;
+  customer: { id: string; name: string };
+  driver?: { id: string; name: string } | null;
+}) {
+  return {
+    loadId: load.id,
+    loadNumber: load.loadNumber,
+    status: load.status,
+    statusNote: load.statusNote ?? null,
+    pickupAt: load.pickupAt.toISOString(),
+    deliveryAt: load.deliveryAt.toISOString(),
+    customer: { id: load.customer.id, name: load.customer.name },
+    driver: load.driver ? { id: load.driver.id, name: load.driver.name } : null,
+  };
 }
 
 export function orderWebhookPayload(order: {

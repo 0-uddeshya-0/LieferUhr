@@ -1,6 +1,7 @@
 export * from './schemas/order';
 export * from './schemas/supplier';
 export * from './schemas/auth';
+export * from './schemas/fleet';
 
 export const STATUS_LABELS = {
   PENDING: 'Ausstehend',

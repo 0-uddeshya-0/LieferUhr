@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
-import type { Order, Supplier, Organization, OrderStatus } from '@prisma/client';
+import type { Order, Supplier, Organization, OrderStatus, Load, Driver, Vehicle, FleetCustomer } from '@prisma/client';
 import { config } from '../config';
-import { STATUS_LABELS } from '@lieferradar/shared';
+import { STATUS_LABELS, LOAD_STATUS_LABELS_DE } from '@lieferradar/shared';
 
 export interface EmailTemplate {
   to: string;
@@ -27,6 +27,12 @@ export interface DigestData {
     supplierName: string;
     partDescription: string;
   }>;
+  fleet?: {
+    openLoads: number;
+    deliveredThisWeek: number;
+    expiringDrivers: Array<{ name: string; until: string }>;
+    expiringVehicles: Array<{ plate: string; until: string }>;
+  };
 }
 
 const transporter = nodemailer.createTransport({
@@ -223,12 +229,116 @@ export function buildWeeklyDigest(
 <ul>${unresponsiveList || '<li>Keine</li>'}</ul>
 <h3>🟢 Diese Woche geliefert</h3>
 <ul>${deliveredList || '<li>Keine Lieferungen</li>'}</ul>
+${digestData.fleet ? `
+<h3>🚚 Fuhrpark</h3>
+<ul>
+<li>${digestData.fleet.openLoads} offene Touren</li>
+<li>${digestData.fleet.deliveredThisWeek} Touren diese Woche geliefert</li>
+</ul>
+${digestData.fleet.expiringDrivers.length || digestData.fleet.expiringVehicles.length ? `<h3>📄 Ablaufende Dokumente (30 Tage)</h3>
+<ul>${digestData.fleet.expiringDrivers.map((d) => `<li>Führerschein ${escapeHtml(d.name)} – ${d.until}</li>`).join('')}${digestData.fleet.expiringVehicles.map((v) => `<li>HU/TÜV ${escapeHtml(v.plate)} – ${v.until}</li>`).join('')}</ul>` : ''}
+${ctaButton(`${config.FLEET_URL}/dispatch`, 'Dispo-Board öffnen')}` : ''}
 ${ctaButton(`${config.WEB_URL}/dashboard`, 'Dashboard öffnen')}
 `);
 
   return {
     to: org.email,
     subject: `LieferRadar Wochenbericht – ${digestData.overdue} Bestellungen überfällig`,
+    html,
+  };
+}
+
+// --- FrachtRadar (fleet) templates ---
+
+export function buildDriverDispatchEmail(
+  load: Load & { customer: FleetCustomer; driver: Driver; vehicle: Vehicle | null; organization: Organization }
+): EmailTemplate {
+  const url = `${config.FLEET_URL}/t/${load.driverToken}`;
+  const fmtDate = (d: Date) =>
+    d.toLocaleString('de-DE', { timeZone: 'Europe/Berlin', dateStyle: 'short', timeStyle: 'short' });
+
+  const html = baseLayout(`
+<h2>Neue Tour: ${escapeHtml(load.loadNumber)}</h2>
+<p>Guten Tag ${escapeHtml(load.driver.name)},</p>
+<p>${escapeHtml(load.organization.name)} hat Ihnen eine Tour zugewiesen:</p>
+<table style="width:100%;border-collapse:collapse;margin:15px 0;">
+<tr><td style="padding:8px;border-bottom:1px solid #eee;"><strong>Abholung</strong></td><td style="padding:8px;border-bottom:1px solid #eee;">${escapeHtml(load.pickupAddress)}<br>${fmtDate(load.pickupAt)}</td></tr>
+<tr><td style="padding:8px;border-bottom:1px solid #eee;"><strong>Zustellung</strong></td><td style="padding:8px;border-bottom:1px solid #eee;">${escapeHtml(load.deliveryAddress)}<br>${fmtDate(load.deliveryAt)}</td></tr>
+<tr><td style="padding:8px;border-bottom:1px solid #eee;"><strong>Ladegut</strong></td><td style="padding:8px;border-bottom:1px solid #eee;">${escapeHtml(load.cargoDescription)}</td></tr>
+${load.vehicle ? `<tr><td style="padding:8px;"><strong>Fahrzeug</strong></td><td style="padding:8px;">${escapeHtml(load.vehicle.plate)}</td></tr>` : ''}
+</table>
+${ctaButton(url, 'Tour öffnen')}
+<p style="font-size:13px;color:#666;">Kein Login nötig – Link tippen, Status melden, Abliefernachweis fotografieren. Link speichern: Seite zum Homescreen hinzufügen.</p>
+`, `Kontakt: ${escapeHtml(load.organization.email)}`);
+
+  return {
+    to: load.driver.email!,
+    subject: `Tour ${load.loadNumber}: ${load.pickupAddress} → ${load.deliveryAddress}`,
+    html,
+  };
+}
+
+export function buildDriverPingEmail(
+  load: Load & { driver: Driver; organization: Organization }
+): EmailTemplate {
+  const url = `${config.FLEET_URL}/t/${load.driverToken}`;
+  const html = baseLayout(`
+<h2>Status ausstehend: Tour ${escapeHtml(load.loadNumber)}</h2>
+<p>Guten Tag ${escapeHtml(load.driver.name)},</p>
+<p>Bitte melden Sie den Status für diese Tour – die Abholung war geplant für ${load.pickupAt.toLocaleString('de-DE', { timeZone: 'Europe/Berlin', dateStyle: 'short', timeStyle: 'short' })}.</p>
+${ctaButton(url, 'Status melden')}
+`, `Kontakt: ${escapeHtml(load.organization.email)}`);
+
+  return {
+    to: load.driver.email!,
+    subject: `Status melden: Tour ${load.loadNumber}`,
+    html,
+  };
+}
+
+export function buildTrackingEmail(
+  load: Load & { customer: FleetCustomer; organization: Organization }
+): EmailTemplate {
+  const url = `${config.FLEET_URL}/l/${load.trackingToken}`;
+  const fmtDate = (d: Date) =>
+    d.toLocaleString('de-DE', { timeZone: 'Europe/Berlin', dateStyle: 'short', timeStyle: 'short' });
+
+  const html = baseLayout(`
+<h2>Ihre Sendung ist unterwegs</h2>
+<p>Guten Tag,</p>
+<p>${escapeHtml(load.organization.name)} hat Ihre Sendung <strong>${escapeHtml(load.loadNumber)}</strong> disponiert:</p>
+<table style="width:100%;border-collapse:collapse;margin:15px 0;">
+<tr><td style="padding:8px;border-bottom:1px solid #eee;"><strong>Ladegut</strong></td><td style="padding:8px;border-bottom:1px solid #eee;">${escapeHtml(load.cargoDescription)}</td></tr>
+<tr><td style="padding:8px;"><strong>Zustellung geplant</strong></td><td style="padding:8px;">${fmtDate(load.deliveryAt)}</td></tr>
+</table>
+${ctaButton(url, 'Sendung verfolgen')}
+<p style="font-size:13px;color:#666;">Live-Status und Abliefernachweis ohne Login.</p>
+`, `Diese Benachrichtigung wurde von ${escapeHtml(load.organization.name)} via FrachtRadar versendet.`);
+
+  return {
+    to: load.customer.contactEmail!,
+    subject: `Sendung ${load.loadNumber} unterwegs – ${load.organization.name}`,
+    html,
+  };
+}
+
+export function buildDriverStatusAlert(
+  load: Load & { customer: FleetCustomer; driver: Driver | null; organization: Organization },
+  newStatus: string,
+  note?: string | null
+): EmailTemplate {
+  const url = `${config.FLEET_URL}/loads/${load.id}`;
+  const label = LOAD_STATUS_LABELS_DE[newStatus as keyof typeof LOAD_STATUS_LABELS_DE] ?? newStatus;
+  const html = baseLayout(`
+<h2>Tour-Status aktualisiert</h2>
+<p><strong>${escapeHtml(load.driver?.name ?? 'Fahrer')}</strong> hat Tour <strong>${escapeHtml(load.loadNumber)}</strong> gemeldet:</p>
+<p><strong>Neuer Status:</strong> ${label}</p>
+${note ? `<p><strong>Anmerkung:</strong> ${escapeHtml(note)}</p>` : ''}
+${ctaButton(url, 'Tour ansehen')}
+`);
+  return {
+    to: load.organization.email,
+    subject: `Tour ${load.loadNumber}: ${label}`,
     html,
   };
 }

@@ -5,8 +5,8 @@ async function start() {
   const app = await buildApp();
 
   try {
-    await app.listen({ port: 3001, host: '0.0.0.0' });
-    app.log.info(`API running on ${config.API_URL}`);
+    await app.listen({ port: config.PORT, host: '0.0.0.0' });
+    app.log.info(`API listening on port ${config.PORT} (public URL: ${config.API_URL})`);
   } catch (err) {
     app.log.error(err);
     process.exit(1);

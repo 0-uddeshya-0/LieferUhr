@@ -4,7 +4,7 @@ import { config } from '../config';
 
 export async function registerCors(app: FastifyInstance) {
   await app.register(cors, {
-    origin: config.NODE_ENV === 'production' ? config.WEB_URL : true,
+    origin: config.NODE_ENV === 'production' ? [config.WEB_URL, config.FLEET_URL] : true,
     credentials: true,
   });
 }

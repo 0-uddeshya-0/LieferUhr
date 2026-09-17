@@ -6,6 +6,8 @@
 
 LieferRadar is a supplier delay intelligence tool for German manufacturing SMEs. Purchasing managers register open supplier orders, send magic-link status pages to suppliers (no login required), automate follow-up reminders, and monitor delay risk on a live dashboard with supplier reliability scorecards.
 
+This repository also contains **FrachtRadar**, a sibling product built on the same API, auth, and tenancy: modern freight management for regional carriers too small for classic TMS vendors (3–30 trucks). Dispatch loads, connect drivers via magic-link PWA (no app install, no account), collect photo PODs, give shippers a live tracking link, and issue PDF invoices. See [docs/fleet-expansion.md](docs/fleet-expansion.md) and [docs/rollout-plan.md](docs/rollout-plan.md).
+
 **Live demo:** https://0-uddeshya-0.github.io/lieferradar/
 
 ## What works on GitHub Pages vs full deploy
@@ -42,6 +44,16 @@ GitHub Pages serves the static frontend only. For the full product (database, em
 - **MCP server** — AI agents (e.g. Claude) can query orders, scorecards, and send reminders via `packages/mcp`
 - **DSGVO-ready** — Organization deletion endpoint and AVV template included
 
+### FrachtRadar (fleet product)
+
+- **Loads/Touren** — create or CSV-import loads; status machine `NEW → DISPATCHED → PICKED_UP → IN_TRANSIT → DELIVERED → INVOICED` with full event timeline
+- **Driver magic link** (`/t/:token`) — installable PWA with big status buttons and photo POD upload; no account, no app store
+- **Shipper tracking link** (`/l/:token`) — read-only live status page, POD download after delivery; emailed to the customer on dispatch
+- **Dispatch board** — status filters, assignment inline, KPIs (today's loads, unassigned, in transit, weekly revenue)
+- **Fleet registry** — drivers (license expiry), vehicles (HU/TÜV date), shipper customers; CSV import
+- **PDF invoicing** — sequential per-org invoice numbers (`RE-0001…`), 19 % USt, Zahlungsziel, ISSUED/PAID tracking
+- **Automation** — hourly driver pings on late pickups, doc-expiry alerts in the weekly digest, signed webhooks (`load.status_changed`, `load.driver_responded`, `invoice.issued`)
+
 ## Roadmap
 
 Sequenced by what pilot customers need next — see [docs/strategy.md](docs/strategy.md) for the reasoning.
@@ -54,17 +66,17 @@ Sequenced by what pilot customers need next — see [docs/strategy.md](docs/stra
 ## Architecture
 
 ```
-┌─────────────────┐     ┌─────────────────┐     ┌──────────────────┐
-│  React Web App  │────▶│  Fastify API    │────▶│   PostgreSQL     │
-│  (Vite, :5173)  │     │  (Node, :3001)  │     │   (Prisma ORM)   │
-└─────────────────┘     └────────┬────────┘     └──────────────────┘
-                                 │
-                    ┌────────────┼────────────┐
-                    ▼            ▼            ▼
-              ┌─────────┐  ┌─────────┐  ┌─────────────┐
-              │  SMTP   │  │  Cron   │  │  Supplier   │
-              │ (email) │  │  jobs   │  │  magic link │
-              └─────────┘  └─────────┘  └─────────────┘
+┌─────────────────┐ ┌─────────────────┐     ┌──────────────────┐
+│ LieferRadar Web │ │ FrachtRadar PWA │────▶│  Fastify API     │────▶ PostgreSQL
+│   (:5173)       │ │   (:5174)       │     │  (Node, :3001)   │      (Prisma)
+└─────────────────┘ └─────────────────┘     └────────┬─────────┘
+                                                    │
+                                       ┌────────────┼─────────────┐
+                                       ▼            ▼             ▼
+                                 ┌─────────┐  ┌─────────┐  ┌──────────────┐
+                                 │  SMTP   │  │  Cron   │  │ Magic links  │
+                                 │ (email) │  │  jobs   │  │ /s /t /l     │
+                                 └─────────┘  └─────────┘  └──────────────┘
 ```
 
 Monorepo layout (pnpm workspaces):
@@ -72,7 +84,8 @@ Monorepo layout (pnpm workspaces):
 ```
 lieferradar/
 ├── apps/api/          # Fastify backend
-├── apps/web/          # React frontend
+├── apps/web/          # LieferRadar frontend (purchasing)
+├── apps/fleet/        # FrachtRadar PWA (carriers)
 ├── packages/shared/   # Zod schemas & shared types
 ├── packages/mcp/      # MCP server for AI agents
 ├── packages/csv-watch/# Folder-watching ERP connector
@@ -98,6 +111,7 @@ pnpm install
 
 cp .env.example .env
 cp apps/web/.env.example apps/web/.env
+cp apps/fleet/.env.example apps/fleet/.env
 
 docker compose up -d
 
@@ -105,19 +119,20 @@ pnpm db:generate
 pnpm db:migrate
 pnpm db:seed
 
-pnpm dev
+pnpm dev:all      # API + both frontends (dev / dev:fleet for a subset)
 ```
 
-- **Web:** http://localhost:5173
+- **LieferRadar web:** http://localhost:5173
+- **FrachtRadar app:** http://localhost:5174
 - **API:** http://localhost:3001
 - **MailHog UI:** http://localhost:8025
 
 ### Seed credentials
 
-| Field    | Value              |
-|----------|--------------------|
-| Email    | `manager@muster.de` |
-| Password | `Test1234!`         |
+| Product | Email | Password |
+|---------|-------|----------|
+| LieferRadar (purchasing) | `manager@muster.de` | `Test1234!` |
+| FrachtRadar (carrier) | `disponent@frachtradar.de` | `Test1234!` |
 
 ## Usage
 
@@ -145,11 +160,13 @@ All required environment variables are in `.env.example`. The API validates env 
 | `DATABASE_URL` | PostgreSQL connection string |
 | `JWT_SECRET` | Min. 32 characters |
 | `SMTP_*` | SMTP relay settings |
-| `API_URL` / `WEB_URL` | Public URLs for links and CORS |
+| `API_URL` / `WEB_URL` / `FLEET_URL` | Public URLs for links and CORS |
+| `UPLOAD_DIR` | Storage for POD photos and invoice PDFs (default `./uploads`) |
 | `REMINDER_CRON` | Auto-reminder schedule (default: hourly) |
 | `DIGEST_CRON` | Weekly digest schedule (default: Mon 08:00) |
+| `FLEET_PING_CRON` | Driver ping sweep schedule (default: hourly at :15) |
 
-Frontend: set `VITE_API_URL` in `apps/web/.env` (default `http://localhost:3001`).
+Frontend: set `VITE_API_URL` in `apps/web/.env` and `apps/fleet/.env` (default `http://localhost:3001`).
 
 ## Running tests
 
@@ -196,4 +213,4 @@ See [docs/deployment.md](docs/deployment.md) for nginx, environment, and product
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+Source-available under the [PolyForm Noncommercial License 1.0.0](LICENSE.md) — free for non-commercial use; commercial use requires a separate license.

@@ -10,17 +10,22 @@ export async function sendWeeklyDigests(): Promise<number> {
   const now = new Date();
   const weekAgo = subDays(now, 7);
   const fiveDaysAgo = subDays(now, 5);
+  const in30Days = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
 
   const orgs = await prisma.organization.findMany({
     where: {
-      orders: {
-        some: { status: { notIn: ['DELIVERED', 'CANCELLED'] } },
-      },
+      OR: [
+        { orders: { some: { status: { notIn: ['DELIVERED', 'CANCELLED'] } } } },
+        { loads: { some: { status: { notIn: ['DELIVERED', 'INVOICED', 'CANCELLED'] } } } },
+      ],
     },
     include: {
       orders: {
         include: { supplier: true },
       },
+      loads: true,
+      drivers: { select: { name: true, licenseValidUntil: true } },
+      vehicles: { select: { plate: true, nextInspectionAt: true } },
     },
   });
 
@@ -63,6 +68,25 @@ export async function sendWeeklyDigests(): Promise<number> {
         partDescription: o.partDescription,
       }));
 
+    const fmtDate = (d: Date) => d.toLocaleDateString('de-DE', { timeZone: 'Europe/Berlin' });
+    const openLoads = org.loads.filter(
+      (l) => !['DELIVERED', 'INVOICED', 'CANCELLED'].includes(l.status)
+    );
+    const fleet = org.loads.length
+      ? {
+          openLoads: openLoads.length,
+          deliveredThisWeek: org.loads.filter(
+            (l) => l.deliveredAt && l.deliveredAt >= weekAgo
+          ).length,
+          expiringDrivers: org.drivers
+            .filter((d) => d.licenseValidUntil && d.licenseValidUntil <= in30Days)
+            .map((d) => ({ name: d.name, until: fmtDate(d.licenseValidUntil!) })),
+          expiringVehicles: org.vehicles
+            .filter((v) => v.nextInspectionAt && v.nextInspectionAt <= in30Days)
+            .map((v) => ({ plate: v.plate, until: fmtDate(v.nextInspectionAt!) })),
+        }
+      : undefined;
+
     const digestData: DigestData = {
       totalActive: activeOrders.length,
       overdue: overdue.length,
@@ -70,6 +94,7 @@ export async function sendWeeklyDigests(): Promise<number> {
       criticalOrders,
       unresponsiveSuppliers: Array.from(supplierCounts.values()),
       deliveredThisWeek,
+      fleet,
     };
 
     const email = buildWeeklyDigest(org, digestData);

@@ -1,6 +1,6 @@
 # Integrations
 
-LieferRadar is built API-first so it drops into existing workflows instead of
+Lieferuhr is built API-first so it drops into existing workflows instead of
 demanding new ones. Three integration layers exist today; ERP connectors are
 the next milestone.
 
@@ -62,7 +62,7 @@ Payload:
 }
 ```
 
-Verify authenticity with the `X-LieferRadar-Signature` header
+Verify authenticity with the `X-Lieferuhr-Signature` header
 (`sha256=` + HMAC-SHA256 of the raw body using your `whsec_` secret):
 
 ```js
@@ -88,7 +88,7 @@ Use a Webhook trigger node pointed at the URL you registered, then branch on
 
 ## 3. MCP server (AI agents)
 
-`packages/mcp` ships an MCP server so AI assistants can operate LieferRadar
+`packages/mcp` ships an MCP server so AI assistants can operate Lieferuhr
 directly — ask "which suppliers are silent this week?" or "send a reminder for
 all overdue orders from Müller" and let the agent call the tools.
 

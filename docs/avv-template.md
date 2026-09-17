@@ -9,12 +9,12 @@
 [Adresse]
 
 **Auftragsverarbeiter:**  
-LieferRadar / [Ihr Unternehmen]  
+Lieferuhr / [Ihr Unternehmen]  
 [Adresse]
 
 ## Gegenstand und Dauer
 
-Der Auftragsverarbeiter verarbeitet personenbezogene Daten im Auftrag des Auftraggebers im Rahmen der LieferRadar-Software zur Lieferantenverfolgung.
+Der Auftragsverarbeiter verarbeitet personenbezogene Daten im Auftrag des Auftraggebers im Rahmen der Lieferuhr-Software zur Lieferantenverfolgung.
 
 Dauer: Laufzeit des Hauptvertrags.
 

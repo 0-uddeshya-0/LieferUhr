@@ -42,7 +42,7 @@ Fuhrpark (Handelsregister/website news), companies that just lost a driver.
 
 | Channel | How | Expected yield |
 |---|---|---|
-| Personal network / warm intros | Ask every LieferRadar contact, supplier, Steuerberater: "Kennen Sie einen Fuhrunternehmer?" | Highest close rate; limited volume |
+| Personal network / warm intros | Ask every Lieferuhr contact, supplier, Steuerberater: "Kennen Sie einen Fuhrunternehmer?" | Highest close rate; limited volume |
 | Google Maps sweep | "Spedition" + "Transport" per region (Augsburg, Ulm, Donauwörth…), filter by size signals (own Fuhrpark photos, no corporate branding) → 30 min/list of 50 | ~1 in 15 calls becomes a demo |
 | IHK Verkehrsregionen + DSLV regional events | Member directories are public-ish; attend one Verkehrs-Unternehmer-Stammtisch | Slow but credible |
 | Facebook/WhatsApp/Instagram groups | "Fuhrunternehmer", "LKW-Fahrer", "Spedition" groups — observe 2 weeks, then post value-first (e.g. free POD template) | Scrappy, real reach to exactly the ICP |
@@ -136,7 +136,7 @@ zahlen, wenn es X erspart?" in week 4 of every pilot.
 
 Every tracking link a carrier sends exposes a Mittelstand shipper to the
 "Radar" family. Track it: log when a `/l/:token` viewer's domain later signs
-up to LieferRadar. That two-sided pull is the moat — competitors can copy a
+up to Lieferuhr. That two-sided pull is the moat — competitors can copy a
 driver link in a quarter; they can't copy a network.
 
 ## Explicitly deferred (say no for now)

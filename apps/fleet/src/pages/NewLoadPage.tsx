@@ -74,20 +74,20 @@ export function NewLoadPage() {
       <h1 className="text-2xl font-display font-bold mb-6">{t('newLoad.title')}</h1>
 
       {customers.length === 0 && (
-        <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-6 text-sm text-yellow-900">
+        <div className="bg-yellow-100/70 rounded-xl shadow-neu-inset p-4 mb-6 text-sm text-yellow-900">
           {t('newLoad.needCustomer')}{' '}
           <Link to="/customers" className="font-medium underline">{t('newLoad.addCustomer')}</Link>
         </div>
       )}
 
-      <form onSubmit={handleSubmit(onSubmit)} className="bg-white rounded-xl border p-6 space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="neu-card">
         <div className="grid grid-cols-2 gap-4">
           <Input label={t('newLoad.loadNumber')} {...register('loadNumber')} error={errors.loadNumber?.message} />
           <div className="space-y-1">
-            <label className="block text-sm font-medium text-gray-700">{t('newLoad.customer')}</label>
+            <label className="block text-sm font-medium text-neu-text">{t('newLoad.customer')}</label>
             <select
               {...register('customerId')}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full px-3 py-2 rounded-xl bg-neu-bg shadow-neu-inset text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
             >
               <option value="">—</option>
               {customers.map((c) => (
@@ -115,10 +115,10 @@ export function NewLoadPage() {
 
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1">
-            <label className="block text-sm font-medium text-gray-700">{t('newLoad.driver')}</label>
+            <label className="block text-sm font-medium text-neu-text">{t('newLoad.driver')}</label>
             <select
               {...register('driverId')}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full px-3 py-2 rounded-xl bg-neu-bg shadow-neu-inset text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
             >
               <option value="">—</option>
               {drivers.map((d) => (
@@ -127,10 +127,10 @@ export function NewLoadPage() {
             </select>
           </div>
           <div className="space-y-1">
-            <label className="block text-sm font-medium text-gray-700">{t('newLoad.vehicle')}</label>
+            <label className="block text-sm font-medium text-neu-text">{t('newLoad.vehicle')}</label>
             <select
               {...register('vehicleId')}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full px-3 py-2 rounded-xl bg-neu-bg shadow-neu-inset text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
             >
               <option value="">—</option>
               {vehicles.map((v) => (

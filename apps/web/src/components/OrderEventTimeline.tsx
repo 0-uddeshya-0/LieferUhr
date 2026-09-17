@@ -21,7 +21,7 @@ export function OrderEventTimeline({ events }: { events: Event[] }) {
   const { t, formatDateTime } = useI18n();
 
   if (events.length === 0) {
-    return <p className="text-gray-500 text-sm">{t('orderDetail.noEvents')}</p>;
+    return <p className="text-neu-muted text-sm">{t('orderDetail.noEvents')}</p>;
   }
 
   return (
@@ -30,17 +30,17 @@ export function OrderEventTimeline({ events }: { events: Event[] }) {
         <div key={event.id} className="flex gap-4">
           <div className="flex flex-col items-center">
             <div className="w-3 h-3 rounded-full bg-brand-600" />
-            {i < events.length - 1 && <div className="w-0.5 flex-1 bg-gray-200 mt-1" />}
+            {i < events.length - 1 && <div className="w-0.5 flex-1 bg-neu-sunken mt-1" />}
           </div>
           <div className="pb-4">
             <div className="flex items-center gap-2">
               <OrderStatusBadge status={event.status} />
-              <span className="text-xs text-gray-500">
+              <span className="text-xs text-neu-muted">
                 {SOURCE_KEYS[event.source] ? t(SOURCE_KEYS[event.source]) : event.source}
               </span>
             </div>
-            <p className="text-xs text-gray-500 mt-1">{formatDateTime(event.createdAt)}</p>
-            {event.note && <p className="text-sm text-gray-700 mt-1">{event.note}</p>}
+            <p className="text-xs text-neu-muted mt-1">{formatDateTime(event.createdAt)}</p>
+            {event.note && <p className="text-sm text-neu-text mt-1">{event.note}</p>}
           </div>
         </div>
       ))}

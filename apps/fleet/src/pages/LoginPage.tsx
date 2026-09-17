@@ -45,8 +45,8 @@ export function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="w-full max-w-md bg-white rounded-xl shadow-sm border p-8">
+    <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="w-full max-w-md neu-card p-8">
         <div className="flex justify-end mb-2">
           <LanguageToggle />
         </div>
@@ -55,7 +55,7 @@ export function LoginPage() {
             <BrandMark />
             <h1 className="text-2xl font-bold text-brand-900">FrachtRadar</h1>
           </div>
-          <p className="text-gray-500 text-sm mt-2">{t('login.slogan')}</p>
+          <p className="text-neu-muted text-sm mt-2">{t('login.slogan')}</p>
         </div>
 
         {mode === 'login' ? (
@@ -112,7 +112,7 @@ export function LoginPage() {
           </p>
         )}
 
-        <p className="text-center text-sm text-gray-500 mt-6">
+        <p className="text-center text-sm text-neu-muted mt-6">
           {mode === 'login' ? (
             <>
               {t('login.noAccount')}{' '}

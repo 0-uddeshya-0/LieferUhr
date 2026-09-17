@@ -67,7 +67,7 @@ export function DriverPage() {
   };
 
   if (isLoading) {
-    return <Shell><p className="text-center text-gray-500">{t('common.loading')}</p></Shell>;
+    return <Shell><p className="text-center text-neu-muted">{t('common.loading')}</p></Shell>;
   }
 
   if (!load) {
@@ -84,9 +84,9 @@ export function DriverPage() {
 
   return (
     <Shell>
-      <div className="bg-white rounded-2xl border p-6 space-y-6">
+      <div className="neu-card">
         <div>
-          <p className="text-xs text-gray-400">{t('driver.carrier', { name: load.carrierName })}</p>
+          <p className="text-xs text-neu-muted/70">{t('driver.carrier', { name: load.carrierName })}</p>
           <h1 className="text-xl font-bold">{t('driver.title', { loadNumber: load.loadNumber })}</h1>
         </div>
 
@@ -94,25 +94,25 @@ export function DriverPage() {
           <div className="flex gap-3">
             <MapPin className="w-5 h-5 text-brand-600 shrink-0 mt-0.5" />
             <div>
-              <p className="text-xs text-gray-400 uppercase">{t('driver.pickup')}</p>
+              <p className="text-xs text-neu-muted/70 uppercase">{t('driver.pickup')}</p>
               <p className="font-medium">{load.pickupAddress}</p>
-              <p className="text-sm text-gray-500">{formatDateTime(load.pickupAt)}</p>
+              <p className="text-sm text-neu-muted">{formatDateTime(load.pickupAt)}</p>
             </div>
           </div>
           <div className="flex gap-3">
             <MapPin className="w-5 h-5 text-risk-green shrink-0 mt-0.5" />
             <div>
-              <p className="text-xs text-gray-400 uppercase">{t('driver.delivery')}</p>
+              <p className="text-xs text-neu-muted/70 uppercase">{t('driver.delivery')}</p>
               <p className="font-medium">{load.deliveryAddress}</p>
-              <p className="text-sm text-gray-500">{formatDateTime(load.deliveryAt)}</p>
+              <p className="text-sm text-neu-muted">{formatDateTime(load.deliveryAt)}</p>
             </div>
           </div>
-          <div className="bg-gray-50 rounded-lg p-3 text-sm">
-            <span className="text-gray-400">{t('driver.cargo')}: </span>
+          <div className="bg-neu-sunken/60 rounded-lg shadow-neu-inset-sm p-3 text-sm">
+            <span className="text-neu-muted/70">{t('driver.cargo')}: </span>
             {load.cargoDescription}
             {load.pallets ? ` · ${load.pallets} Pal.` : ''}
             {load.weightKg ? ` · ${load.weightKg} kg` : ''}
-            {load.vehiclePlate ? <span className="block text-gray-400 mt-1">{t('driver.vehicle')}: {load.vehiclePlate}</span> : null}
+            {load.vehiclePlate ? <span className="block text-neu-muted/70 mt-1">{t('driver.vehicle')}: {load.vehiclePlate}</span> : null}
           </div>
         </div>
 
@@ -123,7 +123,7 @@ export function DriverPage() {
               placeholder={t('driver.notePlaceholder')}
               value={note}
               onChange={(e) => setNote(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full px-3 py-2 rounded-xl bg-neu-bg shadow-neu-inset text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
             />
             {transitions.map((s) => {
               const meta = ACTION_META[s];
@@ -152,7 +152,7 @@ export function DriverPage() {
 
         <div className="border-t pt-5">
           <h2 className="font-semibold">{t('driver.pod.title')}</h2>
-          <p className="text-sm text-gray-500 mt-1">{t('driver.pod.hint')}</p>
+          <p className="text-sm text-neu-muted mt-1">{t('driver.pod.hint')}</p>
           <input
             ref={fileRef}
             type="file"
@@ -169,7 +169,7 @@ export function DriverPage() {
             type="button"
             onClick={() => fileRef.current?.click()}
             disabled={uploading}
-            className="mt-3 w-full flex items-center justify-center gap-2 border-2 border-dashed border-gray-300 py-4 rounded-xl text-gray-600 hover:border-brand-400 hover:text-brand-700 disabled:opacity-50"
+            className="mt-3 w-full flex items-center justify-center gap-2 shadow-neu-inset bg-neu-bg py-4 rounded-xl text-neu-muted hover:border-brand-400 hover:text-brand-700 disabled:opacity-50"
           >
             <Camera className="w-5 h-5" />
             {uploading ? t('driver.pod.uploading') : t('driver.pod.upload')}
@@ -177,12 +177,12 @@ export function DriverPage() {
           {(podDone || load.podCount > 0) && (
             <p className="mt-2 text-sm text-risk-green font-medium">{t('driver.pod.uploaded')} ({load.podCount + (podDone ? 1 : 0)})</p>
           )}
-          <p className="mt-2 text-xs text-gray-400">{t('driver.keepOriginal')}</p>
+          <p className="mt-2 text-xs text-neu-muted/70">{t('driver.keepOriginal')}</p>
         </div>
 
         {error && <p className="text-sm text-risk-red text-center" role="alert">{error}</p>}
 
-        <p className="text-xs text-gray-400 text-center">{t('driver.homescreen')}</p>
+        <p className="text-xs text-neu-muted/70 text-center">{t('driver.homescreen')}</p>
       </div>
     </Shell>
   );
@@ -190,12 +190,12 @@ export function DriverPage() {
 
 function Shell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen">
       <div className="max-w-md mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
             <BrandMark />
-            <span className="font-bold text-brand-900">FrachtRadar</span>
+            <span className="font-bold text-brand-900">FrachtRadar<span className="ml-1.5 text-xs font-medium text-neu-muted align-middle">von Lieferuhr</span></span>
           </div>
           <LanguageToggle />
         </div>

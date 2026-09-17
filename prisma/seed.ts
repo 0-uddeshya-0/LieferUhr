@@ -270,7 +270,7 @@ async function main() {
   }
 
   console.log('Seed completed:');
-  console.log('  LieferRadar: manager@muster.de / Test1234!');
+  console.log('  Lieferuhr Einkauf: manager@muster.de / Test1234!');
   console.log('  FrachtRadar: disponent@frachtradar.de / Test1234!');
 }
 

@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
-  "description": "Watches a folder for ERP CSV exports and imports them into LieferRadar",
+  "description": "Watches a folder for ERP CSV exports and imports them into Lieferuhr",
   "bin": {
     "lieferradar-csv-watch": "./dist/index.js"
   },

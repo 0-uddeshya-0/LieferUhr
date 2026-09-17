@@ -2,7 +2,7 @@
 
 ## Overview
 
-LieferRadar is a pnpm monorepo with six packages:
+Lieferuhr is a pnpm monorepo with six packages:
 
 | Package | Role | Stack |
 |---------|------|-------|

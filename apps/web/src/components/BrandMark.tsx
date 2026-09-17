@@ -1,9 +1,12 @@
-import { Radar } from 'lucide-react';
-
 export function BrandMark({ className = 'w-7 h-7' }: { className?: string }) {
   return (
-    <span className={`inline-flex items-center justify-center rounded-lg bg-brand-600 text-white ${className}`}>
-      <Radar className="w-4 h-4" />
-    </span>
+    <svg viewBox="0 0 64 64" className={className} role="img" aria-label="Lieferuhr">
+      <rect width="64" height="64" rx="14" fill="#364fc7" />
+      <circle cx="32" cy="32" r="19" fill="none" stroke="#fff" strokeWidth="3.5" />
+      <path d="M32 15v4M32 45v4M15 32h4M45 32h4" stroke="#fff" strokeWidth="3" strokeLinecap="round" opacity="0.7" />
+      <path d="M32 32 L44 21 A17.5 17.5 0 0 1 48.6 30 Z" fill="#fff" opacity="0.25" />
+      <path d="M32 32L44 21" stroke="#fff" strokeWidth="3.5" strokeLinecap="round" />
+      <circle cx="32" cy="32" r="3" fill="#fff" />
+    </svg>
   );
 }

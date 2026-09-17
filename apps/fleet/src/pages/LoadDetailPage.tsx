@@ -73,7 +73,7 @@ export function LoadDetailPage() {
   });
 
   if (isLoading || !load) {
-    return <div className="text-gray-500 py-10 text-center">{t('common.loading')}</div>;
+    return <div className="text-neu-muted py-10 text-center">{t('common.loading')}</div>;
   }
 
   const baseUrl = window.location.origin;
@@ -89,49 +89,49 @@ export function LoadDetailPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-4">
-        <Link to="/dispatch" className="text-gray-500 hover:text-gray-900">
+        <Link to="/dispatch" className="text-neu-muted hover:text-neu-text">
           <ArrowLeft className="w-5 h-5" />
         </Link>
         <h1 className="text-2xl font-display font-bold">{load.loadNumber}</h1>
         <LoadStatusBadge status={load.status} />
-        <span className="text-sm text-gray-500 ml-auto">{load.customer.name}</span>
+        <span className="text-sm text-neu-muted ml-auto">{load.customer.name}</span>
       </div>
 
       <div className="grid md:grid-cols-3 gap-6">
         <div className="md:col-span-2 space-y-6">
-          <div className="bg-white rounded-xl border p-6 grid md:grid-cols-2 gap-6">
+          <div className="neu-card">
             <div>
-              <h3 className="text-sm font-medium text-gray-500">{t('load.pickup')}</h3>
+              <h3 className="text-sm font-medium text-neu-muted">{t('load.pickup')}</h3>
               <p className="mt-1 font-medium">{load.pickupAddress}</p>
-              <p className="text-sm text-gray-500">{formatDateTime(load.pickupAt)}</p>
+              <p className="text-sm text-neu-muted">{formatDateTime(load.pickupAt)}</p>
             </div>
             <div>
-              <h3 className="text-sm font-medium text-gray-500">{t('load.delivery')}</h3>
+              <h3 className="text-sm font-medium text-neu-muted">{t('load.delivery')}</h3>
               <p className="mt-1 font-medium">{load.deliveryAddress}</p>
-              <p className="text-sm text-gray-500">{formatDateTime(load.deliveryAt)}</p>
+              <p className="text-sm text-neu-muted">{formatDateTime(load.deliveryAt)}</p>
             </div>
             <div>
-              <h3 className="text-sm font-medium text-gray-500">{t('load.cargo')}</h3>
+              <h3 className="text-sm font-medium text-neu-muted">{t('load.cargo')}</h3>
               <p className="mt-1">{load.cargoDescription}</p>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-neu-muted">
                 {[load.pallets ? `${load.pallets} Pal.` : null, load.weightKg ? `${load.weightKg} kg` : null]
                   .filter(Boolean).join(' · ') || '—'}
               </p>
             </div>
             <div>
-              <h3 className="text-sm font-medium text-gray-500">{t('load.price')}</h3>
+              <h3 className="text-sm font-medium text-neu-muted">{t('load.price')}</h3>
               <p className="mt-1">{load.priceCents != null ? formatCurrency(load.priceCents) : '—'}</p>
             </div>
             {load.notes && (
               <div className="md:col-span-2">
-                <h3 className="text-sm font-medium text-gray-500">{t('load.notes')}</h3>
+                <h3 className="text-sm font-medium text-neu-muted">{t('load.notes')}</h3>
                 <p className="mt-1 text-sm">{load.notes}</p>
               </div>
             )}
           </div>
 
-          <div className="bg-white rounded-xl border p-6">
-            <h3 className="text-sm font-medium text-gray-500 mb-4">{t('load.status.set')}</h3>
+          <div className="neu-card">
+            <h3 className="text-sm font-medium text-neu-muted mb-4">{t('load.status.set')}</h3>
             <div className="flex flex-wrap gap-2">
               {NEXT_STATUSES[load.status].map((s) => (
                 <Button
@@ -148,30 +148,30 @@ export function LoadDetailPage() {
                 </Button>
               ))}
               {NEXT_STATUSES[load.status].length === 0 && (
-                <span className="text-sm text-gray-400">—</span>
+                <span className="text-sm text-neu-muted/70">—</span>
               )}
             </div>
           </div>
 
-          <div className="bg-white rounded-xl border p-6">
-            <h3 className="text-sm font-medium text-gray-500 mb-4">{t('load.timeline')}</h3>
+          <div className="neu-card">
+            <h3 className="text-sm font-medium text-neu-muted mb-4">{t('load.timeline')}</h3>
             <ul className="space-y-3">
               {(load.events ?? []).map((e) => (
                 <li key={e.id} className="flex items-start gap-3 text-sm">
                   <LoadStatusBadge status={e.status} />
                   <div>
-                    <span className="text-gray-500">{formatDateTime(e.createdAt)} · {e.source}</span>
-                    {e.note && <p className="text-gray-700">{e.note}</p>}
+                    <span className="text-neu-muted">{formatDateTime(e.createdAt)} · {e.source}</span>
+                    {e.note && <p className="text-neu-text">{e.note}</p>}
                   </div>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="bg-white rounded-xl border p-6">
-            <h3 className="text-sm font-medium text-gray-500 mb-4">{t('load.pods')}</h3>
+          <div className="neu-card">
+            <h3 className="text-sm font-medium text-neu-muted mb-4">{t('load.pods')}</h3>
             {load.pods.length === 0 ? (
-              <p className="text-sm text-gray-500">{t('load.podEmpty')}</p>
+              <p className="text-sm text-neu-muted">{t('load.podEmpty')}</p>
             ) : (
               <ul className="space-y-2">
                 {load.pods.map((pod) => (
@@ -185,7 +185,7 @@ export function LoadDetailPage() {
                       <FileText className="w-4 h-4" />
                       {pod.fileName}
                     </a>
-                    <span className="text-xs text-gray-400 ml-2">{formatDateTime(pod.createdAt)}</span>
+                    <span className="text-xs text-neu-muted/70 ml-2">{formatDateTime(pod.createdAt)}</span>
                   </li>
                 ))}
               </ul>
@@ -194,15 +194,15 @@ export function LoadDetailPage() {
         </div>
 
         <div className="space-y-6">
-          <div className="bg-white rounded-xl border p-6 space-y-4">
+          <div className="neu-card">
             <div>
-              <label className="block text-sm font-medium text-gray-500">{t('load.driver')}</label>
+              <label className="block text-sm font-medium text-neu-muted">{t('load.driver')}</label>
               <select
                 value={load.driverId ?? ''}
                 onChange={(e) =>
                   assignMutation.mutate({ driverId: e.target.value || null, vehicleId: load.vehicleId, sendDriverEmail: true })
                 }
-                className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                className="mt-1 w-full px-3 py-2 rounded-xl bg-neu-bg shadow-neu-inset text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
               >
                 <option value="">—</option>
                 {drivers.map((d) => (
@@ -211,13 +211,13 @@ export function LoadDetailPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-500">{t('load.vehicle')}</label>
+              <label className="block text-sm font-medium text-neu-muted">{t('load.vehicle')}</label>
               <select
                 value={load.vehicleId ?? ''}
                 onChange={(e) =>
                   assignMutation.mutate({ driverId: load.driverId, vehicleId: e.target.value || null, sendDriverEmail: false })
                 }
-                className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                className="mt-1 w-full px-3 py-2 rounded-xl bg-neu-bg shadow-neu-inset text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
               >
                 <option value="">—</option>
                 {vehicles.map((v) => (
@@ -239,8 +239,8 @@ export function LoadDetailPage() {
             )}
           </div>
 
-          <div className="bg-white rounded-xl border p-6 space-y-4">
-            <h3 className="text-sm font-medium text-gray-500">{t('load.links')}</h3>
+          <div className="neu-card">
+            <h3 className="text-sm font-medium text-neu-muted">{t('load.links')}</h3>
             {[
               { key: 'driver', label: t('load.driverLink'), url: driverUrl, hint: t('load.linkHint.driver') },
               { key: 'track', label: t('load.trackingLink'), url: trackUrl, hint: t('load.linkHint.tracking') },
@@ -248,23 +248,23 @@ export function LoadDetailPage() {
               <div key={key}>
                 <p className="text-sm font-medium">{label}</p>
                 <div className="flex items-center gap-2 mt-1">
-                  <code className="flex-1 text-xs bg-gray-50 border rounded px-2 py-1.5 truncate">{url}</code>
+                  <code className="flex-1 text-xs bg-neu-sunken/60 shadow-neu-inset-sm rounded-lg px-2 py-1.5 truncate">{url}</code>
                   <button
                     type="button"
                     onClick={() => copy(url, key)}
-                    className="p-1.5 text-gray-500 hover:text-gray-900"
+                    className="p-1.5 text-neu-muted hover:text-neu-text"
                     title={t('common.copy')}
                   >
                     {copied === key ? <Check className="w-4 h-4 text-risk-green" /> : <Copy className="w-4 h-4" />}
                   </button>
                 </div>
-                <p className="text-xs text-gray-400 mt-1">{hint}</p>
+                <p className="text-xs text-neu-muted/70 mt-1">{hint}</p>
               </div>
             ))}
           </div>
 
-          <div className="bg-white rounded-xl border p-6">
-            <h3 className="text-sm font-medium text-gray-500 mb-3">{t('load.invoice')}</h3>
+          <div className="neu-card">
+            <h3 className="text-sm font-medium text-neu-muted mb-3">{t('load.invoice')}</h3>
             {load.invoice ? (
               <div className="space-y-2">
                 <p className="text-sm">
@@ -314,7 +314,7 @@ export function LoadDetailPage() {
                 </Button>
               </div>
             ) : (
-              <p className="text-sm text-gray-500">{t('load.invoice.none')}</p>
+              <p className="text-sm text-neu-muted">{t('load.invoice.none')}</p>
             )}
           </div>
         </div>

@@ -1,4 +1,4 @@
-# Contributing to LieferRadar
+# Contributing to Lieferuhr
 
 Thank you for your interest in contributing.
 

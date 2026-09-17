@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
-  "description": "MCP server exposing LieferRadar order tracking to AI agents",
+  "description": "MCP server exposing Lieferuhr order tracking to AI agents",
   "bin": {
     "lieferradar-mcp": "./dist/index.js"
   },

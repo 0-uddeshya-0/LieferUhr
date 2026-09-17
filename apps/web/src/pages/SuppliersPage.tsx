@@ -92,7 +92,7 @@ export function SuppliersPage() {
         </div>
 
         {showForm && (
-          <form onSubmit={handleCreate} className="bg-white border rounded-xl p-4 space-y-3">
+          <form onSubmit={handleCreate} className="neu-card p-4 space-y-3">
             <Input name="name" label={t('suppliers.name')} required />
             <Input name="contactEmail" label={t('suppliers.email')} type="email" required />
             <Input name="contactName" label={t('suppliers.contact')} />
@@ -102,19 +102,19 @@ export function SuppliersPage() {
           </form>
         )}
 
-        <div className="bg-white border rounded-xl overflow-hidden">
+        <div className="neu-card overflow-hidden">
           {sorted.map((s) => (
             <button
               key={s.id}
               type="button"
               onClick={() => setSelectedId(s.id)}
-              className={`w-full text-left px-4 py-3 border-b last:border-b-0 hover:bg-gray-50 flex items-center justify-between transition-colors ${
+              className={`w-full text-left px-4 py-3 border-b last:border-b-0 hover:bg-neu-sunken/60 flex items-center justify-between transition-colors ${
                 selectedId === s.id ? 'bg-brand-50' : ''
               }`}
             >
               <div>
                 <p className="font-medium">{s.name}</p>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-neu-muted">
                   {s.totalOrders} {t('suppliers.ordersOnTime', { rate: Math.round(s.onTimeRate * 100) })}
                 </p>
               </div>
@@ -128,7 +128,7 @@ export function SuppliersPage() {
 
       <div>
         {selectedId && detail ? (
-          <div className="bg-white border rounded-xl p-6 space-y-6">
+          <div className="neu-card p-6 space-y-6">
             <div>
               <h2 className="text-xl font-bold">{detail.name}</h2>
               <Badge variant={responsivenessVariant[detail.metrics.responsiveness]} className="mt-2">
@@ -137,24 +137,24 @@ export function SuppliersPage() {
             </div>
 
             <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="bg-gray-50 rounded-lg p-3">
-                <p className="text-gray-500">{t('suppliers.onTimeRate')}</p>
+              <div className="bg-neu-sunken/60 rounded-lg shadow-neu-inset-sm p-3">
+                <p className="text-neu-muted">{t('suppliers.onTimeRate')}</p>
                 <p className="text-xl font-bold">{Math.round(detail.metrics.onTimeRate * 100)}%</p>
               </div>
-              <div className="bg-gray-50 rounded-lg p-3">
-                <p className="text-gray-500">{t('suppliers.avgResponse')}</p>
+              <div className="bg-neu-sunken/60 rounded-lg shadow-neu-inset-sm p-3">
+                <p className="text-neu-muted">{t('suppliers.avgResponse')}</p>
                 <p className="text-xl font-bold">
                   {detail.metrics.avgResponseHours != null
                     ? `${Math.round(detail.metrics.avgResponseHours)}h`
                     : '–'}
                 </p>
               </div>
-              <div className="bg-gray-50 rounded-lg p-3">
-                <p className="text-gray-500">{t('suppliers.delays')}</p>
+              <div className="bg-neu-sunken/60 rounded-lg shadow-neu-inset-sm p-3">
+                <p className="text-neu-muted">{t('suppliers.delays')}</p>
                 <p className="text-xl font-bold">{detail.metrics.delayCount}</p>
               </div>
-              <div className="bg-gray-50 rounded-lg p-3">
-                <p className="text-gray-500">{t('suppliers.noResponse')}</p>
+              <div className="bg-neu-sunken/60 rounded-lg shadow-neu-inset-sm p-3">
+                <p className="text-neu-muted">{t('suppliers.noResponse')}</p>
                 <p className="text-xl font-bold">{detail.metrics.unresponsiveCount}</p>
               </div>
             </div>
@@ -163,7 +163,7 @@ export function SuppliersPage() {
               <h3 className="font-medium mb-3">{t('suppliers.lastOrders')}</h3>
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-left text-gray-500 border-b">
+                  <tr className="text-left text-neu-muted border-b">
                     <th className="py-2">{t('orders.col.number')}</th>
                     <th className="py-2">{t('suppliers.col.due')}</th>
                     <th className="py-2">{t('orders.col.status')}</th>
@@ -184,9 +184,9 @@ export function SuppliersPage() {
             </div>
           </div>
         ) : (
-          <div className="bg-white border rounded-xl p-6">
+          <div className="neu-card p-6">
             <SupplierScorecard suppliers={suppliers} />
-            <p className="text-gray-500 text-sm mt-4">{t('suppliers.select')}</p>
+            <p className="text-neu-muted text-sm mt-4">{t('suppliers.select')}</p>
           </div>
         )}
       </div>

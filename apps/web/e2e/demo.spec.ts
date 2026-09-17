@@ -7,15 +7,15 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('landing page renders in German and toggles to English', async ({ page }) => {
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Weniger Lieferanten');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Wissen, wann Ware ankommt');
 
   await page.getByRole('group', { name: /Sprache/ }).getByRole('button', { name: 'EN' }).click();
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Stop chasing suppliers');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Know when goods arrive');
   await expect(page.getByRole('heading', { name: 'Looking for pilot customers' })).toBeVisible();
 });
 
 test('dashboard shows live demo data with risk indicators', async ({ page }) => {
-  await page.getByRole('link', { name: 'Interaktive Demo' }).first().click();
+  await page.getByRole('link', { name: 'Dashboard-Demo öffnen' }).first().click();
 
   await expect(page).toHaveURL(/#\/dashboard/);
   await expect(page.getByText('Aktive Bestellungen')).toBeVisible();

@@ -23,15 +23,15 @@ export function TeamPage() {
     setTimeout(() => setSent(false), 3000);
   };
 
-  if (isLoading) return <p className="text-gray-500">{t('common.loading')}</p>;
+  if (isLoading) return <p className="text-neu-muted">{t('common.loading')}</p>;
 
   return (
     <div className="max-w-2xl space-y-6">
       <h1 className="text-xl font-bold">{t('team.title')}</h1>
 
-      <div className="bg-white border rounded-xl p-6">
+      <div className="neu-card p-6">
         <h2 className="font-semibold mb-1">{t('team.invite')}</h2>
-        {isDemoMode && <p className="text-xs text-gray-500 mb-3">{t('team.demoNote')}</p>}
+        {isDemoMode && <p className="text-xs text-neu-muted mb-3">{t('team.demoNote')}</p>}
         <form onSubmit={handleInvite} className="flex flex-wrap items-end gap-3 mt-2">
           <div className="flex-1 min-w-[220px]">
             <Input
@@ -55,15 +55,15 @@ export function TeamPage() {
         )}
       </div>
 
-      <div className="bg-white border rounded-xl overflow-hidden">
+      <div className="neu-card overflow-hidden">
         <h2 className="font-semibold px-6 pt-5 pb-3">{t('team.members')}</h2>
         {data?.members.map((member) => (
           <div key={member.id} className="px-6 py-3 border-t flex items-center justify-between">
             <div>
               <p className="font-medium">{member.name}</p>
-              <p className="text-sm text-gray-500">{member.email}</p>
+              <p className="text-sm text-neu-muted">{member.email}</p>
             </div>
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-neu-muted/70">
               {t('team.joined')} {formatDate(member.createdAt)}
             </p>
           </div>
@@ -71,7 +71,7 @@ export function TeamPage() {
       </div>
 
       {data && data.pendingInvites.length > 0 && (
-        <div className="bg-white border rounded-xl overflow-hidden">
+        <div className="neu-card overflow-hidden">
           <h2 className="font-semibold px-6 pt-5 pb-3">{t('team.pending')}</h2>
           {data.pendingInvites.map((inv) => (
             <div key={inv.id} className="px-6 py-3 border-t flex items-center justify-between">
@@ -79,7 +79,7 @@ export function TeamPage() {
               <button
                 type="button"
                 onClick={() => revoke.mutate(inv.id)}
-                className="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-risk-red"
+                className="inline-flex items-center gap-1 text-xs text-neu-muted hover:text-risk-red"
               >
                 <X className="w-3.5 h-3.5" />
                 {t('team.revoke')}

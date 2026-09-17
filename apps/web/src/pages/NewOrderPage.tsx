@@ -52,11 +52,11 @@ export function NewOrderPage() {
   return (
     <div className="max-w-lg">
       <h1 className="text-xl font-bold mb-6">{t('newOrder.title')}</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="bg-white border rounded-xl p-6 space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="neu-card p-6 space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">{t('newOrder.supplier')}</label>
+          <label className="block text-sm font-medium text-neu-text mb-1">{t('newOrder.supplier')}</label>
           <select
-            className="w-full border rounded-lg px-3 py-2 text-sm bg-white"
+            className="w-full rounded-xl px-3 py-2 text-sm bg-neu-bg shadow-neu-inset focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
             {...register('supplierId')}
           >
             <option value="">{t('newOrder.choose')}</option>

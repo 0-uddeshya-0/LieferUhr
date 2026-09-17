@@ -74,11 +74,11 @@ export function CustomersPage() {
         </div>
       </div>
 
-      <p className="text-xs text-gray-400">{t('customers.importHint')}</p>
+      <p className="text-xs text-neu-muted/70">{t('customers.importHint')}</p>
       {importResult && <p className="text-sm text-risk-green">{importResult}</p>}
 
       {showForm && (
-        <div className="bg-white rounded-xl border p-6 grid md:grid-cols-2 gap-4">
+        <div className="neu-card">
           <Input label={t('common.name')} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
           <Input label={t('common.contactName')} value={form.contactName} onChange={(e) => setForm({ ...form, contactName: e.target.value })} />
           <Input label={t('common.email')} type="email" value={form.contactEmail} onChange={(e) => setForm({ ...form, contactEmail: e.target.value })} />
@@ -92,14 +92,14 @@ export function CustomersPage() {
         </div>
       )}
 
-      <div className="bg-white rounded-xl border overflow-hidden">
+      <div className="neu-card">
         <table className="w-full text-sm">
-          <thead className="bg-gray-50 border-b">
+          <thead className="bg-neu-sunken/60 border-b">
             <tr>
-              <th className="text-left px-4 py-3 font-medium text-gray-600">{t('common.name')}</th>
-              <th className="text-left px-4 py-3 font-medium text-gray-600">{t('common.email')}</th>
-              <th className="text-left px-4 py-3 font-medium text-gray-600 hidden md:table-cell">{t('common.address')}</th>
-              <th className="text-left px-4 py-3 font-medium text-gray-600">{t('customers.loads')}</th>
+              <th className="text-left px-4 py-3 font-medium text-neu-muted">{t('common.name')}</th>
+              <th className="text-left px-4 py-3 font-medium text-neu-muted">{t('common.email')}</th>
+              <th className="text-left px-4 py-3 font-medium text-neu-muted hidden md:table-cell">{t('common.address')}</th>
+              <th className="text-left px-4 py-3 font-medium text-neu-muted">{t('customers.loads')}</th>
               <th className="px-4 py-3" />
             </tr>
           </thead>
@@ -107,18 +107,18 @@ export function CustomersPage() {
             {customers.map((c) => (
               <tr key={c.id}>
                 <td className="px-4 py-3 font-medium">{c.name}</td>
-                <td className="px-4 py-3 text-gray-600">{c.contactEmail ?? '—'}</td>
-                <td className="px-4 py-3 text-gray-600 hidden md:table-cell">{c.address ?? '—'}</td>
-                <td className="px-4 py-3 text-gray-600">{c._count?.loads ?? 0}</td>
+                <td className="px-4 py-3 text-neu-muted">{c.contactEmail ?? '—'}</td>
+                <td className="px-4 py-3 text-neu-muted hidden md:table-cell">{c.address ?? '—'}</td>
+                <td className="px-4 py-3 text-neu-muted">{c._count?.loads ?? 0}</td>
                 <td className="px-4 py-3 text-right">
-                  <button type="button" onClick={() => delMutation.mutate(c.id)} className="text-gray-400 hover:text-risk-red">
+                  <button type="button" onClick={() => delMutation.mutate(c.id)} className="text-neu-muted/70 hover:text-risk-red">
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </td>
               </tr>
             ))}
             {customers.length === 0 && (
-              <tr><td colSpan={5} className="px-4 py-10 text-center text-gray-500">{t('customers.empty')}</td></tr>
+              <tr><td colSpan={5} className="px-4 py-10 text-center text-neu-muted">{t('customers.empty')}</td></tr>
             )}
           </tbody>
         </table>

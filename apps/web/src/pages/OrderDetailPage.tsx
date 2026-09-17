@@ -26,7 +26,7 @@ export function OrderDetailPage() {
   const [note, setNote] = useState('');
   const [copied, setCopied] = useState(false);
 
-  if (isLoading) return <p className="text-gray-500">{t('common.loading')}</p>;
+  if (isLoading) return <p className="text-neu-muted">{t('common.loading')}</p>;
   if (!order) return <p className="text-risk-red">{t('orderDetail.notFound')}</p>;
 
   const handleSave = async () => {
@@ -53,16 +53,16 @@ export function OrderDetailPage() {
 
   return (
     <div className="space-y-6">
-      <Link to="/dashboard" className="inline-flex items-center text-sm text-brand-600 hover:underline">
+      <Link to="/dashboard" className="inline-flex items-center text-sm text-brand-700 hover:underline">
         <ArrowLeft className="w-4 h-4 mr-1" />
         {t('orderDetail.back')}
       </Link>
 
-      <div className="bg-white border rounded-xl p-6">
+      <div className="neu-card p-6">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
             <h1 className="text-xl font-bold font-mono">{order.orderNumber}</h1>
-            <p className="text-gray-600 mt-1">{order.partDescription}</p>
+            <p className="text-neu-muted mt-1">{order.partDescription}</p>
           </div>
           <div className="flex items-center gap-3">
             <OrderStatusBadge status={order.status} />
@@ -72,16 +72,16 @@ export function OrderDetailPage() {
 
         <dl className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 text-sm">
           <div>
-            <dt className="text-gray-500">{t('orderDetail.supplier')}</dt>
+            <dt className="text-neu-muted">{t('orderDetail.supplier')}</dt>
             <dd className="font-medium">{order.supplier.name}</dd>
           </div>
           <div>
-            <dt className="text-gray-500">{t('orderDetail.dueDate')}</dt>
+            <dt className="text-neu-muted">{t('orderDetail.dueDate')}</dt>
             <dd className="font-medium">{formatDate(order.dueDate)}</dd>
           </div>
           {order.confirmedDate && (
             <div>
-              <dt className="text-gray-500">{t('orderDetail.confirmedDate')}</dt>
+              <dt className="text-neu-muted">{t('orderDetail.confirmedDate')}</dt>
               <dd
                 className={`font-medium ${
                   new Date(order.confirmedDate) > new Date(order.dueDate) ? 'text-risk-red' : ''
@@ -93,19 +93,19 @@ export function OrderDetailPage() {
           )}
           {order.valueCents != null && (
             <div>
-              <dt className="text-gray-500">{t('orderDetail.value')}</dt>
+              <dt className="text-neu-muted">{t('orderDetail.value')}</dt>
               <dd className="font-medium">{formatCurrency(order.valueCents)}</dd>
             </div>
           )}
           {order.quantity && (
             <div>
-              <dt className="text-gray-500">{t('orderDetail.quantity')}</dt>
+              <dt className="text-neu-muted">{t('orderDetail.quantity')}</dt>
               <dd className="font-medium">{order.quantity} {order.unit}</dd>
             </div>
           )}
           {order.statusNote && (
             <div className="col-span-2">
-              <dt className="text-gray-500">{t('orderDetail.note')}</dt>
+              <dt className="text-neu-muted">{t('orderDetail.note')}</dt>
               <dd>{order.statusNote}</dd>
             </div>
           )}
@@ -114,9 +114,9 @@ export function OrderDetailPage() {
         {order.magicToken && (
           <div className="mt-6 pt-4 border-t flex flex-wrap items-center gap-3">
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-medium text-gray-700">{t('orderDetail.supplierLink')}</p>
-              <p className="text-xs text-gray-500 mt-0.5">{t('orderDetail.linkHint')}</p>
-              <p className="text-xs font-mono text-gray-600 mt-1 truncate">
+              <p className="text-sm font-medium text-neu-text">{t('orderDetail.supplierLink')}</p>
+              <p className="text-xs text-neu-muted mt-0.5">{t('orderDetail.linkHint')}</p>
+              <p className="text-xs font-mono text-neu-muted mt-1 truncate">
                 {supplierLinkFor(order.magicToken)}
               </p>
             </div>
@@ -128,11 +128,11 @@ export function OrderDetailPage() {
         )}
       </div>
 
-      <div className="bg-white border rounded-xl p-6">
+      <div className="neu-card p-6">
         <h2 className="font-semibold mb-4">{t('orderDetail.updateStatus')}</h2>
         <div className="flex flex-wrap items-center gap-3">
           <select
-            className="border rounded-lg px-3 py-2 text-sm bg-white"
+            className="rounded-xl px-3 py-2 text-sm bg-neu-bg shadow-neu-inset focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
             value={newStatus}
             onChange={(e) => setNewStatus(e.target.value as OrderStatus | '')}
           >
@@ -143,7 +143,7 @@ export function OrderDetailPage() {
           </select>
           <input
             type="text"
-            className="border rounded-lg px-3 py-2 text-sm flex-1 min-w-[200px]"
+            className="rounded-xl px-3 py-2 text-sm flex-1 min-w-[200px] bg-neu-bg shadow-neu-inset focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
             placeholder={t('orderDetail.noteOptional')}
             value={note}
             onChange={(e) => setNote(e.target.value)}
@@ -159,7 +159,7 @@ export function OrderDetailPage() {
         </div>
       </div>
 
-      <div className="bg-white border rounded-xl p-6">
+      <div className="neu-card p-6">
         <h2 className="font-semibold mb-4">{t('orderDetail.history')}</h2>
         <OrderEventTimeline events={order.events ?? []} />
       </div>

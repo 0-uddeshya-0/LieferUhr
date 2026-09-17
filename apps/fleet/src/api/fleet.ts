@@ -1,10 +1,12 @@
 import { apiClient } from './client';
+import { isDemoMode } from '../demo/config';
+import { demoFleetApi, demoPublicApi } from '../demo/store';
 import type {
   Driver, DriverLoadView, FleetCustomer, FleetOverview, Invoice, Load, LoadStatus,
   TrackingView, Vehicle,
 } from '../types';
 
-export const fleetApi = {
+const realFleetApi = {
   overview: () => apiClient.get<FleetOverview>('/fleet/overview').then((r) => r.data),
 
   customers: () => apiClient.get<FleetCustomer[]>('/customers').then((r) => r.data),
@@ -70,7 +72,7 @@ export const fleetApi = {
 };
 
 // Public, token-scoped endpoints (no auth)
-export const publicApi = {
+const realPublicApi = {
   driverLoad: (token: string) =>
     apiClient.get<DriverLoadView>(`/t/${token}`).then((r) => r.data),
   driverSetStatus: (token: string, status: LoadStatus, note?: string) =>
@@ -83,3 +85,6 @@ export const publicApi = {
   track: (token: string) => apiClient.get<TrackingView>(`/l/${token}`).then((r) => r.data),
   trackPodUrl: (token: string) => `${apiClient.defaults.baseURL}/l/${token}/pod`,
 };
+
+export const fleetApi = isDemoMode ? demoFleetApi : realFleetApi;
+export const publicApi = isDemoMode ? demoPublicApi : realPublicApi;

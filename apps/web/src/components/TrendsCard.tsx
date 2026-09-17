@@ -56,7 +56,7 @@ function BarChart({
                   x={x + barWidth / 2}
                   y={10 + chartHeight - h}
                   textAnchor="middle"
-                  className="fill-gray-600 text-[9px] font-medium"
+                  className="fill-neu-muted text-[9px] font-medium"
                 >
                   {format(v)}
                 </text>
@@ -66,7 +66,7 @@ function BarChart({
                 x={x + barWidth / 2}
                 y={14 + chartHeight - 2}
                 textAnchor="middle"
-                className="fill-gray-300 text-[10px]"
+                className="fill-neu-sunken text-[10px]"
               >
                 –
               </text>
@@ -75,7 +75,7 @@ function BarChart({
               x={x + barWidth / 2}
               y={height - 2}
               textAnchor="middle"
-              className="fill-gray-400 text-[9px]"
+              className="fill-neu-muted text-[9px]"
             >
               {label}
             </text>
@@ -99,11 +99,11 @@ export function TrendsCard() {
   const maxDelayed = Math.max(...months.map((m) => m.delayed), 1);
 
   return (
-    <div className="bg-white border rounded-xl p-5">
-      <h2 className="font-semibold text-gray-900">{t('dashboard.trends.title')}</h2>
+    <div className="neu-card p-5">
+      <h2 className="font-semibold text-neu-text">{t('dashboard.trends.title')}</h2>
       <div className="grid sm:grid-cols-2 gap-6 mt-4">
         <div>
-          <p className="text-sm text-gray-500 mb-1">{t('dashboard.trends.onTime')}</p>
+          <p className="text-sm text-neu-muted mb-1">{t('dashboard.trends.onTime')}</p>
           <BarChart
             months={months}
             value={(m) => (m.onTimeRate !== null ? Math.round(m.onTimeRate * 100) : null)}
@@ -120,7 +120,7 @@ export function TrendsCard() {
           />
         </div>
         <div>
-          <p className="text-sm text-gray-500 mb-1">{t('dashboard.trends.delayed')}</p>
+          <p className="text-sm text-neu-muted mb-1">{t('dashboard.trends.delayed')}</p>
           <BarChart
             months={months}
             value={(m) => m.delayed}

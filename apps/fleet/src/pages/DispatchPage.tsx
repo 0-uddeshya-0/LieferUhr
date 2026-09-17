@@ -63,7 +63,7 @@ export function DispatchPage() {
       </div>
 
       {expiringCount > 0 && (
-        <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 flex gap-3">
+        <div className="bg-yellow-100/70 rounded-xl shadow-neu-inset p-4 flex gap-3">
           <AlertTriangle className="w-5 h-5 text-risk-yellow shrink-0 mt-0.5" />
           <div>
             <p className="text-sm font-medium text-yellow-900">{t('dispatch.alerts.expiringDocs')}</p>
@@ -98,7 +98,7 @@ export function DispatchPage() {
               type="button"
               onClick={() => setStatusFilter(s)}
               className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
-                statusFilter === s ? 'bg-brand-600 text-white' : 'bg-white border text-gray-600 hover:bg-gray-50'
+                statusFilter === s ? 'bg-brand-600 text-white' : 'neu-btn text-neu-muted hover:bg-neu-sunken/60'
               }`}
             >
               {s === 'ALL' ? t('dispatch.all') : t(`loadStatus.${s}` as never)}
@@ -110,48 +110,48 @@ export function DispatchPage() {
           placeholder={t('dispatch.search')}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="ml-auto px-3 py-1.5 border rounded-lg text-sm w-56 focus:outline-none focus:ring-2 focus:ring-brand-500"
+          className="ml-auto px-3 py-1.5 rounded-xl bg-neu-bg shadow-neu-inset text-sm w-56 focus:outline-none focus:ring-2 focus:ring-brand-500"
         />
       </div>
 
-      <div className="bg-white rounded-xl border overflow-hidden">
+      <div className="neu-card">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-gray-50 border-b">
+            <thead className="bg-neu-sunken/60 border-b">
               <tr>
-                <th className="text-left px-4 py-3 font-medium text-gray-600">{t('dispatch.table.load')}</th>
-                <th className="text-left px-4 py-3 font-medium text-gray-600">{t('dispatch.table.route')}</th>
-                <th className="text-left px-4 py-3 font-medium text-gray-600 hidden lg:table-cell">{t('dispatch.table.cargo')}</th>
-                <th className="text-left px-4 py-3 font-medium text-gray-600 hidden md:table-cell">{t('dispatch.table.customer')}</th>
-                <th className="text-left px-4 py-3 font-medium text-gray-600">{t('dispatch.table.driver')}</th>
-                <th className="text-left px-4 py-3 font-medium text-gray-600">{t('dispatch.table.pickup')}</th>
-                <th className="text-left px-4 py-3 font-medium text-gray-600">{t('dispatch.table.status')}</th>
+                <th className="text-left px-4 py-3 font-medium text-neu-muted">{t('dispatch.table.load')}</th>
+                <th className="text-left px-4 py-3 font-medium text-neu-muted">{t('dispatch.table.route')}</th>
+                <th className="text-left px-4 py-3 font-medium text-neu-muted hidden lg:table-cell">{t('dispatch.table.cargo')}</th>
+                <th className="text-left px-4 py-3 font-medium text-neu-muted hidden md:table-cell">{t('dispatch.table.customer')}</th>
+                <th className="text-left px-4 py-3 font-medium text-neu-muted">{t('dispatch.table.driver')}</th>
+                <th className="text-left px-4 py-3 font-medium text-neu-muted">{t('dispatch.table.pickup')}</th>
+                <th className="text-left px-4 py-3 font-medium text-neu-muted">{t('dispatch.table.status')}</th>
               </tr>
             </thead>
             <tbody className="divide-y">
               {loads.map((load) => (
-                <tr key={load.id} className="hover:bg-gray-50">
+                <tr key={load.id} className="hover:bg-neu-sunken/60">
                   <td className="px-4 py-3 font-medium">
                     <Link to={`/loads/${load.id}`} className="text-brand-700 hover:underline">
                       {load.loadNumber}
                     </Link>
                   </td>
-                  <td className="px-4 py-3 text-gray-600 max-w-[220px]">
+                  <td className="px-4 py-3 text-neu-muted max-w-[220px]">
                     <div className="truncate">{load.pickupAddress}</div>
-                    <div className="truncate text-gray-400">→ {load.deliveryAddress}</div>
+                    <div className="truncate text-neu-muted/70">→ {load.deliveryAddress}</div>
                   </td>
-                  <td className="px-4 py-3 text-gray-600 hidden lg:table-cell max-w-[180px] truncate">
+                  <td className="px-4 py-3 text-neu-muted hidden lg:table-cell max-w-[180px] truncate">
                     {load.cargoDescription}
                   </td>
-                  <td className="px-4 py-3 text-gray-600 hidden md:table-cell">{load.customer.name}</td>
+                  <td className="px-4 py-3 text-neu-muted hidden md:table-cell">{load.customer.name}</td>
                   <td className="px-4 py-3">
                     {['DELIVERED', 'INVOICED', 'CANCELLED'].includes(load.status) ? (
-                      <span className="text-sm text-gray-500">{load.driver?.name ?? '—'}</span>
+                      <span className="text-sm text-neu-muted">{load.driver?.name ?? '—'}</span>
                     ) : (
                       <select
                         value={load.driverId ?? ''}
                         onChange={(e) => assignMutation.mutate({ id: load.id, driverId: e.target.value || null })}
-                        className="text-sm border rounded-lg px-2 py-1 max-w-[140px] focus:outline-none focus:ring-2 focus:ring-brand-500"
+                        className="text-sm rounded-xl bg-neu-bg shadow-neu-inset px-2 py-1 max-w-[140px] focus:outline-none focus:ring-2 focus:ring-brand-500"
                       >
                         <option value="">{t('dispatch.unassigned')}</option>
                         {drivers.map((d) => (
@@ -160,13 +160,13 @@ export function DispatchPage() {
                       </select>
                     )}
                   </td>
-                  <td className="px-4 py-3 text-gray-600 whitespace-nowrap">{formatDateTime(load.pickupAt)}</td>
+                  <td className="px-4 py-3 text-neu-muted whitespace-nowrap">{formatDateTime(load.pickupAt)}</td>
                   <td className="px-4 py-3"><LoadStatusBadge status={load.status} /></td>
                 </tr>
               ))}
               {!isLoading && loads.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-4 py-10 text-center text-gray-500">
+                  <td colSpan={7} className="px-4 py-10 text-center text-neu-muted">
                     {t('dispatch.empty')}
                   </td>
                 </tr>
@@ -181,8 +181,8 @@ export function DispatchPage() {
 
 function KpiCard({ label, value, warn }: { label: string; value?: number | string; warn?: boolean }) {
   return (
-    <div className={`bg-white rounded-xl border p-4 ${warn ? 'border-risk-yellow' : ''}`}>
-      <p className="text-xs text-gray-500">{label}</p>
+    <div className={`neu-card p-4 ${warn ? 'ring-2 ring-risk-yellow' : ''}`}>
+      <p className="text-xs text-neu-muted">{label}</p>
       <p className="text-2xl font-bold mt-1">{value ?? '—'}</p>
     </div>
   );

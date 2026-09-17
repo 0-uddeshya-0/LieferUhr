@@ -28,17 +28,17 @@ function StatCard({
     <div
       className={
         highlight
-          ? 'bg-gradient-to-br from-brand-600 to-brand-500 text-white rounded-xl p-4 shadow-sm'
-          : 'bg-white rounded-xl border p-4'
+          ? 'bg-brand-600 text-white rounded-2xl p-4 shadow-neu'
+          : 'neu-card p-4'
       }
     >
       <div className="flex items-center justify-between">
-        <p className={highlight ? 'text-brand-100 text-sm' : 'text-gray-500 text-sm'}>{label}</p>
-        <Icon className={`w-4 h-4 shrink-0 ${highlight ? 'text-brand-200' : 'text-gray-400'}`} />
+        <p className={highlight ? 'text-brand-100 text-sm' : 'text-neu-muted text-sm'}>{label}</p>
+        <Icon className={`w-4 h-4 shrink-0 ${highlight ? 'text-brand-200' : 'text-neu-muted/70'}`} />
       </div>
       <p
         className={`text-2xl font-bold mt-1 tabular-nums ${
-          highlight ? 'text-white' : isAlerting ? 'text-risk-red' : 'text-gray-900'
+          highlight ? 'text-white' : isAlerting ? 'text-risk-red' : 'text-neu-text'
         }`}
       >
         {value}
@@ -60,8 +60,8 @@ export function DashboardPage() {
   if (summary?.totalActiveOrders === 0) {
     return (
       <div className="text-center py-20">
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">{t('dashboard.empty.title')}</h2>
-        <p className="text-gray-500 mb-8">{t('dashboard.empty.sub')}</p>
+        <h2 className="text-xl font-semibold text-neu-text mb-2">{t('dashboard.empty.title')}</h2>
+        <p className="text-neu-muted mb-8">{t('dashboard.empty.sub')}</p>
         <Link to="/import">
           <Button size="lg">
             <Upload className="w-5 h-5 mr-2" />
@@ -69,7 +69,7 @@ export function DashboardPage() {
           </Button>
         </Link>
         <p className="mt-4">
-          <Link to="/orders/new" className="text-sm text-brand-600 hover:underline">
+          <Link to="/orders/new" className="text-sm text-brand-700 hover:underline">
             {t('dashboard.empty.manual')}
           </Link>
         </p>
@@ -97,9 +97,9 @@ export function DashboardPage() {
         />
       </div>
 
-      <div className="flex flex-wrap items-center gap-3 bg-white border rounded-xl p-4">
+      <div className="flex flex-wrap items-center gap-3 neu-card p-4">
         <select
-          className="border rounded-lg px-3 py-2 text-sm bg-white"
+          className="rounded-xl px-3 py-2 text-sm bg-neu-bg shadow-neu-inset focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
           value={filters.status ?? ''}
           onChange={(e) => updateFilter('status', (e.target.value || undefined) as OrderStatus | undefined)}
         >
@@ -110,7 +110,7 @@ export function DashboardPage() {
         </select>
 
         <select
-          className="border rounded-lg px-3 py-2 text-sm bg-white"
+          className="rounded-xl px-3 py-2 text-sm bg-neu-bg shadow-neu-inset focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
           value={filters.supplierId ?? ''}
           onChange={(e) => updateFilter('supplierId', e.target.value || undefined)}
         >
@@ -132,7 +132,7 @@ export function DashboardPage() {
         <input
           type="search"
           placeholder={t('dashboard.filter.search')}
-          className="border rounded-lg px-3 py-2 text-sm flex-1 min-w-[200px]"
+          className="rounded-xl px-3 py-2 text-sm flex-1 min-w-[200px] bg-neu-bg shadow-neu-inset focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
           value={filters.search ?? ''}
           onChange={(e) => updateFilter('search', e.target.value || undefined)}
         />
@@ -146,7 +146,7 @@ export function DashboardPage() {
       </div>
 
       {isLoading ? (
-        <p className="text-gray-500">{t('common.loading')}</p>
+        <p className="text-neu-muted">{t('common.loading')}</p>
       ) : (
         <OrderTable
           orders={orders}

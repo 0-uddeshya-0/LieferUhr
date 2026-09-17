@@ -59,9 +59,9 @@ export async function teamRoutes(app: FastifyInstance) {
     const inviteUrl = `${config.WEB_URL}/invite/${invite.token}`;
     await sendEmail({
       to: body.email,
-      subject: `Einladung zu LieferRadar – ${org.name}`,
+      subject: `Einladung zu Lieferuhr Einkauf – ${org.name}`,
       html: `<!DOCTYPE html><html><body style="font-family:Arial,sans-serif;color:#333;max-width:600px;margin:0 auto;padding:20px;">
-<h2>Einladung zu LieferRadar</h2>
+<h2>Einladung zu Lieferuhr Einkauf</h2>
 <p>${request.user.email} hat Sie eingeladen, dem Einkaufsteam von <strong>${org.name.replace(/</g, '&lt;')}</strong> beizutreten.</p>
 <p style="text-align:center;margin:25px 0;">
 <a href="${inviteUrl}" style="background:#364fc7;color:#fff;padding:14px 28px;text-decoration:none;border-radius:6px;font-weight:bold;display:inline-block;">Einladung annehmen</a>

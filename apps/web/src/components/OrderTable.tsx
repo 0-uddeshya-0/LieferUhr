@@ -30,17 +30,17 @@ export function OrderTable({ orders, onRemind, remindingId }: OrderTableProps) {
 
   if (orders.length === 0) {
     return (
-      <div className="text-center py-12 text-gray-500">
+      <div className="text-center py-12 text-neu-muted">
         {t('orders.empty')}
       </div>
     );
   }
 
   return (
-    <div className="overflow-x-auto bg-white rounded-xl border">
+    <div className="overflow-x-auto neu-card">
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b bg-gray-50 text-left text-gray-600">
+          <tr className="border-b bg-neu-sunken/60 text-left text-neu-muted">
             <th className="px-4 py-3 font-medium">{t('orders.col.number')}</th>
             <th className="px-4 py-3 font-medium">{t('orders.col.supplier')}</th>
             <th className="px-4 py-3 font-medium">{t('orders.col.description')}</th>
@@ -54,9 +54,9 @@ export function OrderTable({ orders, onRemind, remindingId }: OrderTableProps) {
         </thead>
         <tbody>
           {orders.map((order) => (
-            <tr key={order.id} className="border-b last:border-b-0 hover:bg-gray-50 transition-colors">
+            <tr key={order.id} className="border-b last:border-b-0 hover:bg-neu-sunken/60 transition-colors">
               <td className="px-4 py-3 font-mono text-xs">
-                <Link to={`/orders/${order.id}`} className="text-brand-600 hover:underline">
+                <Link to={`/orders/${order.id}`} className="text-brand-700 hover:underline">
                   {order.orderNumber}
                 </Link>
               </td>
@@ -70,7 +70,7 @@ export function OrderTable({ orders, onRemind, remindingId }: OrderTableProps) {
                   </span>
                 )}
               </td>
-              <td className="px-4 py-3 whitespace-nowrap text-right text-gray-700 tabular-nums">
+              <td className="px-4 py-3 whitespace-nowrap text-right text-neu-text tabular-nums">
                 {order.valueCents != null ? formatCurrency(order.valueCents) : '-'}
               </td>
               <td className="px-4 py-3">
@@ -79,7 +79,7 @@ export function OrderTable({ orders, onRemind, remindingId }: OrderTableProps) {
               <td className="px-4 py-3">
                 <DelayRiskIndicator risk={order.delayRisk} />
               </td>
-              <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{formatRelative(order.updatedAt)}</td>
+              <td className="px-4 py-3 text-neu-muted whitespace-nowrap">{formatRelative(order.updatedAt)}</td>
               <td className="px-4 py-3">
                 <div className="flex items-center gap-2">
                   {order.status !== 'DELIVERED' && order.status !== 'CANCELLED' && (

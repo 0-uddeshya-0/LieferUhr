@@ -1,14 +1,17 @@
-# LieferRadar
+# Lieferuhr
 
 [![CI](https://github.com/0-uddeshya-0/lieferradar/actions/workflows/ci.yml/badge.svg)](https://github.com/0-uddeshya-0/lieferradar/actions/workflows/ci.yml)
 
-**Weniger Lieferanten hinterhertelefonieren. Weniger verspätete Lieferungen.**
+**Wissen, wann Ware ankommt.** — *Know when goods arrive.*
 
-LieferRadar is a supplier delay intelligence tool for German manufacturing SMEs. Purchasing managers register open supplier orders, send magic-link status pages to suppliers (no login required), automate follow-up reminders, and monitor delay risk on a live dashboard with supplier reliability scorecards.
+Lieferuhr is the umbrella for two lean tools built around the delivery date, sharing one API, auth, and tenancy:
 
-This repository also contains **FrachtRadar**, a sibling product built on the same API, auth, and tenancy: modern freight management for regional carriers too small for classic TMS vendors (3–30 trucks). Dispatch loads, connect drivers via magic-link PWA (no app install, no account), collect photo PODs, give shippers a live tracking link, and issue PDF invoices. See [docs/fleet-expansion.md](docs/fleet-expansion.md) and [docs/rollout-plan.md](docs/rollout-plan.md).
+- **Lieferuhr Einkauf** (`apps/web`) — supplier delay intelligence for purchasing teams in German manufacturing SMEs. Register open orders, send magic-link status pages to suppliers (no login), automate follow-up reminders, and monitor delay risk on a live dashboard with supplier reliability scorecards.
+- **FrachtRadar** (`apps/fleet`) — freight management for regional carriers too small for classic TMS vendors (3–30 trucks). Dispatch loads, connect drivers via magic-link PWA (no app install, no account), collect photo PODs, give shippers a live tracking link, and issue PDF invoices.
 
-**Live demo:** https://0-uddeshya-0.github.io/lieferradar/
+See [docs/fleet-expansion.md](docs/fleet-expansion.md) and [docs/rollout-plan.md](docs/rollout-plan.md).
+
+**Live demo (both products):** https://0-uddeshya-0.github.io/lieferradar/ — the umbrella page links into each product's interactive demo; FrachtRadar ships nested under [`/lieferradar/fleet/`](https://0-uddeshya-0.github.io/lieferradar/fleet/).
 
 ## What works on GitHub Pages vs full deploy
 
@@ -20,6 +23,8 @@ This repository also contains **FrachtRadar**, a sibling product built on the sa
 | Supplier scorecard | Sample data (in-memory) | Live data |
 | Supplier magic-link page | Demo token (`/s/demo`) | Real magic links |
 | CSV import, create orders & suppliers | Works for the session (in-memory) | Persisted in PostgreSQL |
+| FrachtRadar dispatch board, drivers, loads | Sample data (in-memory) under `/fleet/` | Live data |
+| Driver status link `/t/:token` + tracking `/l/:token` | Demo tokens (`/fleet/#/t/demo`, `#/l/demo`) | Real capability links |
 | Login / registration | Skipped in demo | JWT with refresh tokens |
 | Email notifications | — | SMTP (Mailgun, Postmark, etc.) |
 | Cron reminders & weekly digest | — | node-cron jobs |
@@ -67,7 +72,7 @@ Sequenced by what pilot customers need next — see [docs/strategy.md](docs/stra
 
 ```
 ┌─────────────────┐ ┌─────────────────┐     ┌──────────────────┐
-│ LieferRadar Web │ │ FrachtRadar PWA │────▶│  Fastify API     │────▶ PostgreSQL
+│ Lieferuhr Einkauf │ │ FrachtRadar PWA │────▶│  Fastify API     │────▶ PostgreSQL
 │   (:5173)       │ │   (:5174)       │     │  (Node, :3001)   │      (Prisma)
 └─────────────────┘ └─────────────────┘     └────────┬─────────┘
                                                     │
@@ -84,7 +89,7 @@ Monorepo layout (pnpm workspaces):
 ```
 lieferradar/
 ├── apps/api/          # Fastify backend
-├── apps/web/          # LieferRadar frontend (purchasing)
+├── apps/web/          # Lieferuhr Einkauf frontend (purchasing)
 ├── apps/fleet/        # FrachtRadar PWA (carriers)
 ├── packages/shared/   # Zod schemas & shared types
 ├── packages/mcp/      # MCP server for AI agents
@@ -122,7 +127,7 @@ pnpm db:seed
 pnpm dev:all      # API + both frontends (dev / dev:fleet for a subset)
 ```
 
-- **LieferRadar web:** http://localhost:5173
+- **Lieferuhr web:** http://localhost:5173
 - **FrachtRadar app:** http://localhost:5174
 - **API:** http://localhost:3001
 - **MailHog UI:** http://localhost:8025
@@ -131,7 +136,7 @@ pnpm dev:all      # API + both frontends (dev / dev:fleet for a subset)
 
 | Product | Email | Password |
 |---------|-------|----------|
-| LieferRadar (purchasing) | `manager@muster.de` | `Test1234!` |
+| Lieferuhr Einkauf (purchasing) | `manager@muster.de` | `Test1234!` |
 | FrachtRadar (carrier) | `disponent@frachtradar.de` | `Test1234!` |
 
 ## Usage

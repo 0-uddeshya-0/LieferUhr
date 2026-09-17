@@ -2,6 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-gray-50 text-gray-900 font-sans antialiased;
+@layer base {
+  body {
+    @apply bg-neu-bg text-neu-text font-sans antialiased;
+    caret-color: #ea580c;
+  }
+
+  ::selection {
+    @apply bg-brand-200 text-brand-900;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #e8ecf3;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #b9c3d6;
+    border-radius: 8px;
+    border: 2px solid #e8ecf3;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #9fadca;
+  }
+
+  a {
+    text-underline-offset: 3px;
+  }
+}
+
+@layer components {
+  .neu-card {
+    @apply bg-neu-bg rounded-2xl shadow-neu;
+  }
+
+  .neu-well {
+    @apply bg-neu-sunken/60 rounded-xl shadow-neu-inset;
+  }
+
+  .neu-raised {
+    @apply bg-neu-raised rounded-xl shadow-neu-sm;
+  }
+
+  .neu-pressed {
+    @apply bg-neu-sunken/70 shadow-neu-inset-sm;
+  }
+
+  .neu-btn {
+    @apply bg-neu-raised shadow-neu-sm transition-shadow duration-150 active:shadow-neu-inset-sm active:bg-neu-sunken/70;
+  }
 }

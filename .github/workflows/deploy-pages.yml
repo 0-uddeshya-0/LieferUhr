@@ -38,6 +38,18 @@ jobs:
         env:
           VITE_DEMO_MODE: "true"
 
+      # The umbrella page links out to the fleet demo, which ships nested
+      # under /lieferradar/fleet/ inside the same Pages artifact.
+      - name: Build fleet demo for GitHub Pages
+        run: pnpm --filter @lieferradar/fleet build
+        env:
+          VITE_DEMO_MODE: "true"
+
+      - name: Nest fleet demo under /fleet/
+        run: |
+          mkdir -p apps/web/dist/fleet
+          cp -R apps/fleet/dist/. apps/web/dist/fleet/
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

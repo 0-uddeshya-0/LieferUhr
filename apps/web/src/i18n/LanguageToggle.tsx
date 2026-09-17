@@ -9,7 +9,7 @@ export function LanguageToggle({ className }: { className?: string }) {
 
   return (
     <div
-      className={cn('inline-flex items-center rounded-full border border-gray-200 bg-white p-0.5', className)}
+      className={cn('inline-flex items-center rounded-full border border-neu-sunken bg-neu-raised p-0.5', className)}
       role="group"
       aria-label="Sprache / Language"
     >
@@ -21,7 +21,7 @@ export function LanguageToggle({ className }: { className?: string }) {
           aria-pressed={lang === value}
           className={cn(
             'px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wide transition-colors',
-            lang === value ? 'bg-brand-600 text-white' : 'text-gray-500 hover:text-gray-900'
+            lang === value ? 'bg-brand-600 text-white' : 'text-neu-muted hover:text-neu-text'
           )}
         >
           {value}

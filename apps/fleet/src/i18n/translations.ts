@@ -21,6 +21,7 @@ const de = {
   'common.none': 'Keine',
   'common.error': 'Fehler',
   'common.contactName': 'Ansprechpartner',
+  'demo.banner': 'Interaktive Demo mit Beispieldaten — keine echten Touren oder E-Mails.',
 
   'loadStatus.NEW': 'Neu',
   'loadStatus.DISPATCHED': 'Disponiert',
@@ -30,13 +31,17 @@ const de = {
   'loadStatus.INVOICED': 'Berechnet',
   'loadStatus.CANCELLED': 'Storniert',
 
-  'landing.badge': 'DSGVO-konform · Hosting in Deutschland',
+  'landing.badge': 'Ein Produkt von Lieferuhr · DSGVO-konform · Hosting in Deutschland',
   'landing.hero.line1': 'Disposition ohne Papier.',
   'landing.hero.line2': 'Fahrer ohne App.',
   'landing.hero.sub':
     'FrachtRadar ist das Dispo-System für Fuhrunternehmen mit 3–30 LKW: Touren anlegen, Fahrer per Link anbinden, Abliefernachweis als Foto einsammeln, Rechnung per Klick.',
   'landing.cta.primary': 'Kostenlos testen',
   'landing.cta.demo': 'Live-Demo ansehen',
+  'landing.cta.demoDispatch': 'Dispo-Demo öffnen',
+  'landing.cta.demoDriver': 'Fahrer-Ansicht',
+  'landing.cta.demoTrack': 'Sendungsverfolgung',
+  'landing.byLieferuhr': 'von Lieferuhr',
   'landing.feature1.title': 'Dispo-Board',
   'landing.feature1.desc': 'Alle Touren, Fahrer und Fahrzeuge auf einen Blick. Zuweisen per Klick — keine Zettel, kein WhatsApp-Chaos.',
   'landing.feature2.title': 'Fahrer-Link ohne App',
@@ -62,7 +67,7 @@ const de = {
   'landing.pilot.cta': 'Pilotprojekt anfragen',
   'landing.pilot.note': 'Kostenlos in der Pilotphase · jederzeit beendbar · Daten in Deutschland',
   'landing.login': 'Anmelden',
-  'landing.footer': 'Von den Machern von LieferRadar — Liefertermin-Intelligenz für den Mittelstand.',
+  'landing.footer': 'FrachtRadar ist ein Produkt von Lieferuhr — Liefertermin-Intelligenz für den Mittelstand.',
 
   'login.slogan': 'Disposition für regionale Fuhrunternehmen',
   'login.email': 'E-Mail',
@@ -250,6 +255,7 @@ const en: typeof de = {
   'common.none': 'None',
   'common.error': 'Error',
   'common.contactName': 'Contact person',
+  'demo.banner': 'Interactive demo with sample data — no real tours or emails.',
 
   'loadStatus.NEW': 'New',
   'loadStatus.DISPATCHED': 'Dispatched',
@@ -259,13 +265,17 @@ const en: typeof de = {
   'loadStatus.INVOICED': 'Invoiced',
   'loadStatus.CANCELLED': 'Cancelled',
 
-  'landing.badge': 'GDPR-compliant · Hosted in Germany',
+  'landing.badge': 'A Lieferuhr product · GDPR-compliant · Hosted in Germany',
   'landing.hero.line1': 'Dispatch without paper.',
   'landing.hero.line2': 'Drivers without an app.',
   'landing.hero.sub':
     'FrachtRadar is the dispatch system for carriers with 3–30 trucks: create tours, connect drivers via link, collect PODs as photos, invoice in one click.',
   'landing.cta.primary': 'Start free trial',
   'landing.cta.demo': 'View live demo',
+  'landing.cta.demoDispatch': 'Open dispatch demo',
+  'landing.cta.demoDriver': 'Driver view',
+  'landing.cta.demoTrack': 'Shipment tracking',
+  'landing.byLieferuhr': 'by Lieferuhr',
   'landing.feature1.title': 'Dispatch board',
   'landing.feature1.desc': 'All loads, drivers and vehicles at a glance. Assign with a click — no paper, no WhatsApp chaos.',
   'landing.feature2.title': 'Driver link, no app',
@@ -291,7 +301,7 @@ const en: typeof de = {
   'landing.pilot.cta': 'Request pilot',
   'landing.pilot.note': 'Free during pilot · cancel anytime · data hosted in Germany',
   'landing.login': 'Log in',
-  'landing.footer': 'From the makers of LieferRadar — delivery date intelligence for the Mittelstand.',
+  'landing.footer': 'FrachtRadar is a Lieferuhr product — delivery date intelligence for the Mittelstand.',
 
   'login.slogan': 'Dispatch for regional carriers',
   'login.email': 'Email',

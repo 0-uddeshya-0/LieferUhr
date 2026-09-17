@@ -45,8 +45,8 @@ export async function dispatchWebhook(
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-LieferRadar-Event': event,
-        'X-LieferRadar-Signature': signPayload(org.webhookSecret, body),
+        'X-Lieferuhr-Event': event,
+        'X-Lieferuhr-Signature': signPayload(org.webhookSecret, body),
       },
       body,
       signal: AbortSignal.timeout(DISPATCH_TIMEOUT_MS),

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
- * LieferRadar CSV-watch connector.
+ * Lieferuhr CSV-watch connector.
  *
  * Watches a folder for CSV exports from any ERP (SAP B1, proAlpha, abas,
- * Excel, ...) and imports each new file into LieferRadar via the REST API.
+ * Excel, ...) and imports each new file into Lieferuhr via the REST API.
  * Processed files are moved to `processed/`, failed ones to `failed/`, so the
  * folder doubles as an audit trail. No ERP-side installation required — point
  * the ERP's existing export job at the watched folder.

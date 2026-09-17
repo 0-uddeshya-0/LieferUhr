@@ -19,33 +19,33 @@ export function TrackPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen">
       <div className="max-w-md mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
             <BrandMark />
-            <span className="font-bold text-brand-900">FrachtRadar</span>
+            <span className="font-bold text-brand-900">FrachtRadar<span className="ml-1.5 text-xs font-medium text-neu-muted align-middle">von Lieferuhr</span></span>
           </div>
           <LanguageToggle />
         </div>
 
-        {isLoading && <p className="text-center text-gray-500">{t('common.loading')}</p>}
+        {isLoading && <p className="text-center text-neu-muted">{t('common.loading')}</p>}
         {!isLoading && !load && <p className="text-center text-risk-red">{t('track.notFound')}</p>}
 
         {load && (
-          <div className="bg-white rounded-2xl border p-6 space-y-6">
+          <div className="neu-card">
             <div>
-              <p className="text-xs text-gray-400">{t('track.by', { name: load.carrierName })}</p>
+              <p className="text-xs text-neu-muted/70">{t('track.by', { name: load.carrierName })}</p>
               <div className="flex items-center gap-3 mt-1">
                 <h1 className="text-xl font-bold">{load.loadNumber}</h1>
                 <LoadStatusBadge status={load.status} />
               </div>
             </div>
 
-            <div className="bg-gray-50 rounded-lg p-3 text-sm space-y-1">
+            <div className="bg-neu-sunken/60 rounded-lg shadow-neu-inset-sm p-3 text-sm space-y-1">
               <p>{load.cargoDescription}</p>
-              <p className="text-gray-500">→ {load.deliveryAddress}</p>
-              <p className="text-gray-500">
+              <p className="text-neu-muted">→ {load.deliveryAddress}</p>
+              <p className="text-neu-muted">
                 {t('track.deliveryEta')}: {formatDateTime(load.deliveryAt)}
               </p>
               {load.deliveredAt && (
@@ -66,19 +66,19 @@ export function TrackPage() {
             )}
 
             <div>
-              <h2 className="text-sm font-medium text-gray-500 mb-3">{t('track.timeline')}</h2>
+              <h2 className="text-sm font-medium text-neu-muted mb-3">{t('track.timeline')}</h2>
               <ul className="space-y-3">
                 {load.events.map((e, i) => (
                   <li key={i} className="flex items-center gap-3 text-sm">
-                    <PackageCheck className="w-4 h-4 text-gray-400" />
+                    <PackageCheck className="w-4 h-4 text-neu-muted/70" />
                     <span className="font-medium">{e.statusLabel}</span>
-                    <span className="text-gray-400 ml-auto">{formatDateTime(e.at)}</span>
+                    <span className="text-neu-muted/70 ml-auto">{formatDateTime(e.at)}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <p className="text-xs text-gray-400 text-center">{t('track.footer')}</p>
+            <p className="text-xs text-neu-muted/70 text-center">{t('track.footer')}</p>
           </div>
         )}
       </div>

@@ -31,7 +31,7 @@ route optimisation, payroll and ELD/tacho integration.
 
 ## The wedge (same trick, new side)
 
-LieferRadar proved it on the supplier side: **nobody logs in but us.**
+Lieferuhr proved it on the supplier side: **nobody logs in but us.**
 FrachtRadar applies it to the driver and the shipper:
 
 - **Driver magic link** (`/t/:token`): dispatcher sends one link per tour via
@@ -52,7 +52,7 @@ supplier-side magic link.
 |---|---|---|
 | Excel + WhatsApp + paper | Free, works | Removes the chasing (auto driver pings, doc-expiry alerts), not just the recording. POD→invoice same day is the cash-flow argument. |
 | IMPARGO | German, SMB-priced, dispatch + telematics + toll | Broader suite; driver app + telematics hardware assume bigger ops. We ship link-only, live in an afternoon, cheaper entry. |
-| DispoHub | €49/mo entry, drag-drop board, TIMOCOM inbox | Real competitor. Edge: driver needs no account/app, shipper tracking link included, and the shipper side (LieferRadar) already exists — network story they can't copy. |
+| DispoHub | €49/mo entry, drag-drop board, TIMOCOM inbox | Real competitor. Edge: driver needs no account/app, shipper tracking link included, and the shipper side (Lieferuhr) already exists — network story they can't copy. |
 | Maxmove | Cloud TMS + marketplace | Marketplace-first; we are ops-first for carriers who don't want to subcontract out. |
 | winSped / classic TMS | Feature depth | Implementation projects, module pricing, on-prem legacy. Out of budget for ICP. |
 | US small-fleet TMS (TorqueTMS, TruckMaster Lite) | Mature, cheap | US-only: DOT, IFTA, factoring, load boards. No German docs (Abliefernachweis, HU), no DSGVO story. |
@@ -97,7 +97,7 @@ tour templates, native apps. Each is a roadmap candidate gated on pilot pull.
 ## Architecture — separate product, shared core
 
 ```
-apps/web    LieferRadar (shipper product, :5173)   ─┐
+apps/web    Lieferuhr (shipper product, :5173)   ─┐
 apps/fleet  FrachtRadar (carrier product, :5174)   ─┤  same API + DB + auth
 apps/api    adds /customers /drivers /vehicles     ─┤  one Organization can use
             /loads /invoices /t/:token /l/:token   ─┘  both products
@@ -106,7 +106,7 @@ packages/shared  + fleet zod schemas
 
 One Fastify API, one Postgres, one login. The fleet app is a separate Vite
 +PWA surface with its own landing page and positioning — deployed on its own
-domain, cross-linked to LieferRadar. New env: `FLEET_URL` (link base),
+domain, cross-linked to Lieferuhr. New env: `FLEET_URL` (link base),
 `UPLOAD_DIR` (POD/invoice files), `FLEET_PING_CRON`.
 
 New Prisma models: `FleetCustomer`, `Driver`, `Vehicle`, `Load`,
@@ -132,7 +132,7 @@ Per-vehicle pricing matches how carriers think: ~€15/truck/month, min.
 white-glove import of customers + drivers from Excel. Success metric agreed
 up front: days-to-invoice, "wo ist mein LKW" calls/week, POD return time.
 10 paying fleets ≈ €6–10k ARR — small, but this product also feeds
-LieferRadar: every tracking link shown to a shipper is a demo of the
+Lieferuhr: every tracking link shown to a shipper is a demo of the
 supplier-side product (two-sided network effect is the long-term moat).
 
 ## GTM
@@ -142,7 +142,7 @@ supplier-side product (two-sided network effect is the long-term moat).
    demo with their own first tour entered on the call.
 2. Repeatable: German SEO ("Abliefernachweis digital", "Dispositionssoftware
    kleine Spedition", "LKW Tracking Kunde"), Steuerberater and
-   Fuhrpark-Versicherer as referral channels, cross-sell from LieferRadar
+   Fuhrpark-Versicherer as referral channels, cross-sell from Lieferuhr
    shipper pilots ("your carriers can report status free").
 3. Kill/continue after pilot phase: ≥60 % driver-link engagement within 4 h
    of dispatch, ≥50 % of PODs returned same-day, ≥2 fleets convert to paid.

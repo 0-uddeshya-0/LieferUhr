@@ -1,4 +1,4 @@
-# LieferRadar — Strategy Memo
+# Lieferuhr — Strategy Memo
 
 Working document. Last updated: June 2026.
 
@@ -88,7 +88,7 @@ modules cannot do.
 Day one there is none — speed and focus are the only advantages. Durable moats
 in order of attainability: (1) workflow lock-in once reminder history and
 scorecards accumulate, (2) supplier familiarity — the same supplier sees
-LieferRadar links from multiple customers and responds faster, (3) cross-org
+Lieferuhr links from multiple customers and responds faster, (3) cross-org
 supplier reliability benchmarks (opt-in, anonymized, DSGVO-reviewed) — this is
 the data asset nobody else in the niche has.
 

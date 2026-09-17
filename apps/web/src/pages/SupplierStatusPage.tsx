@@ -63,8 +63,8 @@ export function SupplierStatusPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <p className="text-gray-500">{t('common.loading')}</p>
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-neu-muted">{t('common.loading')}</p>
       </div>
     );
   }
@@ -75,8 +75,8 @@ export function SupplierStatusPage() {
         ? String(error.response.data.error)
         : t('status.invalid');
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-        <div className="bg-white border rounded-xl p-8 max-w-md text-center">
+      <div className="min-h-screen flex items-center justify-center px-4">
+        <div className="neu-card p-8 max-w-md text-center">
           <p className="text-risk-red font-medium">{message}</p>
         </div>
       </div>
@@ -85,11 +85,11 @@ export function SupplierStatusPage() {
 
   if (submitted) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-        <div className="bg-white border rounded-xl p-8 max-w-md text-center">
+      <div className="min-h-screen flex items-center justify-center px-4">
+        <div className="neu-card p-8 max-w-md text-center">
           <CheckCircle className="w-12 h-12 text-risk-green mx-auto mb-4" />
           <h1 className="text-xl font-bold mb-2">{t('status.thanks')}</h1>
-          <p className="text-gray-600">{t('status.received')}</p>
+          <p className="text-neu-muted">{t('status.received')}</p>
         </div>
       </div>
     );
@@ -101,39 +101,39 @@ export function SupplierStatusPage() {
     !submitMutation.isPending;
 
   return (
-    <div className="min-h-screen bg-gray-50 px-4 py-8">
+    <div className="min-h-screen px-4 py-8">
       <div className="max-w-lg mx-auto">
         <div className="flex items-center justify-between mb-4">
           <span className="flex items-center gap-2">
             <BrandMark />
-            <span className="font-bold text-brand-900">LieferRadar</span>
+            <span className="font-bold text-brand-900">Lieferuhr</span>
           </span>
           <LanguageToggle />
         </div>
 
-        <div className="bg-white border rounded-xl p-6 mb-6">
-          <p className="text-sm text-gray-500">{t('status.orderFrom')} {order.orgName}</p>
+        <div className="neu-card p-6 mb-6">
+          <p className="text-sm text-neu-muted">{t('status.orderFrom')} {order.orgName}</p>
           <h1 className="text-xl font-bold mt-1 font-mono">{order.orderNumber}</h1>
-          <p className="text-gray-700 mt-2">{order.partDescription}</p>
+          <p className="text-neu-text mt-2">{order.partDescription}</p>
           <dl className="mt-4 space-y-2 text-sm">
             {order.quantity && (
               <div className="flex justify-between">
-                <dt className="text-gray-500">{t('status.quantity')}</dt>
+                <dt className="text-neu-muted">{t('status.quantity')}</dt>
                 <dd>{order.quantity} {order.unit}</dd>
               </div>
             )}
             <div className="flex justify-between">
-              <dt className="text-gray-500">{t('status.dueDate')}</dt>
+              <dt className="text-neu-muted">{t('status.dueDate')}</dt>
               <dd className="font-medium">{formatDate(order.dueDate)}</dd>
             </div>
             <div className="flex justify-between">
-              <dt className="text-gray-500">{t('status.current')}</dt>
+              <dt className="text-neu-muted">{t('status.current')}</dt>
               <dd>{statusLabel(order.currentStatus)}</dd>
             </div>
           </dl>
         </div>
 
-        <p className="text-sm text-gray-600 mb-4">
+        <p className="text-sm text-neu-muted mb-4">
           {t('status.hello', { name: order.supplierName })}
         </p>
 
@@ -143,10 +143,10 @@ export function SupplierStatusPage() {
               key={value}
               type="button"
               onClick={() => setSelectedStatus(value)}
-              className={`w-full py-4 px-4 rounded-xl border-2 text-left font-medium transition-colors ${
+              className={`w-full py-4 px-4 rounded-xl text-left font-medium transition-all ${
                 selectedStatus === value
-                  ? 'border-brand-600 bg-brand-50 text-brand-900'
-                  : 'border-gray-200 bg-white hover:border-gray-300'
+                  ? 'neu-pressed text-brand-800 ring-2 ring-brand-400'
+                  : 'bg-neu-raised shadow-neu-sm hover:bg-white'
               }`}
             >
               {statusLabel(value)}
@@ -156,13 +156,13 @@ export function SupplierStatusPage() {
 
         {selectedStatus !== null && (
           <div className="mt-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="confirmed-date">
+            <label className="block text-sm font-medium text-neu-text mb-1" htmlFor="confirmed-date">
               {t('status.confirmedDate')}
             </label>
             <input
               id="confirmed-date"
               type="date"
-              className="w-full border rounded-lg px-3 py-2 text-sm bg-white"
+              className="w-full rounded-xl px-3 py-2 text-sm bg-neu-bg shadow-neu-inset focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
               value={confirmedDate}
               onChange={(e) => setConfirmedDate(e.target.value)}
             />
@@ -171,11 +171,11 @@ export function SupplierStatusPage() {
 
         {selectedStatus === 'DELAYED' && (
           <div className="mt-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-neu-text mb-1">
               {t('status.delayReason')}
             </label>
             <textarea
-              className="w-full border rounded-lg px-3 py-2 text-sm min-h-[100px]"
+              className="w-full rounded-xl px-3 py-2 text-sm min-h-[100px] bg-neu-bg shadow-neu-inset focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
               value={note}
               onChange={(e) => setNote(e.target.value)}
               placeholder={t('status.delayPlaceholder')}

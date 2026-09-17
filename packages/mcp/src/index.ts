@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
- * LieferRadar MCP server.
+ * Lieferuhr MCP server.
  *
  * Exposes order tracking, supplier scorecards, and reminder actions to AI
  * agents (Claude, n8n AI nodes, custom assistants) over the Model Context
- * Protocol. Authenticates against a LieferRadar instance with an API key.
+ * Protocol. Authenticates against a Lieferuhr instance with an API key.
  *
  * Required environment:
  *   LIEFERRADAR_API_KEY  — created under Settings → API keys (starts with lr_)
@@ -33,7 +33,7 @@ async function api(path: string, init?: RequestInit): Promise<unknown> {
   });
   const text = await res.text();
   if (!res.ok) {
-    throw new Error(`LieferRadar API ${res.status}: ${text}`);
+    throw new Error(`Lieferuhr API ${res.status}: ${text}`);
   }
   return text ? JSON.parse(text) : null;
 }
@@ -138,4 +138,4 @@ server.tool(
 
 const transport = new StdioServerTransport();
 await server.connect(transport);
-console.error(`LieferRadar MCP server connected (API: ${API_URL})`);
+console.error(`Lieferuhr MCP server connected (API: ${API_URL})`);

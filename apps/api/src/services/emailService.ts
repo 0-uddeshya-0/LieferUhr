@@ -55,7 +55,7 @@ function baseLayout(content: string, footerNote?: string): string {
   return `<!DOCTYPE html><html><body style="font-family:Arial,sans-serif;color:#333;max-width:600px;margin:0 auto;padding:20px;">
 ${content}
 <p style="font-size:12px;color:#666;margin-top:30px;border-top:1px solid #eee;padding-top:15px;">
-${footerNote ?? 'Diese E-Mail wurde von LieferRadar versendet.'}
+${footerNote ?? 'Diese E-Mail wurde von Lieferuhr versendet.'}
 <br>Bei Fragen wenden Sie sich bitte an den Besteller.
 </p>
 </body></html>`;
@@ -212,7 +212,7 @@ export function buildWeeklyDigest(
     .join('');
 
   const html = baseLayout(`
-<h2>LieferRadar Wochenbericht</h2>
+<h2>Lieferuhr Wochenbericht</h2>
 <p>Guten Tag,</p>
 <h3>📊 Aktuelle Übersicht</h3>
 <ul>
@@ -243,7 +243,7 @@ ${ctaButton(`${config.WEB_URL}/dashboard`, 'Dashboard öffnen')}
 
   return {
     to: org.email,
-    subject: `LieferRadar Wochenbericht – ${digestData.overdue} Bestellungen überfällig`,
+    subject: `Lieferuhr Wochenbericht – ${digestData.overdue} Bestellungen überfällig`,
     html,
   };
 }

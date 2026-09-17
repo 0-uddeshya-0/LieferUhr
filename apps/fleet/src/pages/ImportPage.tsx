@@ -23,8 +23,8 @@ export function ImportPage() {
   return (
     <div className="max-w-xl space-y-6">
       <h1 className="text-2xl font-display font-bold">{t('import.title')}</h1>
-      <div className="bg-white rounded-xl border p-6 space-y-4">
-        <p className="text-sm text-gray-600">{t('import.hint')}</p>
+      <div className="neu-card">
+        <p className="text-sm text-neu-muted">{t('import.hint')}</p>
         <input
           ref={fileRef}
           type="file"

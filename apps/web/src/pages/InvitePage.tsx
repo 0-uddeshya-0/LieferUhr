@@ -33,16 +33,16 @@ export function InvitePage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <p className="text-gray-500">{t('common.loading')}</p>
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-neu-muted">{t('common.loading')}</p>
       </div>
     );
   }
 
   if (error || !invite) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-        <div className="bg-white border rounded-xl p-8 max-w-md text-center">
+      <div className="min-h-screen flex items-center justify-center px-4">
+        <div className="neu-card p-8 max-w-md text-center">
           <p className="text-risk-red font-medium">{t('invite.invalid')}</p>
         </div>
       </div>
@@ -51,11 +51,11 @@ export function InvitePage() {
 
   if (accept.isSuccess) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-        <div className="bg-white border rounded-xl p-8 max-w-md text-center">
+      <div className="min-h-screen flex items-center justify-center px-4">
+        <div className="neu-card p-8 max-w-md text-center">
           <CheckCircle className="w-12 h-12 text-risk-green mx-auto mb-4" />
-          <p className="text-gray-700">{t('invite.success')}</p>
-          <Link to="/login" className="inline-block mt-4 text-brand-600 hover:underline text-sm">
+          <p className="text-neu-text">{t('invite.success')}</p>
+          <Link to="/login" className="inline-block mt-4 text-brand-700 hover:underline text-sm">
             {t('invite.toLogin')}
           </Link>
         </div>
@@ -64,20 +64,20 @@ export function InvitePage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="w-full max-w-md bg-white rounded-xl shadow-sm border p-8">
+    <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="w-full max-w-md neu-card p-8">
         <div className="flex justify-end mb-2">
           <LanguageToggle />
         </div>
         <div className="text-center mb-6">
           <div className="flex items-center justify-center gap-2">
             <BrandMark />
-            <h1 className="text-2xl font-bold text-brand-900">LieferRadar</h1>
+            <h1 className="text-2xl font-bold text-brand-900">Lieferuhr</h1>
           </div>
-          <p className="text-gray-600 text-sm mt-3">
+          <p className="text-neu-muted text-sm mt-3">
             {t('invite.joinOrg', { org: invite.orgName })}
           </p>
-          <p className="text-gray-400 text-xs mt-1">{invite.email}</p>
+          <p className="text-neu-muted/70 text-xs mt-1">{invite.email}</p>
         </div>
 
         <form

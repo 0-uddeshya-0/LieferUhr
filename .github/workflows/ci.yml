@@ -79,6 +79,9 @@ jobs:
       - name: Build web
         run: pnpm --filter @lieferradar/web build
 
+      - name: Build fleet app
+        run: pnpm --filter @lieferradar/fleet build
+
       - name: Build MCP server
         run: pnpm --filter @lieferradar/mcp build
 

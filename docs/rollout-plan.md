@@ -1,5 +1,11 @@
 # FrachtRadar — Market Rollout Plan
 
+> **Suite note (2026):** FrachtRadar is now one product inside the Betriebsamt
+> family — see [suite-strategy.md](suite-strategy.md) for the cluster model
+> (FrachtRadar + FrachtAmt + PrüfAmt as the carrier bundle). This plan still
+> governs the first-pilot motion; the suite adds cross-sell once a carrier is
+> live.
+
 Goal: **5 pilot carriers live within 8 weeks, ≥2 paying within 12.**
 Everything below is sized for one founder, part-time. If a task can't be done
 this week with a phone and a laptop, it doesn't belong here.

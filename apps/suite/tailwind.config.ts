@@ -5,7 +5,6 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Marketing-layer tokens — resolve to the OKLCH custom properties in index.css
         paper: {
           DEFAULT: 'var(--color-paper)',
           2: 'var(--color-paper-2)',
@@ -17,47 +16,50 @@ export default {
         },
         subtle: 'var(--color-muted)',
         rule: 'var(--color-rule)',
-        accent: {
-          DEFAULT: 'var(--color-accent)',
-          soft: 'var(--color-accent-soft)',
-          ink: 'var(--color-accent-ink)',
+        // Umbrella brand — Lieferuhr blue
+        uhr: {
+          DEFAULT: 'var(--color-uhr)',
+          soft: 'var(--color-uhr-soft)',
+          ink: 'var(--color-uhr-ink)',
         },
-        fork: {
-          DEFAULT: 'var(--color-fork)',
-          soft: 'var(--color-fork-soft)',
-          ink: 'var(--color-fork-ink)',
+        // Product accents — each tool carries its own hue across the suite
+        dispatch: {
+          DEFAULT: 'var(--color-dispatch)',
+          soft: 'var(--color-dispatch-soft)',
+          ink: 'var(--color-dispatch-ink)',
+        },
+        comply: {
+          DEFAULT: 'var(--color-comply)',
+          soft: 'var(--color-comply-soft)',
+          ink: 'var(--color-comply-ink)',
+        },
+        hvac: {
+          DEFAULT: 'var(--color-hvac)',
+          soft: 'var(--color-hvac-soft)',
+          ink: 'var(--color-hvac-ink)',
+        },
+        depot: {
+          DEFAULT: 'var(--color-depot)',
+          soft: 'var(--color-depot-soft)',
+          ink: 'var(--color-depot-ink)',
+        },
+        // FrachtRadar amber — cross-product handoff element only
+        fracht: {
+          DEFAULT: 'var(--color-fracht)',
+          ink: 'var(--color-fracht-ink)',
+        },
+        sev: {
+          warn: '#c77700',
+          bad: '#c92a2a',
         },
         neu: {
+          base: '#e8ecf3',
           bg: '#e8ecf3',
           raised: '#eef1f7',
           sunken: '#dde2ec',
+          inset: '#dde2ec',
           text: '#1f2a3d',
           muted: '#57627a',
-        },
-        brand: {
-          50: '#f0f4ff',
-          100: '#dde7ff',
-          200: '#bac8ff',
-          300: '#91a7ff',
-          400: '#5c7cfa',
-          500: '#3b5bdb',
-          600: '#364fc7',
-          700: '#2f44ad',
-          800: '#243a96',
-          900: '#1a2b70',
-        },
-        // FrachtRadar accent — sibling product shown on the umbrella page
-        fracht: {
-          500: '#f97316',
-          600: '#ea580c',
-          700: '#c2410c',
-        },
-        // Suite tool accents — same hues as apps/suite so the doors match the products
-        tool: {
-          dispatch: 'var(--color-tool-dispatch)',
-          comply: 'var(--color-tool-comply)',
-          hvac: 'var(--color-tool-hvac)',
-          depot: 'var(--color-tool-depot)',
         },
         risk: {
           green: '#2f9e44',
@@ -67,7 +69,9 @@ export default {
       },
       boxShadow: {
         neu: '7px 7px 16px #c3cbdb, -7px -7px 16px #ffffff',
+        'neu-lg': '10px 10px 24px #bcc5d6, -10px -10px 24px #ffffff',
         'neu-sm': '3px 3px 8px #c3cbdb, -3px -3px 8px #ffffff',
+        'neu-in': 'inset 3px 3px 7px #c3cbdb, inset -3px -3px 7px #ffffff',
         'neu-inset': 'inset 3px 3px 7px #c3cbdb, inset -3px -3px 7px #ffffff',
         'neu-inset-sm': 'inset 2px 2px 4px #c3cbdb, inset -2px -2px 4px #ffffff',
       },

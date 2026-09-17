@@ -54,8 +54,28 @@ const de = {
   'landing.stage6.title': 'Abgerechnet',
   'landing.stage6.desc':
     'Aus der gelieferten Tour wird eine PDF-Rechnung mit laufender Nummer und USt-Ausweis. Ein Klick, fertig.',
-  'landing.doors.title': 'Zwei Werkzeuge, ein Termin',
+  'landing.doors.title': 'Zwei Produkte, ein Termin',
   'landing.doors.sub': 'Beide Produkte laufen auf derselben Plattform. Wählen Sie Ihre Seite der Lieferkette.',
+  'landing.suite.title': 'Betriebsamt — vier Werkzeuge, die das Büro erledigen',
+  'landing.suite.sub':
+    'Die Werkzeug-Familie von Lieferuhr: jedes Werkzeug läuft für sich, zusammen sind sie stärker. Jede Kachel öffnet die interaktive Demo.',
+  'landing.tool.demo': 'Demo öffnen',
+  'landing.tool.dispatch.name': 'FrachtAmt',
+  'landing.tool.dispatch.for': 'Fuhrunternehmen 3–30 LKW',
+  'landing.tool.dispatch.desc':
+    'Liest Frachtangebote aus TIMOCOM und dem Posteingang, bereitet Gegenangebote vor und führt die Papiere.',
+  'landing.tool.comply.name': 'PrüfAmt',
+  'landing.tool.comply.for': 'Fuhrunternehmen & Flottenleiter',
+  'landing.tool.comply.desc':
+    'Wacht über Lenkzeiten — auch Transporter ab 2,5 t ab Juli 2026 —, Dokumenten-Fristen und das Kontroll-Paket.',
+  'landing.tool.hvac.name': 'EinsatzAmt',
+  'landing.tool.hvac.for': 'Handwerksbetriebe 2–15 Monteure',
+  'landing.tool.hvac.desc':
+    'Macht aus Anrufnotizen und E-Mails Jobs — mit Techniker- und Terminvorschlag für die Zentrale.',
+  'landing.tool.depot.name': 'PostAmt',
+  'landing.tool.depot.for': 'Kleine Großhändler & Lager',
+  'landing.tool.depot.desc':
+    'Aus Bestell-E-Mails werden Auftragsentwürfe — Bestand bucht runter, Pickliste und Versand folgen.',
   'landing.einkauf.name': 'Lieferuhr Einkauf',
   'landing.einkauf.audience': 'Für Einkaufsteams in Maschinenbau und Metallverarbeitung',
   'landing.einkauf.desc':
@@ -327,8 +347,28 @@ const en: Record<TranslationKey, string> = {
   'landing.stage6.title': 'Invoiced',
   'landing.stage6.desc':
     'The delivered tour becomes a PDF invoice with sequential numbering and VAT shown. One click, done.',
-  'landing.doors.title': 'Two tools, one date',
+  'landing.doors.title': 'Two products, one date',
   'landing.doors.sub': 'Both products run on the same platform. Pick your side of the supply chain.',
+  'landing.suite.title': 'Betriebsamt — four tools that do the office work',
+  'landing.suite.sub':
+    'The tool family from Lieferuhr: every tool runs on its own, together they compound. Every tile opens its interactive demo.',
+  'landing.tool.demo': 'Open demo',
+  'landing.tool.dispatch.name': 'FrachtAmt',
+  'landing.tool.dispatch.for': 'Carriers 3–30 trucks',
+  'landing.tool.dispatch.desc':
+    'Reads freight offers from TIMOCOM and the inbox, drafts counter-offers and keeps the paperwork.',
+  'landing.tool.comply.name': 'PrüfAmt',
+  'landing.tool.comply.for': 'Carriers & fleet managers',
+  'landing.tool.comply.desc':
+    'Watches driving times — incl. vans over 2.5t from July 2026 —, document deadlines and the audit pack.',
+  'landing.tool.hvac.name': 'EinsatzAmt',
+  'landing.tool.hvac.for': 'Trades companies 2–15 techs',
+  'landing.tool.hvac.desc':
+    'Turns call notes and emails into jobs — with technician and slot suggestions for the office.',
+  'landing.tool.depot.name': 'PostAmt',
+  'landing.tool.depot.for': 'Small wholesalers & warehouses',
+  'landing.tool.depot.desc':
+    'Order emails become order drafts — stock decrements, pick list and shipping follow.',
   'landing.einkauf.name': 'Lieferuhr Einkauf',
   'landing.einkauf.audience': 'For purchasing teams in machine building and metal processing',
   'landing.einkauf.desc':

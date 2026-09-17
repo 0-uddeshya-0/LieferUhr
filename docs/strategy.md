@@ -2,6 +2,12 @@
 
 Working document. Last updated: June 2026.
 
+> **2026 expansion:** the platform now also carries the Betriebsamt tool
+> family (FrachtAmt, PrüfAmt, EinsatzAmt, PostAmt). Market research,
+> positioning, pricing and the cluster model live in
+> [suite-strategy.md](suite-strategy.md); this memo still covers the original
+> Einkauf wedge.
+
 ## Problem
 
 Purchasing teams in small and mid-sized German manufacturers track open supplier

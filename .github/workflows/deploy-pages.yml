@@ -50,6 +50,18 @@ jobs:
           mkdir -p apps/web/dist/fleet
           cp -R apps/fleet/dist/. apps/web/dist/fleet/
 
+      # The suite app — four standalone AI tools — ships nested under
+      # /LieferUhr/suite/ in the same Pages artifact.
+      - name: Build suite demo for GitHub Pages
+        run: pnpm --filter @lieferradar/suite build
+        env:
+          VITE_DEMO_MODE: "true"
+
+      - name: Nest suite demo under /suite/
+        run: |
+          mkdir -p apps/web/dist/suite
+          cp -R apps/suite/dist/. apps/web/dist/suite/
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

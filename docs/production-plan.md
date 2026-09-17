@@ -59,6 +59,39 @@ This is the sequence where the platform stops being two apps and becomes the
 network the landing page promises. Build it only after ≥3 pilots each side
 exist — before that, the bridge has no traffic.
 
+## Phase 4 — Betriebsamt (the tool family)
+
+`apps/suite` exists as a demo surface. Making the four tools real is a
+different spine than the CRUD apps — every tool is an *agent over a channel*
+(mail, load board, ELD, calendar) that produces drafts a human approves.
+Build order, each step shippable:
+
+1. **Shared account + entitlements** — one org, per-product `Plan` flags
+   (`EINKAUF`, `FRACHT`, `AMT_FRACHT`, `AMT_PRUEF`, `AMT_EINSATZ`, `AMT_POST`).
+   The product switcher in the suite shell reads flags; routes gate
+   server-side. No cross-product data migration — tools read the org's own
+   tables.
+2. **Connector framework** — one `Connector` table (type, credentials ref,
+   orgId, status) + per-type adapters, because every tool starts the same
+   way: mail ingest (IMAP/forward-to-`@in.betriebsamt` address), then
+   TIMOCOM/ELD/calendar/shipping adapters only when a pilot asks.
+3. **Agent runtime + approval queue** — extracted `Document` → `Proposal`
+   (draft action: counter-mail, job booking, order draft, audit pack) →
+   human `Approve/Reject` → `Action` executes + `AuditEvent` log. This is
+   the safety model from [suite-strategy.md](suite-strategy.md): supervised
+   by default is the product, not a setting.
+4. **Domain modules** — per-tool schemas sit beside, not inside, the
+   existing models: `AmtOffer`/`AmtCounter` (FrachtAmt, links to `Load` on
+   handoff), `DriverClock`/`ComplianceDoc` (PrüfAmt, reuses fleet
+   drivers/vehicles when the org has FRACHT), `ServiceRequest`/`ServiceJob`
+   (EinsatzAmt), `InboundMail`/`OrderDraft`/`StockItem` (PostAmt, emits
+   `Shipment` events Einkauf can consume).
+5. **Usage metering** — proposals executed per tool per month; pricing is
+   flat monthly with soft caps (see suite-strategy §3).
+
+Build the connector + approval spine once, then the tools in pilot order
+(PostAmt → PrüfAmt → FrachtAmt → EinsatzAmt — rationale in the strategy doc).
+
 ## Deliberately deferred
 
 - **Object storage** — `UPLOAD_DIR` on a volume is correct for one VPS; S3

@@ -10,7 +10,7 @@
     "dev:fleet": "concurrently \"pnpm --filter @lieferradar/api dev\" \"pnpm --filter @lieferradar/fleet dev\"",
     "dev:all": "concurrently \"pnpm --filter @lieferradar/api dev\" \"pnpm --filter @lieferradar/web dev\" \"pnpm --filter @lieferradar/fleet dev\"",
     "build": "pnpm --filter @lieferradar/shared build && pnpm --filter @lieferradar/api build && pnpm --filter @lieferradar/web build && pnpm --filter @lieferradar/fleet build && pnpm --filter @lieferradar/mcp build",
-    "test": "pnpm --filter @lieferradar/api test && pnpm --filter @lieferradar/web test && pnpm --filter @lieferradar/shared test",
+    "test": "pnpm --filter @lieferradar/api test && pnpm --filter @lieferradar/web test && pnpm --filter @lieferradar/shared test && pnpm --filter @lieferradar/suite test",
     "prisma": "prisma",
     "db:migrate": "prisma migrate dev",
     "db:migrate:deploy": "prisma migrate deploy",

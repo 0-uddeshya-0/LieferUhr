@@ -2,20 +2,25 @@
 
 ## Overview
 
-Lieferuhr is a pnpm monorepo with six packages:
+Lieferuhr is a pnpm monorepo with seven packages:
 
 | Package | Role | Stack |
 |---------|------|-------|
 | `@lieferradar/api` | REST API, cron jobs, email, webhooks | Fastify 4, Prisma, Nodemailer |
 | `@lieferradar/web` | Manager dashboard & supplier status UI | React 18, Vite, TanStack Query |
 | `@lieferradar/fleet` | FrachtRadar carrier PWA (dispatch, driver link, tracking) | React 18, Vite, TanStack Query, PWA |
+| `@lieferradar/suite` | Betriebsamt tool family (FrachtAmt, PrüfAmt, EinsatzAmt, PostAmt) — currently a demo surface with in-memory stores | React 18, Vite |
 | `@lieferradar/shared` | Validation schemas & labels | Zod, TypeScript |
 | `@lieferradar/mcp` | MCP server for AI agents | @modelcontextprotocol/sdk |
 | `@lieferradar/csv-watch` | Folder-watching ERP connector | Node 20, REST API client |
 
-Two products, one backend: `apps/web` serves purchasing organizations,
-`apps/fleet` serves carriers. Both authenticate against the same API and
-`Organization` model — one account can use both products.
+Two products + one tool family, one backend: `apps/web` serves purchasing
+organizations, `apps/fleet` serves carriers, `apps/suite` hosts the four
+standalone Betriebsamt tools (each an independent route group with its own
+accent and demo store). The flagship apps authenticate against the same API
+and `Organization` model; the suite's production spine (connectors, agent
+approval queue, entitlements) is sequenced in
+[production-plan.md](production-plan.md) phase 4.
 
 ## Request flow
 

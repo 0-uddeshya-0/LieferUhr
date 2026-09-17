@@ -4,14 +4,25 @@
 
 **Wissen, wann Ware ankommt.** — *Know when goods arrive.*
 
-Lieferuhr is the umbrella for two lean tools built around the delivery date, sharing one API, auth, and tenancy:
+Lieferuhr is the umbrella for lean tools built around the delivery date and the SMB back office — sharing one API, auth, and tenancy where it helps, independent where it doesn't:
+
+**Flagship products**
 
 - **Lieferuhr Einkauf** (`apps/web`) — supplier delay intelligence for purchasing teams in German manufacturing SMEs. Register open orders, send magic-link status pages to suppliers (no login), automate follow-up reminders, and monitor delay risk on a live dashboard with supplier reliability scorecards.
 - **FrachtRadar** (`apps/fleet`) — freight management for regional carriers too small for classic TMS vendors (3–30 trucks). Dispatch loads, connect drivers via magic-link PWA (no app install, no account), collect photo PODs, give shippers a live tracking link, and issue PDF invoices.
 
-See [docs/fleet-expansion.md](docs/fleet-expansion.md) and [docs/rollout-plan.md](docs/rollout-plan.md).
+**Betriebsamt — the tool family** (`apps/suite`)
 
-**Live demo (both products):** https://0-uddeshya-0.github.io/LieferUhr/ — the umbrella page links into each product's interactive demo; FrachtRadar ships nested under [`/LieferUhr/fleet/`](https://0-uddeshya-0.github.io/LieferUhr/fleet/).
+Four standalone AI tools for SMB back offices. Each works alone; integrations between them are optional:
+
+- **FrachtAmt** — dispatch assistant for small carriers: reads freight offers (TIMOCOM-style + inbox), drafts counter-offers, keeps order/POD paperwork per load, hands booked loads to FrachtRadar.
+- **PrüfAmt** — compliance layer: driving/rest-time clocks per driver, document deadlines (licence, HU, tacho, ADR, CPC), one-click audit pack. Aimed at the July-2026 EU tachograph extension to vans >2.5t.
+- **EinsatzAmt** — service dispatcher for trades companies: turns call notes and emails into job cards with technician and slot suggestions plus a customer confirmation draft.
+- **PostAmt** — order inbox for small wholesalers/warehouses: reads order emails into order drafts, decrements stock, produces pick lists and ship status — without an ERP.
+
+See [docs/suite-strategy.md](docs/suite-strategy.md) for market research, positioning, pricing and rollout, [docs/fleet-expansion.md](docs/fleet-expansion.md) and [docs/rollout-plan.md](docs/rollout-plan.md).
+
+**Live demo:** https://0-uddeshya-0.github.io/LieferUhr/ — the umbrella page links into each product's demo; FrachtRadar ships under [`/LieferUhr/fleet/`](https://0-uddeshya-0.github.io/LieferUhr/fleet/), the Betriebsamt tools under [`/LieferUhr/suite/`](https://0-uddeshya-0.github.io/LieferUhr/suite/).
 
 ## What works on GitHub Pages vs full deploy
 

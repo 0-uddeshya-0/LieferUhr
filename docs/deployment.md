@@ -11,8 +11,9 @@
 ## Production stack (Docker)
 
 One origin serves everything: Lieferuhr Einkauf at `/`, FrachtRadar at
-`/fleet/`, the API at `/api` (proxied to the `api` container). Same origin
-means no CORS surface and `SameSite=strict` cookies just work.
+`/fleet/`, the Betriebsamt tools at `/suite/`, the API at `/api` (proxied to
+the `api` container). Same origin means no CORS surface and
+`SameSite=strict` cookies just work.
 
 ```bash
 cp .env.prod.example .env.prod   # fill in secrets + your domain
@@ -23,7 +24,7 @@ docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
 |---|---|---|
 | `db` | postgres:16-alpine | persistent `pg_data` volume |
 | `api` | `apps/api/Dockerfile` | runs `prisma migrate deploy` on boot, then serves on :3001 |
-| `site` | `docker/site.Dockerfile` | nginx: web at `/`, fleet at `/fleet/`, `/api` → api:3001 |
+| `site` | `docker/site.Dockerfile` | nginx: web at `/`, fleet at `/fleet/`, suite at `/suite/`, `/api` → api:3001 |
 
 Ops endpoints (unauthenticated, for monitors):
 
@@ -66,8 +67,9 @@ pnpm build
 cd apps/api && node dist/server.js   # or pm2 start … --name lieferuhr-api
 ```
 
-Serve `apps/web/dist` and `apps/fleet/dist` via your web server; use
-`docker/nginx.conf` as the reference config (fleet nested at `/fleet/`).
+Serve `apps/web/dist`, `apps/fleet/dist` and `apps/suite/dist` via your web
+server; use `docker/nginx.conf` as the reference config (fleet nested at
+`/fleet/`, suite at `/suite/`).
 
 ## Cron jobs
 

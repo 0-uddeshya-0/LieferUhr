@@ -1,0 +1,288 @@
+export type Lang = 'de' | 'en';
+
+const de = {
+  // Suite shell
+  'suite.name': 'Betriebsamt',
+  'suite.back': 'Lieferuhr',
+  'suite.tagline': 'KI-Werkzeuge für den Mittelstand',
+  'demo.banner': 'Interaktive Demo mit Beispieldaten — keine echten Aufträge oder E-Mails.',
+
+  // Suite home
+  'home.hero.badge': 'Ein Produkt von Lieferuhr · DSGVO-konform · Hosting in Deutschland',
+  'home.hero.title1': 'Das Büro, das sich',
+  'home.hero.title2': 'selbst erledigt.',
+  'home.hero.sub':
+    'Vier Werkzeuge, die Posteingänge lesen, Fristen wachen und Schreibarbeit vorbereiten — für Betriebe, die zu klein für ERP-Projekte sind. Jedes einzeln nutzbar, zusammen stärker.',
+  'home.cta': 'Werkzeug öffnen',
+  'home.section': 'Vier Werkzeuge, ein Posteingang',
+  'home.sectionSub': 'Jedes Werkzeug läuft für sich — oder als Teil der Lieferuhr-Plattform.',
+  'home.flagship.title': 'Die Flaggschiffe',
+  'home.flagship.sub': 'Die beiden Vollprodukte der Plattform — für Einkauf und Fuhrpark.',
+  'home.flagship.einkauf.desc':
+    'Wissen, wann Ware ankommt: Liefertermine, Verzugsrisiko und Lieferanten-Kommunikation für Einkauf und Produktion.',
+  'home.flagship.fracht.desc':
+    'Dispo, Fahrer-App ohne Installation, Tracking-Links, POD und Rechnungen für kleine Fuhrunternehmen.',
+  'home.integration.title': 'Gebaut, um zusammenzuarbeiten',
+  'home.integration.desc':
+    'FrachtAmt übergibt gebuchte Ladungen an FrachtRadar. PrüfAmt wacht über die Fahrer, die FrachtRadar disponiert. Jedes Werkzeug funktioniert auch allein — Integration ist Option, nicht Pflicht.',
+
+  'product.dispatch.name': 'FrachtAmt',
+  'product.dispatch.for': 'Für Fuhrunternehmen mit 3–30 LKW',
+  'product.dispatch.desc':
+    'Liest Frachtangebote aus TIMOCOM und dem Posteingang, bereitet Gegenangebote vor und führt die Papiere — der Dispositionsassistent für kleine Fuhrunternehmen.',
+  'product.dispatch.f1': 'Angebote als Karten statt E-Mail-Chaos',
+  'product.dispatch.f2': 'Gegenangebot-Entwurf per Klick',
+  'product.dispatch.f3': 'Auftrags- & POD-Ablage pro Ladung',
+
+  'product.comply.name': 'PrüfAmt',
+  'product.comply.for': 'Für Fuhrunternehmen und Flottenleiter',
+  'product.comply.desc':
+    'Wacht über Lenk- und Ruhezeiten — auch für Transporter ab 2,5 t, für die ab Juli 2026 Tacho-Pflicht gilt — plus Schein-, HU- und Modul-Fristen. Das Kontroll-Paket gibt es per Klick.',
+  'product.comply.f1': 'Lenkzeit-Uhren je Fahrer und Woche',
+  'product.comply.f2': 'Dokumenten-Ampel: Schein, HU, Tacho, ADR',
+  'product.comply.f3': 'Kontroll-Paket per Klick exportierbar',
+
+  'product.hvac.name': 'EinsatzAmt',
+  'product.hvac.for': 'Für Handwerksbetriebe mit 2–15 Monteuren',
+  'product.hvac.desc':
+    'Liest eingehende Serviceanfragen aus Anrufnotizen und E-Mails, legt den Job an und schlägt Techniker und Termin vor — die Zentrale, die nie fehlt.',
+  'product.hvac.f1': 'Anfragen werden zu Jobkarten',
+  'product.hvac.f2': 'Techniker-Vorschlag nach Skill & Route',
+  'product.hvac.f3': 'Kunden-Terminbestätigung als Entwurf',
+
+  'product.depot.name': 'PostAmt',
+  'product.depot.for': 'Für kleine Großhändler und Lager (2–10 MA)',
+  'product.depot.desc':
+    'Liest Bestellungen, die per E-Mail reinkommen, zieht Positionen in einen Auftragsentwurf, bucht Bestand runter und bereitet Versand vor — GoBD-konform und E-Rechnung-ready, ohne ERP-Einführung.',
+  'product.depot.f1': 'Bestell-Mail → Auftragsentwurf',
+  'product.depot.f2': 'Bestand bucht automatisch runter',
+  'product.depot.f3': 'Pickliste & Versandstatus inklusive',
+
+  // Dispatch page
+  'dispatch.title': 'Angebote',
+  'dispatch.sub': 'Frachtangebote aus dem Posteingang — bewerten, kontern, buchen.',
+  'dispatch.col.new': 'Neu',
+  'dispatch.col.countered': 'Konter läuft',
+  'dispatch.col.won': 'Gebucht',
+  'dispatch.col.lost': 'Verloren',
+  'dispatch.counter': 'Gegenangebot',
+  'dispatch.counterDraft': 'Entwurf der Antwort an den Broker',
+  'dispatch.counterSend': 'Entwurf übernehmen & kontern',
+  'dispatch.accept': 'Annehmen',
+  'dispatch.decline': 'Ablehnen',
+  'dispatch.won': 'Gebucht ✓',
+  'dispatch.rate': 'Rate',
+  'dispatch.pickup': 'Abholung',
+  'dispatch.docs': 'Papiere',
+  'dispatch.doc.ratecon': 'Rate Confirmation',
+  'dispatch.doc.pod': 'Abliefernachweis',
+  'dispatch.doc.waiting': 'wartet auf Broker',
+  'dispatch.handoff': '→ an FrachtRadar übergeben',
+  'dispatch.handoffDone': 'Tour in FrachtRadar angelegt',
+  'dispatch.broker': 'Broker',
+
+  // Comply page
+  'comply.title': 'Fristen & Lenkzeiten',
+  'comply.sub': 'Wer fährt wie lange, was läuft ab — und was die Kontrolle sehen will.',
+  'comply.drivers': 'Fahrer-Uhren',
+  'comply.driveToday': 'Lenkzeit heute',
+  'comply.breakDue': 'Pause fällig',
+  'comply.weekUsed': 'Woche',
+  'comply.docs': 'Dokumenten-Ampel',
+  'comply.doc.license': 'Führerschein',
+  'comply.doc.hu': 'HU/TÜV',
+  'comply.doc.tacho': 'Tacho-Kalibrierung',
+  'comply.doc.adr': 'ADR-Schein',
+  'comply.doc.module': 'BKrFQG-Modul',
+  'comply.daysLeft': '{days} Tage',
+  'comply.overdue': 'überfällig',
+  'comply.audit': 'Kontroll-Paket',
+  'comply.auditSub': 'Alles bereit für die nächste BAG-Kontrolle.',
+  'comply.audit.item1': 'Fahrerpersonalnachweise (4 Wochen)',
+  'comply.audit.item2': 'Lenkzeit-Auswertung exportiert',
+  'comply.audit.item3': 'Dokumenten-Register aktuell',
+  'comply.audit.item4': 'Verstöße kommentiert & abgeheftet',
+  'comply.audit.export': 'Paket exportieren (PDF)',
+
+  // HVAC page
+  'hvac.title': 'Serviceanfragen',
+  'hvac.sub': 'Aus Anrufnotizen und E-Mails werden Jobs — mit Techniker- und Terminvorschlag.',
+  'hvac.inbox': 'Eingang',
+  'hvac.extracted': 'Erkannt aus der Anfrage',
+  'hvac.device': 'Gerät',
+  'hvac.urgency': 'Dringlichkeit',
+  'hvac.address': 'Adresse',
+  'hvac.suggest': 'Vorschlag',
+  'hvac.assign': 'Job anlegen & terminieren',
+  'hvac.assigned': 'Terminiert',
+  'hvac.confirmDraft': 'Terminbestätigung an den Kunden (Entwurf)',
+  'hvac.channel.call': 'Anruf',
+  'hvac.channel.mail': 'E-Mail',
+  'hvac.channel.form': 'Formular',
+  'hvac.urgency.low': 'Normal',
+  'hvac.urgency.high': 'Dringend',
+  'hvac.urgency.crit': 'Notfall',
+  'hvac.job': 'Job',
+
+  // Depot page
+  'depot.title': 'Bestell-Eingang',
+  'depot.sub': 'Bestell-E-Mails werden Aufträge — Bestand und Versand folgen automatisch.',
+  'depot.mails': 'Posteingang',
+  'depot.parsed': 'Erkannte Positionen',
+  'depot.createOrder': 'Auftrag anlegen',
+  'depot.created': 'Auftrag angelegt',
+  'depot.stock': 'Lagerbestand',
+  'depot.qty': 'Menge',
+  'depot.sku': 'Art.-Nr.',
+  'depot.item': 'Artikel',
+  'depot.low': 'niedrig',
+  'depot.status.draft': 'Entwurf',
+  'depot.status.picking': 'Kommissionierung',
+  'depot.status.shipped': 'Versendet',
+  'depot.order': 'Auftrag',
+};
+
+const en: typeof de = {
+  // Suite shell
+  'suite.name': 'Betriebsamt',
+  'suite.back': 'Lieferuhr',
+  'suite.tagline': 'AI tools for the Mittelstand',
+  'demo.banner': 'Interactive demo with sample data — no real orders or emails.',
+
+  // Suite home
+  'home.hero.badge': 'A Lieferuhr product · GDPR-compliant · Hosted in Germany',
+  'home.hero.title1': 'The office that does',
+  'home.hero.title2': 'its own paperwork.',
+  'home.hero.sub':
+    'Four tools that read inboxes, watch deadlines and prepare the paperwork — for businesses too small for ERP projects. Each works alone; together they compound.',
+  'home.cta': 'Open tool',
+  'home.section': 'Four tools, one inbox',
+  'home.sectionSub': 'Every tool runs on its own — or as part of the Lieferuhr platform.',
+  'home.flagship.title': 'The flagships',
+  'home.flagship.sub': 'The two full products of the platform — for purchasing and fleet.',
+  'home.flagship.einkauf.desc':
+    'Know when goods arrive: delivery dates, delay risk and supplier communication for purchasing and production.',
+  'home.flagship.fracht.desc':
+    'Dispatching, app-free driver links, tracking, POD and invoicing for small carriers.',
+  'home.integration.title': 'Built to work together',
+  'home.integration.desc':
+    'FrachtAmt hands booked loads to FrachtRadar. PrüfAmt watches the drivers FrachtRadar dispatches. Every tool also works alone — integration is an option, not a requirement.',
+
+  'product.dispatch.name': 'FrachtAmt',
+  'product.dispatch.for': 'For carriers with 3–30 trucks',
+  'product.dispatch.desc':
+    'Reads freight offers from TIMOCOM and the inbox, drafts counter-offers and keeps the paperwork — the dispatch assistant for small carriers.',
+  'product.dispatch.f1': 'Offers as cards, not email chaos',
+  'product.dispatch.f2': 'Counter-offer draft in one click',
+  'product.dispatch.f3': 'Order & POD filing per load',
+
+  'product.comply.name': 'PrüfAmt',
+  'product.comply.for': 'For carriers and fleet managers',
+  'product.comply.desc':
+    'Watches driving and rest times — including vans over 2.5t, which fall under EU tachograph rules from July 2026 — plus licence, inspection and CPC deadlines. The audit pack exports in one click.',
+  'product.comply.f1': 'Driving-time clocks per driver and week',
+  'product.comply.f2': 'Document traffic light: licence, inspection, tacho, ADR',
+  'product.comply.f3': 'Audit pack exportable in one click',
+
+  'product.hvac.name': 'EinsatzAmt',
+  'product.hvac.for': 'For trades companies with 2–15 technicians',
+  'product.hvac.desc':
+    'Reads incoming service requests from call notes and emails, files the job and suggests the right technician and slot — the dispatcher who is never absent.',
+  'product.hvac.f1': 'Requests become job cards',
+  'product.hvac.f2': 'Technician suggestion by skill & route',
+  'product.hvac.f3': 'Customer confirmation as a draft',
+
+  'product.depot.name': 'PostAmt',
+  'product.depot.for': 'For small wholesalers & warehouses (2–10 staff)',
+  'product.depot.desc':
+    'Reads orders that arrive by email, pulls line items into an order draft, decrements stock and prepares shipping — audit-compliant and e-invoice-ready, without an ERP project.',
+  'product.depot.f1': 'Order email → order draft',
+  'product.depot.f2': 'Stock decrements automatically',
+  'product.depot.f3': 'Pick list & ship status included',
+
+  // Dispatch page
+  'dispatch.title': 'Offers',
+  'dispatch.sub': 'Freight offers from the inbox — review, counter, book.',
+  'dispatch.col.new': 'New',
+  'dispatch.col.countered': 'Countering',
+  'dispatch.col.won': 'Booked',
+  'dispatch.col.lost': 'Lost',
+  'dispatch.counter': 'Counter-offer',
+  'dispatch.counterDraft': 'Draft reply to the broker',
+  'dispatch.counterSend': 'Use draft & counter',
+  'dispatch.accept': 'Accept',
+  'dispatch.decline': 'Decline',
+  'dispatch.won': 'Booked ✓',
+  'dispatch.rate': 'Rate',
+  'dispatch.pickup': 'Pickup',
+  'dispatch.docs': 'Paperwork',
+  'dispatch.doc.ratecon': 'Rate confirmation',
+  'dispatch.doc.pod': 'Proof of delivery',
+  'dispatch.doc.waiting': 'waiting for broker',
+  'dispatch.handoff': '→ hand off to FrachtRadar',
+  'dispatch.handoffDone': 'Tour created in FrachtRadar',
+  'dispatch.broker': 'Broker',
+
+  // Comply page
+  'comply.title': 'Deadlines & driving time',
+  'comply.sub': 'Who drives how long, what expires — and what the audit wants to see.',
+  'comply.drivers': 'Driver clocks',
+  'comply.driveToday': 'Driving today',
+  'comply.breakDue': 'Break due',
+  'comply.weekUsed': 'Week',
+  'comply.docs': 'Document traffic light',
+  'comply.doc.license': 'Driving licence',
+  'comply.doc.hu': 'Road inspection',
+  'comply.doc.tacho': 'Tacho calibration',
+  'comply.doc.adr': 'ADR certificate',
+  'comply.doc.module': 'CPC module',
+  'comply.daysLeft': '{days} days',
+  'comply.overdue': 'overdue',
+  'comply.audit': 'Audit pack',
+  'comply.auditSub': 'Everything ready for the next roadside or office check.',
+  'comply.audit.item1': 'Driver personnel records (4 weeks)',
+  'comply.audit.item2': 'Driving-time report exported',
+  'comply.audit.item3': 'Document register up to date',
+  'comply.audit.item4': 'Violations annotated & filed',
+  'comply.audit.export': 'Export pack (PDF)',
+
+  // HVAC page
+  'hvac.title': 'Service requests',
+  'hvac.sub': 'Call notes and emails become jobs — with technician and slot suggestions.',
+  'hvac.inbox': 'Inbox',
+  'hvac.extracted': 'Detected in the request',
+  'hvac.device': 'Device',
+  'hvac.urgency': 'Urgency',
+  'hvac.address': 'Address',
+  'hvac.suggest': 'Suggestion',
+  'hvac.assign': 'Create job & schedule',
+  'hvac.assigned': 'Scheduled',
+  'hvac.confirmDraft': 'Appointment confirmation to the customer (draft)',
+  'hvac.channel.call': 'Call',
+  'hvac.channel.mail': 'Email',
+  'hvac.channel.form': 'Form',
+  'hvac.urgency.low': 'Normal',
+  'hvac.urgency.high': 'Urgent',
+  'hvac.urgency.crit': 'Emergency',
+  'hvac.job': 'Job',
+
+  // Depot page
+  'depot.title': 'Order inbox',
+  'depot.sub': 'Order emails become orders — stock and shipping follow automatically.',
+  'depot.mails': 'Inbox',
+  'depot.parsed': 'Detected line items',
+  'depot.createOrder': 'Create order',
+  'depot.created': 'Order created',
+  'depot.stock': 'Stock',
+  'depot.qty': 'Qty',
+  'depot.sku': 'SKU',
+  'depot.item': 'Item',
+  'depot.low': 'low',
+  'depot.status.draft': 'Draft',
+  'depot.status.picking': 'Picking',
+  'depot.status.shipped': 'Shipped',
+  'depot.order': 'Order',
+};
+
+export const translations: Record<Lang, Record<TranslationKey, string>> = { de, en };
+export type TranslationKey = keyof typeof de;

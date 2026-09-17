@@ -3,12 +3,16 @@ import { MotionConfig } from 'framer-motion';
 import type { ReactNode } from 'react';
 import {
   ArrowRight,
+  Boxes,
+  CalendarClock,
   Camera,
   FileText,
   MapPin,
+  Navigation,
   PackageCheck,
   Route,
   Truck,
+  Wrench,
 } from 'lucide-react';
 import { BrandMark } from '../components/BrandMark';
 import { useI18n } from '../i18n';
@@ -20,6 +24,8 @@ const PILOT_CONTACT = 'amisha223singh@gmail.com';
 
 // The fleet app deploys beside this one on the same Pages site.
 const FLEET_BASE = `${import.meta.env.BASE_URL}fleet/`;
+// The suite app — four standalone AI tools — lives one folder deeper.
+const SUITE_BASE = `${import.meta.env.BASE_URL}suite/`;
 
 type Stage = {
   no: string;
@@ -27,6 +33,14 @@ type Stage = {
   desc: TranslationKey;
   artifact: 'order' | 'confirm' | 'risk' | 'tour' | 'pod' | 'invoice';
 };
+
+// The four standalone suite tools — each opens its own demo inside apps/suite.
+const TOOLS = [
+  { id: 'dispatch', icon: Navigation, name: 'landing.tool.dispatch.name', audience: 'landing.tool.dispatch.for', desc: 'landing.tool.dispatch.desc', tone: 'bg-tool-dispatch text-white', toneText: 'text-tool-dispatch' },
+  { id: 'comply', icon: CalendarClock, name: 'landing.tool.comply.name', audience: 'landing.tool.comply.for', desc: 'landing.tool.comply.desc', tone: 'bg-tool-comply text-white', toneText: 'text-tool-comply' },
+  { id: 'hvac', icon: Wrench, name: 'landing.tool.hvac.name', audience: 'landing.tool.hvac.for', desc: 'landing.tool.hvac.desc', tone: 'bg-tool-hvac text-white', toneText: 'text-tool-hvac' },
+  { id: 'depot', icon: Boxes, name: 'landing.tool.depot.name', audience: 'landing.tool.depot.for', desc: 'landing.tool.depot.desc', tone: 'bg-tool-depot text-white', toneText: 'text-tool-depot' },
+] as const;
 
 const STAGES_EINKAUF: Stage[] = [
   { no: '1.0', title: 'landing.stage1.title', desc: 'landing.stage1.desc', artifact: 'order' },
@@ -318,6 +332,12 @@ export function LandingPage() {
             >
               {t('landing.nav.journey')}
             </a>
+            <a
+              href={SUITE_BASE}
+              className="hidden rounded-full px-2.5 py-1.5 text-sm font-medium text-ink-soft transition-colors hover:text-ink md:inline"
+            >
+              Betriebsamt
+            </a>
             <Link
               to="/dashboard"
               className="flex items-center gap-1.5 whitespace-nowrap rounded-full bg-accent px-3 py-1.5 text-sm font-medium text-accent-ink transition-transform duration-150 hover:-translate-y-px"
@@ -503,6 +523,36 @@ export function LandingPage() {
             </div>
           </section>
 
+          {/* The suite — four standalone tools under the same roof */}
+          <section className="mx-auto max-w-6xl px-5 pb-16">
+            <div className="mb-10 max-w-2xl">
+              <h2 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+                {t('landing.suite.title')}
+              </h2>
+              <p className="mt-3 text-ink-soft">{t('landing.suite.sub')}</p>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {TOOLS.map((tool) => (
+                <a
+                  key={tool.id}
+                  href={`${SUITE_BASE}#/${tool.id}`}
+                  aria-label={`${t(tool.name)} — ${t('landing.tool.demo')}`}
+                  className="clay-card group flex flex-col p-6 transition-transform duration-200 hover:-translate-y-1"
+                >
+                  <span className={`clay-pill flex h-10 w-10 items-center justify-center ${tool.tone}`}>
+                    <tool.icon className="h-5 w-5" strokeWidth={2.2} aria-hidden />
+                  </span>
+                  <h3 className="mt-4 font-display text-lg font-semibold tracking-tight text-ink">{t(tool.name)}</h3>
+                  <p className={`mt-0.5 text-[11px] font-semibold uppercase tracking-wide ${tool.toneText}`}>{t(tool.audience)}</p>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-soft">{t(tool.desc)}</p>
+                  <span className="mt-5 flex items-center gap-1.5 text-sm font-semibold text-ink">
+                    {t('landing.tool.demo')}
+                    <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
+                  </span>
+                </a>
+              ))}
+            </div>
+          </section>
           {/* Why + integrations — quiet two-column text, no card-in-card */}
           <section className="mx-auto grid max-w-6xl gap-10 px-5 pb-20 md:grid-cols-2">
             <div>

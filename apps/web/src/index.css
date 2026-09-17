@@ -24,6 +24,11 @@
     --color-fork:        oklch(58%  0.175 55);
     --color-fork-soft:   oklch(94%  0.032 75);
     --color-fork-ink:    oklch(99%  0.003 80);
+    /* Suite tool accents — mirrored in apps/suite */
+    --color-tool-dispatch: oklch(50%  0.13  180);
+    --color-tool-comply:   oklch(47%  0.15  295);
+    --color-tool-hvac:     oklch(55%  0.19   30);
+    --color-tool-depot:    oklch(50%  0.13  145);
     --color-focus:       oklch(52%  0.21  262);
     /* Dimensional shadows — the clay surface reads lit from upper-left */
     --shadow-dark:       oklch(78%  0.014 255);

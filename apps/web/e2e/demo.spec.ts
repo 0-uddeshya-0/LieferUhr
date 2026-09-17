@@ -26,6 +26,19 @@ test('nav demo goes to Einkauf; FrachtRadar card is its demo door', async ({ pag
   await expect(frachtCard).toHaveAttribute('href', /fleet\/$/);
 });
 
+test('Betriebsamt tiles link to each tool demo', async ({ page }) => {
+  await expect(page.getByRole('heading', { name: /Betriebsamt/ })).toBeVisible();
+  for (const [name, route] of [
+    ['FrachtAmt', 'dispatch'],
+    ['PrüfAmt', 'comply'],
+    ['EinsatzAmt', 'hvac'],
+    ['PostAmt', 'depot'],
+  ] as const) {
+    const tile = page.getByRole('link', { name: new RegExp(`^${name}`) });
+    await expect(tile).toHaveAttribute('href', new RegExp(`suite/#/${route}$`));
+  }
+});
+
 test('dashboard shows live demo data with risk indicators', async ({ page }) => {
   await page.getByRole('link', { name: 'Dashboard-Demo öffnen' }).first().click();
 

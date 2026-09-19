@@ -12,21 +12,30 @@ import * as supplierService from '../services/supplierService';
 import { sendManualReminder } from '../services/reminderService';
 
 const MAX_CSV_SIZE = 5 * 1024 * 1024;
+const MAX_CSV_ROWS = 500;
+const SORT_FIELDS = ['dueDate', 'updatedAt', 'createdAt'] as const;
+const ORDER_STATUSES = ['PENDING', 'RECEIVED', 'IN_PROGRESS', 'SHIPPED', 'DELAYED', 'DELIVERED', 'CANCELLED'] as const;
 
 export async function orderRoutes(app: FastifyInstance) {
   app.addHook('preHandler', requireAuth);
 
   app.get('/orders', async (request) => {
     const query = request.query as Record<string, string | undefined>;
+    const status = (ORDER_STATUSES as readonly string[]).includes(query.status ?? '')
+      ? (query.status as OrderStatus)
+      : undefined;
+    const sortBy = (SORT_FIELDS as readonly string[]).includes(query.sortBy ?? '')
+      ? (query.sortBy as (typeof SORT_FIELDS)[number])
+      : undefined;
     return orderService.getOrders(request.user.orgId, {
-      status: query.status as OrderStatus | undefined,
+      status,
       supplierId: query.supplierId,
       overdueOnly: query.overdueOnly === 'true',
       search: query.search,
       page: query.page ? parseInt(query.page, 10) : undefined,
       pageSize: query.pageSize ? parseInt(query.pageSize, 10) : undefined,
-      sortBy: query.sortBy as 'dueDate' | 'updatedAt' | 'createdAt' | undefined,
-      sortDir: query.sortDir as 'asc' | 'desc' | undefined,
+      sortBy,
+      sortDir: query.sortDir === 'asc' ? 'asc' : query.sortDir === 'desc' ? 'desc' : undefined,
     });
   });
 
@@ -104,6 +113,10 @@ export async function orderRoutes(app: FastifyInstance) {
       rows = parse(content, { columns: true, skip_empty_lines: true, trim: true });
     } catch {
       return reply.status(400).send({ error: 'CSV konnte nicht gelesen werden' });
+    }
+
+    if (rows.length > MAX_CSV_ROWS) {
+      return reply.status(400).send({ error: `Maximal ${MAX_CSV_ROWS} Zeilen pro Import` });
     }
 
     const errors: Array<{ row: number; message: string }> = [];

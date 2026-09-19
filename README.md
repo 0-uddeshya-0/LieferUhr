@@ -13,12 +13,20 @@ Lieferuhr is the umbrella for lean tools built around the delivery date and the 
 
 **Betriebsamt — the tool family** (`apps/suite`)
 
-Four standalone AI tools for SMB back offices. Each works alone; integrations between them are optional:
+Standalone tools for SMB back offices, grouped into two clusters — each works alone; integrations between them are optional:
 
-- **FrachtAmt** — dispatch assistant for small carriers: reads freight offers (TIMOCOM-style + inbox), drafts counter-offers, keeps order/POD paperwork per load, hands booked loads to FrachtRadar.
-- **PrüfAmt** — compliance layer: driving/rest-time clocks per driver, document deadlines (licence, HU, tacho, ADR, CPC), one-click audit pack. Aimed at the July-2026 EU tachograph extension to vans >2.5t.
-- **EinsatzAmt** — service dispatcher for trades companies: turns call notes and emails into job cards with technician and slot suggestions plus a customer confirmation draft.
+*Carrier cluster (with FrachtRadar):*
+
+- **FrachtAmt** — dispatch assistant for small carriers: reads freight offers from the inbox, drafts counter-offers, keeps order/POD paperwork per load, hands booked loads to FrachtRadar.
+- **PrüfAmt** — compliance layer: document deadlines (licence, HU, tacho, ADR, CPC), driving-time overview, one-click inspection pack. Aimed at the July-2026 EU tachograph extension to vans >2.5t.
+
+*Goods cluster (with Lieferuhr Einkauf):*
+
 - **PostAmt** — order inbox for small wholesalers/warehouses: reads order emails into order drafts, decrements stock, produces pick lists and ship status — without an ERP.
+
+*Experiment:*
+
+- **EinsatzAmt** — service dispatcher for trades companies: turns call notes and emails into job cards with technician and slot suggestions. Kept reachable in the suite but outside the two core clusters — different buyer, different market (see `docs/suite-strategy.md` §8).
 
 See [docs/suite-strategy.md](docs/suite-strategy.md) for market research, positioning, pricing and rollout, [docs/fleet-expansion.md](docs/fleet-expansion.md) and [docs/rollout-plan.md](docs/rollout-plan.md).
 

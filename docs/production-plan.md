@@ -90,7 +90,32 @@ Build order, each step shippable:
    flat monthly with soft caps (see suite-strategy §3).
 
 Build the connector + approval spine once, then the tools in pilot order
-(PostAmt → PrüfAmt → FrachtAmt → EinsatzAmt — rationale in the strategy doc).
+(PostAmt → PrüfAmt → FrachtAmt; EinsatzAmt is demoted — see
+[suite-strategy.md](suite-strategy.md) §8 — so it only builds on inbound
+pull).
+
+**Minimal schema sketch** (validated against the September-2026 integration
+audit — everything below is additive; nothing in the current schema blocks
+it):
+
+- `Connector` (orgId, type `FORWARD_ADDRESS|IMAP|TIMOCOM_FORWARD`,
+  credentialsRef, status) + `InboundDocument` (orgId, connectorId,
+  rawPayload, receivedAt). Public ingest `POST /inbound/:token` reuses the
+  existing capability-token pattern.
+- `Proposal` (orgId, tool, kind `order_draft|counter_offer|job_booking|
+  audit_pack`, payload, extraction/confidence, status `DRAFT|APPROVED|
+  REJECTED`, decidedBy/At) + `AuditEvent` — the approval backend; approving
+  writes the domain entity and an `OrderEvent`/`LoadEvent` with
+  `source:'agent'` (the `source` string already exists, no migration).
+- PostAmt: `StockItem` + `StockMovement`; an approved `order_draft` maps to
+  `fleetService.createLoad` for the shipment leg — PostAmt→carrier reuses
+  the entire dispatch/POD/invoice chain untouched.
+- FrachtAmt: `AmtOffer`/`AmtCounter`; `won` + approve → `createLoad` — the
+  `/t/` driver link, `/l/` tracking link and `load.*` webhooks come free.
+- Link fields per Phase 3: `Load.orderId` (intra-org write-back: delivered
+  → linked order event → `order.status_changed` webhook) and
+  `Order.carrierOrgId` (cross-org handoff → load lands as draft on the
+  carrier's board).
 
 ## Deliberately deferred
 

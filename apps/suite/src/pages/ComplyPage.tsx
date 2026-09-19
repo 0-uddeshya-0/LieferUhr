@@ -21,6 +21,39 @@ export default function ComplyPage() {
   const { t } = useI18n();
   const { drivers, complyDocs } = useSuite();
 
+  // The demo export produces a real file from the data on screen — the
+  // production version packages the same registers as PDF.
+  const exportPack = () => {
+    const lines = [
+      'KONTROLL-PAKET — Betriebsamt PrüfAmt (Demo-Daten)',
+      `Stand: ${new Date().toLocaleString('de-DE')}`,
+      '',
+      'FAHRER-UHREN',
+      ...drivers.map(
+        (d) =>
+          `- ${d.name}: heute ${Math.floor(d.driveTodayMin / 60)}h ${String(d.driveTodayMin % 60).padStart(2, '0')}m / 9h · Woche ${Math.round(d.weekMin / 60)}h / 56h · Pause fällig in ${d.breakDueMin}m`,
+      ),
+      '',
+      'DOKUMENTEN-REGISTER',
+      ...complyDocs
+        .slice()
+        .sort((a, b) => a.daysLeft - b.daysLeft)
+        .map(
+          (d) =>
+            `- ${t(`comply.doc.${d.kind}` as TranslationKey)} (${d.holder}): ${d.daysLeft < 0 ? 'überfällig' : `${d.daysLeft} Tage`}`,
+        ),
+      '',
+      'CHECKLISTE',
+      ...([1, 2, 3, 4] as const).map((n) => `[x] ${t(`comply.audit.item${n}` as TranslationKey)}`),
+    ];
+    const url = URL.createObjectURL(new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'kontroll-paket.txt';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <>
       <main className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
@@ -105,6 +138,7 @@ export default function ComplyPage() {
               </ul>
               <button
                 type="button"
+                onClick={exportPack}
                 className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-comply px-4 py-2.5 text-sm font-semibold text-comply-ink shadow-neu-sm transition-all hover:brightness-105 focus:outline-none focus:ring-2 focus:ring-comply"
               >
                 <Download className="h-4 w-4" />

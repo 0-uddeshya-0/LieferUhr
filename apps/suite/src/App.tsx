@@ -17,10 +17,15 @@ export default function App() {
           <TopBar />
           <Routes>
             <Route path="/" element={<SuiteHome />} />
-            <Route path="/dispatch" element={<DispatchPage />} />
-            <Route path="/comply" element={<ComplyPage />} />
-            <Route path="/hvac" element={<HvacPage />} />
-            <Route path="/depot" element={<DepotPage />} />
+            <Route path="/frachtamt" element={<DispatchPage />} />
+            <Route path="/pruefamt" element={<ComplyPage />} />
+            <Route path="/postamt" element={<DepotPage />} />
+            <Route path="/einsatzamt" element={<HvacPage />} />
+            {/* Legacy slugs from the first suite build */}
+            <Route path="/dispatch" element={<Navigate to="/frachtamt" replace />} />
+            <Route path="/comply" element={<Navigate to="/pruefamt" replace />} />
+            <Route path="/depot" element={<Navigate to="/postamt" replace />} />
+            <Route path="/hvac" element={<Navigate to="/einsatzamt" replace />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>

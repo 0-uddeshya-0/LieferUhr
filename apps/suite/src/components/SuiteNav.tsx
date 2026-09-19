@@ -2,7 +2,7 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 import { ArrowLeft, Clock, Home, Truck } from 'lucide-react';
 import { useI18n } from '../i18n';
 import { isDemoMode } from '../demo/config';
-import { ProductMark, PRODUCT_IDS, type ProductId } from './ProductMark';
+import { ProductMark, PRODUCT_IDS, EXPERIMENT_IDS, type ProductId } from './ProductMark';
 import { LanguageToggle } from '../i18n/LanguageToggle';
 import { cn } from '../lib/cn';
 import type { TranslationKey } from '../i18n/translations';
@@ -12,7 +12,7 @@ const UMBRELLA = `${import.meta.env.BASE_URL}../`;
 export function useCurrentProduct(): ProductId | undefined {
   const { pathname } = useLocation();
   const seg = pathname.replace(/^\//, '');
-  return PRODUCT_IDS.find((id) => id === seg);
+  return [...PRODUCT_IDS, ...EXPERIMENT_IDS].find((id) => id === seg);
 }
 
 export function SideNav() {
@@ -58,6 +58,27 @@ export function SideNav() {
           <span className="hidden sm:inline">{t(`product.${id}.name` as TranslationKey)}</span>
         </NavLink>
       ))}
+
+      <div className="mt-6 border-t border-rule pt-3">
+        <p className="mb-1 hidden px-3 text-[10px] font-semibold uppercase tracking-wide text-subtle sm:block">
+          {t('home.experiment.title')}
+        </p>
+        {EXPERIMENT_IDS.map((id) => (
+          <NavLink
+            key={id}
+            to={`/${id}`}
+            className={({ isActive }) =>
+              cn(
+                'flex items-center justify-center gap-3 rounded-xl px-2 py-2 text-sm font-medium transition-colors sm:justify-start sm:px-3',
+                isActive ? 'bg-uhr-soft text-uhr' : 'text-subtle hover:text-ink'
+              )
+            }
+          >
+            <ProductMark product={id} className="h-6 w-6 shrink-0 opacity-80" />
+            <span className="hidden sm:inline">{t(`product.${id}.name` as TranslationKey)}</span>
+          </NavLink>
+        ))}
+      </div>
 
       <div className="mt-6 border-t border-rule pt-3">
         <p className="mb-1 hidden px-3 text-[10px] font-semibold uppercase tracking-wide text-subtle sm:block">

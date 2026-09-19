@@ -17,8 +17,8 @@ function CounterBox({ offer, onDone }: { offer: Offer; onDone: () => void }) {
   const [rate, setRate] = useState(Math.round(suggested / 100));
   const draft =
     lang === 'de'
-      ? `Sehr geehrte Damen und Herren,\n\nwir können die Ladung ${offer.from} → ${offer.to} übernehmen, allerdings zu ${eur(rate * 100, lang)} statt ${eur(offer.rateCents, lang)}. Abholung ${offer.pickup} ist bestätigt.\n\nMit freundlichen Grüßen\nSpedition Keller`
-      : `Hello,\n\nwe can take the load ${offer.from} → ${offer.to}, but at ${eur(rate * 100, lang)} instead of ${eur(offer.rateCents, lang)}. Pickup ${offer.pickup} is confirmed.\n\nBest regards\nSpedition Keller`;
+      ? `Sehr geehrte Damen und Herren,\n\nwir können die Ladung ${offer.from} → ${offer.to} übernehmen, allerdings zu ${eur(rate * 100, lang)} statt ${eur(offer.rateCents, lang)}. Abholung ${offer.pickup} ist bestätigt.\n\nMit freundlichen Grüßen\nSpedition Berger GmbH`
+      : `Hello,\n\nwe can take the load ${offer.from} → ${offer.to}, but at ${eur(rate * 100, lang)} instead of ${eur(offer.rateCents, lang)}. Pickup ${offer.pickup} is confirmed.\n\nBest regards\nSpedition Berger GmbH`;
   return (
     <div className="mt-4 rounded-xl bg-neu-inset p-4 shadow-neu-in">
       <div className="mb-2 flex items-center justify-between">

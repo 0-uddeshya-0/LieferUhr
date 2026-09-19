@@ -17,12 +17,14 @@ COPY packages/shared packages/shared
 COPY apps/web apps/web
 COPY apps/fleet apps/fleet
 COPY apps/suite apps/suite
-# Production build: same-origin API at /api (nginx proxies to the api service), no demo mode.
+# Production build: same-origin API at /api (nginx proxies to the api service).
+# The suite has no backend yet — it always serves demo data, so it builds in
+# demo mode to keep the sample-data ribbon visible in production too.
 ENV VITE_API_URL=/api
 RUN pnpm --filter @lieferradar/shared build \
   && pnpm --filter @lieferradar/web build \
   && pnpm --filter @lieferradar/fleet build \
-  && pnpm --filter @lieferradar/suite build
+  && VITE_DEMO_MODE=true pnpm --filter @lieferradar/suite build
 
 FROM nginx:1.27-alpine AS runner
 COPY docker/nginx.conf /etc/nginx/conf.d/default.conf

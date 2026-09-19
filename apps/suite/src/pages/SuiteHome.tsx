@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { useI18n } from '../i18n';
-import { ProductMark, PRODUCT_IDS, type ProductId } from '../components/ProductMark';
+import { ProductMark, PRODUCT_IDS, EXPERIMENT_IDS, type ProductId } from '../components/ProductMark';
 import type { TranslationKey } from '../i18n/translations';
 
 const TONE_TEXT: Record<ProductId, string> = {
   suite: 'text-uhr',
-  dispatch: 'text-dispatch',
-  comply: 'text-comply',
-  hvac: 'text-hvac',
-  depot: 'text-depot',
+  frachtamt: 'text-dispatch',
+  pruefamt: 'text-comply',
+  einsatzamt: 'text-hvac',
+  postamt: 'text-depot',
 };
 
 export default function SuiteHome() {
@@ -98,6 +98,37 @@ export default function SuiteHome() {
               </Link>
             );
           })}
+        </div>
+      </div>
+
+      <div className="mt-16">
+        <h2 className="text-center font-display text-lg font-bold tracking-tight text-subtle">
+          {t('home.experiment.title')}
+        </h2>
+        <p className="mt-1.5 text-center text-xs text-subtle">{t('home.experiment.sub')}</p>
+        <div className="mx-auto mt-5 max-w-md">
+          {EXPERIMENT_IDS.map((id) => (
+            <Link
+              key={id}
+              to={`/${id}`}
+              aria-label={`${t(`product.${id}.name` as TranslationKey)} — ${t('home.cta')}`}
+              className="group flex items-center gap-4 rounded-2xl bg-neu-raised p-4 shadow-neu-sm transition-all hover:shadow-neu focus:outline-none focus:ring-2 focus:ring-uhr"
+            >
+              <ProductMark product={id} className="h-9 w-9 opacity-80" />
+              <span className="min-w-0 flex-1">
+                <span className="flex items-center gap-2 font-display text-base font-semibold text-ink">
+                  {t(`product.${id}.name` as TranslationKey)}
+                  <span className="rounded-full bg-neu-inset px-2 py-0.5 font-sans text-[10px] font-semibold uppercase tracking-wide text-subtle shadow-neu-in">
+                    {t('home.experiment.badge')}
+                  </span>
+                </span>
+                <span className="mt-0.5 block truncate text-xs text-ink-soft">
+                  {t(`product.${id}.for` as TranslationKey)}
+                </span>
+              </span>
+              <ArrowRight className="h-4 w-4 shrink-0 text-subtle transition-transform group-hover:translate-x-0.5" />
+            </Link>
+          ))}
         </div>
       </div>
 

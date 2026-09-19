@@ -72,9 +72,14 @@ not "replaces a fee nobody pays."
 - **DACH:** tacho/violation tooling is bundled into telematics subscriptions
   (VDO Fleet/TIS-Web, Webfleet, RIO, FleetBoard) — no standalone wedge for
   existing HGV fleets. **But:** from **July 2026**, EU tachograph rules extend
-  to light commercial vehicles **>2.5t** in cross-border transport — a newly
-  regulated, unserved SMB segment (craftsmen, delivery fleets) with zero
-  compliance tooling. That is the wedge.
+  to light commercial vehicles **>2.5t** in cross-border transport.
+  **Correction (Sept 2026 review):** the earlier "unserved craftsmen" claim is
+  wrong on both counts — Werkverkehr and craftsmen exemptions (Art. 3 VO
+  561/2006) exclude most trades, and tooling is already cheap (Tachomotive
+  €2–4/driver/mo with violation analysis, DAKO €9.75, VDO €6/veh/mo). The
+  defensible slot is narrower: **cross-border commercial van freight**
+  (licence-obligated since May 2022, tacho-obligated from July 2026) plus the
+  document-deadline + audit-pack layer incumbents don't bundle.
 
 **Verdict: moderate both markets — in DACH, aim at the 2026 LCV expansion, not
 at fleets that already run VDO/Webfleet.**
@@ -134,10 +139,12 @@ the same buyer. Our six products span three buyer types — so:
 - **À-la-carte per-product pricing on a shared account/data spine.** Each
   product must stand alone and sell alone.
 - **Cluster bundles on renewal:**
-  - *Carrier cluster:* FrachtRadar + FrachtAmt + PrüfAmt → per-truck bundle
-    (~€25–50/truck/mo target — undercuts TMS+ELD+compliance-service stacked).
+  - *Carrier cluster:* FrachtRadar + FrachtAmt + PrüfAmt → per-truck bundle.
+    **Correction:** €25–50/truck does not survive arithmetic — a DIY stack
+    (DispoHub Pro €149 + Tachomotive €3×20 ≈ €10.45/truck) is cheaper. Target
+    ~€10–15/truck or carry clear extra value (E-Rechnung, DATEV, filing).
   - *Goods-SMB cluster:* Lieferuhr Einkauf + PostAmt → flat €149–299/mo.
-  - *Trades:* EinsatzAmt standalone, per-shop pricing.
+  - *Trades:* EinsatzAmt — **dropped from the suite** (see §8 decisions).
 - **Data synergy is the real moat, not seat synergy:** PostAmt shipment events
   feed Einkauf's supplier-status picture; FrachtAmt bookings become
   FrachtRadar loads; PrüfAmt covers FrachtRadar drivers. Sell outcomes per
@@ -205,3 +212,36 @@ per-product entitlements → connector framework (mail ingest, TIMOCOM, ELD,
 shipping) → agent runtime with approval queue + audit log → usage metering →
 cluster bundles. None of the agent behaviors execute unsupervised actions in
 the first production version.
+
+---
+
+## 8. Lineup decision — September 2026 review
+
+Four independent reviews (market validation, UX/content audit, exec
+CEO/CMO/CFO/COO review, system/integration audit) converged on the same call.
+
+**The suite is two clusters, five tools — EinsatzAmt is demoted.**
+
+- **Carrier cluster:** FrachtAmt → FrachtRadar → PrüfAmt (offer → tour →
+  compliance), buyer: owner-managed Fuhrunternehmer 3–30 LKW.
+- **Goods cluster:** Lieferuhr Einkauf + PostAmt (order intake → secured
+  date), buyer: Einkauf / Großhandel / Lager.
+- **EinsatzAmt:** different buyer (trades), most crowded market (plancraft
+  ships KI-Empfang free, HERO ships a KI-Telefonassistent, ToolTime), zero
+  shared data spine with the other five, and its differentiator (write-back
+  into plancraft/HERO disposition) is an unproven hypothesis. It stays
+  deployed and reachable in the suite under an explicit "Experiment" label —
+  zero founder hours, revisit only on inbound pull.
+
+**GTM lead:** FrachtRadar — the only production-grade product (API + DB +
+tests), a mechanically verifiable wedge (link-only driver flow; every
+competitor requires an app install), proven segment pricing (DispoHub
+€49–299, IMPARGO €34.90–179.90 + free tier). PostAmt is the fast-follow
+suite tool, **gated on a validation pilot**: run `extractOrderLines` against
+10 real order mails each from 2–3 wholesalers before building the backend.
+
+**Copy rules adopted:** lead with "Entwürfe statt Abtippen — nichts geht
+raus ohne Ihr OK" instead of "KI" (extraction is deterministic rules +
+lexicons today, and supervised-by-default is the trust story); drop TIMOCOM,
+GoBD and "Tour angelegt" claims until built; BALM not BAG; no "CSV export"
+claim (doesn't exist); pricing on paper only when pilots ask.

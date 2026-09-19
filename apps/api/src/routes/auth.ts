@@ -173,14 +173,25 @@ export async function authRoutes(app: FastifyInstance) {
     return { success: true };
   });
 
-  app.get('/auth/me', { preHandler: requireAuth }, async (request) => {
+  app.get('/auth/me', { preHandler: requireAuth }, async (request, reply) => {
+    // API-key principals have no user record — return the org context only.
+    if (request.user.userId.startsWith('apikey:')) {
+      const organization = await prisma.organization.findUnique({
+        where: { id: request.user.orgId },
+      });
+      if (!organization) {
+        return reply.status(404).send({ error: 'Organisation nicht gefunden' });
+      }
+      return { user: null, organization: { id: organization.id, name: organization.name } };
+    }
+
     const user = await prisma.user.findUnique({
       where: { id: request.user.userId },
       include: { organization: true },
     });
 
     if (!user) {
-      throw new Error('User not found');
+      return reply.status(404).send({ error: 'Benutzer nicht gefunden' });
     }
 
     return {

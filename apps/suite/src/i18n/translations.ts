@@ -6,18 +6,18 @@ const de = {
   'suite.back': 'Lieferuhr',
   'nav.home': 'Überblick',
   'nav.flagships': 'Flaggschiffe',
-  'suite.tagline': 'KI-Werkzeuge für den Mittelstand',
+  'suite.tagline': 'Werkzeuge für den Mittelstand',
   'demo.banner': 'Interaktive Demo mit Beispieldaten — keine echten Aufträge oder E-Mails.',
 
   // Suite home
   'home.hero.badge': 'Ein Produkt von Lieferuhr · DSGVO-konform · Hosting in Deutschland',
-  'home.hero.title1': 'Das Büro, das sich',
-  'home.hero.title2': 'selbst erledigt.',
+  'home.hero.title1': 'Büroarbeit, fertig',
+  'home.hero.title2': 'vorbereitet.',
   'home.hero.sub':
-    'Vier Werkzeuge, die Posteingänge lesen, Fristen wachen und Schreibarbeit vorbereiten — für Betriebe, die zu klein für ERP-Projekte sind. Jedes einzeln nutzbar, zusammen stärker.',
+    'Werkzeuge, die Posteingänge lesen, Fristen wachen und Schreibarbeit vorbereiten — für Betriebe, die zu klein für ERP-Projekte sind. Entwürfe statt Autopilot: nichts geht raus ohne Ihr OK.',
   'home.cta': 'Werkzeug öffnen',
-  'home.section': 'Vier Werkzeuge, ein Posteingang',
-  'home.sectionSub': 'Jedes Werkzeug läuft für sich — oder als Teil der Lieferuhr-Plattform.',
+  'home.section': 'Werkzeuge für Ihren Betrieb',
+  'home.sectionSub': 'Jedes Werkzeug läuft für sich — zusammen decken sie den Betrieb ab.',
   'home.flagship.title': 'Die Flaggschiffe',
   'home.flagship.sub': 'Die beiden Vollprodukte der Plattform — für Einkauf und Fuhrpark.',
   'home.flagship.einkauf.desc':
@@ -26,39 +26,42 @@ const de = {
     'Dispo, Fahrer-App ohne Installation, Tracking-Links, POD und Rechnungen für kleine Fuhrunternehmen.',
   'home.integration.title': 'Gebaut, um zusammenzuarbeiten',
   'home.integration.desc':
-    'FrachtAmt übergibt gebuchte Ladungen an FrachtRadar. PrüfAmt wacht über die Fahrer, die FrachtRadar disponiert. Jedes Werkzeug funktioniert auch allein — Integration ist Option, nicht Pflicht.',
+    'So gedacht als Familie: FrachtAmt übergibt gebuchte Ladungen an FrachtRadar, PrüfAmt wacht die Fristen derselben Flotte. Jedes Werkzeug funktioniert auch allein — Integration ist Option, nicht Pflicht.',
 
-  'product.dispatch.name': 'FrachtAmt',
-  'product.dispatch.for': 'Für Fuhrunternehmen mit 3–30 LKW',
-  'product.dispatch.desc':
-    'Liest Frachtangebote aus TIMOCOM und dem Posteingang, bereitet Gegenangebote vor und führt die Papiere — der Dispositionsassistent für kleine Fuhrunternehmen.',
-  'product.dispatch.f1': 'Angebote als Karten statt E-Mail-Chaos',
-  'product.dispatch.f2': 'Gegenangebot-Entwurf per Klick',
-  'product.dispatch.f3': 'Auftrags- & POD-Ablage pro Ladung',
+  'home.experiment.title': 'Experiment',
+  'home.experiment.sub': 'Frühe Ideen außerhalb der zwei Kernwelten — Rückmeldungen willkommen.',
+  'home.experiment.badge': 'Experiment',
+  'product.frachtamt.name': 'FrachtAmt',
+  'product.frachtamt.for': 'Für Fuhrunternehmen mit 3–30 LKW',
+  'product.frachtamt.desc':
+    'Liest Frachtangebote aus dem Posteingang, bereitet Gegenangebote vor und führt die Papiere — der Dispositionsassistent für kleine Fuhrunternehmen.',
+  'product.frachtamt.f1': 'Angebote als Karten statt E-Mail-Chaos',
+  'product.frachtamt.f2': 'Gegenangebot-Entwurf per Klick',
+  'product.frachtamt.f3': 'Auftrags- & POD-Ablage pro Ladung',
 
-  'product.comply.name': 'PrüfAmt',
-  'product.comply.for': 'Für Fuhrunternehmen und Flottenleiter',
-  'product.comply.desc':
+  'product.pruefamt.name': 'PrüfAmt',
+  'product.pruefamt.for': 'Für Fuhrunternehmen und Flottenleiter',
+  'product.pruefamt.desc':
     'Wacht über Lenk- und Ruhezeiten — auch für Transporter ab 2,5 t, für die ab Juli 2026 Tacho-Pflicht gilt — plus Schein-, HU- und Modul-Fristen. Das Kontroll-Paket gibt es per Klick.',
-  'product.comply.f1': 'Lenkzeit-Uhren je Fahrer und Woche',
-  'product.comply.f2': 'Dokumenten-Ampel: Schein, HU, Tacho, ADR',
-  'product.comply.f3': 'Kontroll-Paket per Klick exportierbar',
+  'product.pruefamt.f1': 'Lenkzeit-Uhren je Fahrer und Woche',
+  'product.pruefamt.f2': 'Dokumenten-Ampel: Schein, HU, Tacho, ADR',
+  'product.pruefamt.f3': 'Kontroll-Paket per Klick exportierbar',
 
-  'product.hvac.name': 'EinsatzAmt',
-  'product.hvac.for': 'Für Handwerksbetriebe mit 2–15 Monteuren',
-  'product.hvac.desc':
+  'product.einsatzamt.name': 'EinsatzAmt',
+  'product.einsatzamt.for': 'Für Handwerksbetriebe mit 2–15 Monteuren',
+  'product.einsatzamt.desc':
     'Liest eingehende Serviceanfragen aus Anrufnotizen und E-Mails, legt den Job an und schlägt Techniker und Termin vor — die Zentrale, die nie fehlt.',
-  'product.hvac.f1': 'Anfragen werden zu Jobkarten',
-  'product.hvac.f2': 'Techniker-Vorschlag nach Skill & Route',
-  'product.hvac.f3': 'Kunden-Terminbestätigung als Entwurf',
+  'product.einsatzamt.f1': 'Anfragen werden zu Jobkarten',
+  'product.einsatzamt.f2': 'Techniker-Vorschlag nach Skill & Route',
+  'product.einsatzamt.f3': 'Kunden-Terminbestätigung als Entwurf',
 
-  'product.depot.name': 'PostAmt',
-  'product.depot.for': 'Für kleine Großhändler und Lager (2–10 MA)',
-  'product.depot.desc':
-    'Liest Bestellungen, die per E-Mail reinkommen, zieht Positionen in einen Auftragsentwurf, bucht Bestand runter und bereitet Versand vor — GoBD-konform und E-Rechnung-ready, ohne ERP-Einführung.',
-  'product.depot.f1': 'Bestell-Mail → Auftragsentwurf',
-  'product.depot.f2': 'Bestand bucht automatisch runter',
-  'product.depot.f3': 'Pickliste & Versandstatus inklusive',
+  'product.postamt.name': 'PostAmt',
+  'product.postamt.for': 'Für kleine Großhändler und Lager (2–10 MA)',
+  'product.postamt.desc':
+    'Liest Bestellungen, die per E-Mail reinkommen, zieht Positionen in einen Auftragsentwurf, bucht Bestand runter und bereitet Versand vor — ohne ERP-Einführung.',
+  'product.postamt.f1': 'Bestell-Mail → Auftragsentwurf',
+  'product.postamt.f2': 'Bestand bucht automatisch runter',
+  'product.postamt.f3': 'Pickliste & Versandstatus inklusive',
 
   // Dispatch page
   'dispatch.title': 'Angebote',
@@ -80,7 +83,7 @@ const de = {
   'dispatch.doc.pod': 'Abliefernachweis',
   'dispatch.doc.waiting': 'wartet auf Broker',
   'dispatch.handoff': '→ an FrachtRadar übergeben',
-  'dispatch.handoffDone': 'Tour in FrachtRadar angelegt',
+  'dispatch.handoffDone': 'Übergabe an FrachtRadar vorgemerkt',
   'dispatch.broker': 'Broker',
 
   // Comply page
@@ -99,12 +102,12 @@ const de = {
   'comply.daysLeft': '{days} Tage',
   'comply.overdue': 'überfällig',
   'comply.audit': 'Kontroll-Paket',
-  'comply.auditSub': 'Alles bereit für die nächste BAG-Kontrolle.',
+  'comply.auditSub': 'Alles bereit für die nächste BALM-Kontrolle.',
   'comply.audit.item1': 'Fahrerpersonalnachweise (4 Wochen)',
   'comply.audit.item2': 'Lenkzeit-Auswertung exportiert',
   'comply.audit.item3': 'Dokumenten-Register aktuell',
   'comply.audit.item4': 'Verstöße kommentiert & abgeheftet',
-  'comply.audit.export': 'Paket exportieren (PDF)',
+  'comply.audit.export': 'Paket exportieren',
 
   // HVAC page
   'hvac.title': 'Serviceanfragen',
@@ -159,18 +162,18 @@ const en: typeof de = {
   'suite.back': 'Lieferuhr',
   'nav.home': 'Overview',
   'nav.flagships': 'Flagship products',
-  'suite.tagline': 'AI tools for the Mittelstand',
+  'suite.tagline': 'Tools for the Mittelstand',
   'demo.banner': 'Interactive demo with sample data — no real orders or emails.',
 
   // Suite home
   'home.hero.badge': 'A Lieferuhr product · GDPR-compliant · Hosted in Germany',
-  'home.hero.title1': 'The office that does',
-  'home.hero.title2': 'its own paperwork.',
+  'home.hero.title1': 'Office work,',
+  'home.hero.title2': 'prepared and done.',
   'home.hero.sub':
-    'Four tools that read inboxes, watch deadlines and prepare the paperwork — for businesses too small for ERP projects. Each works alone; together they compound.',
+    'Tools that read inboxes, watch deadlines and prepare the paperwork — for businesses too small for ERP projects. Drafts, not autopilot: nothing goes out without your OK.',
   'home.cta': 'Open tool',
-  'home.section': 'Four tools, one inbox',
-  'home.sectionSub': 'Every tool runs on its own — or as part of the Lieferuhr platform.',
+  'home.section': 'Tools for your operation',
+  'home.sectionSub': 'Every tool runs on its own — together they cover the operation.',
   'home.flagship.title': 'The flagships',
   'home.flagship.sub': 'The two full products of the platform — for purchasing and fleet.',
   'home.flagship.einkauf.desc':
@@ -179,39 +182,42 @@ const en: typeof de = {
     'Dispatching, app-free driver links, tracking, POD and invoicing for small carriers.',
   'home.integration.title': 'Built to work together',
   'home.integration.desc':
-    'FrachtAmt hands booked loads to FrachtRadar. PrüfAmt watches the drivers FrachtRadar dispatches. Every tool also works alone — integration is an option, not a requirement.',
+    'Designed as a family: FrachtAmt hands booked loads to FrachtRadar, PrüfAmt watches the deadlines of the same fleet. Every tool also works alone — integration is an option, not a requirement.',
 
-  'product.dispatch.name': 'FrachtAmt',
-  'product.dispatch.for': 'For carriers with 3–30 trucks',
-  'product.dispatch.desc':
-    'Reads freight offers from TIMOCOM and the inbox, drafts counter-offers and keeps the paperwork — the dispatch assistant for small carriers.',
-  'product.dispatch.f1': 'Offers as cards, not email chaos',
-  'product.dispatch.f2': 'Counter-offer draft in one click',
-  'product.dispatch.f3': 'Order & POD filing per load',
+  'home.experiment.title': 'Experiment',
+  'home.experiment.sub': 'Early ideas outside the two core worlds — feedback welcome.',
+  'home.experiment.badge': 'Experiment',
+  'product.frachtamt.name': 'FrachtAmt',
+  'product.frachtamt.for': 'For carriers with 3–30 trucks',
+  'product.frachtamt.desc':
+    'Reads freight offers from the inbox, drafts counter-offers and keeps the paperwork — the dispatch assistant for small carriers.',
+  'product.frachtamt.f1': 'Offers as cards, not email chaos',
+  'product.frachtamt.f2': 'Counter-offer draft in one click',
+  'product.frachtamt.f3': 'Order & POD filing per load',
 
-  'product.comply.name': 'PrüfAmt',
-  'product.comply.for': 'For carriers and fleet managers',
-  'product.comply.desc':
+  'product.pruefamt.name': 'PrüfAmt',
+  'product.pruefamt.for': 'For carriers and fleet managers',
+  'product.pruefamt.desc':
     'Watches driving and rest times — including vans over 2.5t, which fall under EU tachograph rules from July 2026 — plus licence, inspection and CPC deadlines. The audit pack exports in one click.',
-  'product.comply.f1': 'Driving-time clocks per driver and week',
-  'product.comply.f2': 'Document traffic light: licence, inspection, tacho, ADR',
-  'product.comply.f3': 'Audit pack exportable in one click',
+  'product.pruefamt.f1': 'Driving-time clocks per driver and week',
+  'product.pruefamt.f2': 'Document traffic light: licence, inspection, tacho, ADR',
+  'product.pruefamt.f3': 'Audit pack exportable in one click',
 
-  'product.hvac.name': 'EinsatzAmt',
-  'product.hvac.for': 'For trades companies with 2–15 technicians',
-  'product.hvac.desc':
+  'product.einsatzamt.name': 'EinsatzAmt',
+  'product.einsatzamt.for': 'For trades companies with 2–15 technicians',
+  'product.einsatzamt.desc':
     'Reads incoming service requests from call notes and emails, files the job and suggests the right technician and slot — the dispatcher who is never absent.',
-  'product.hvac.f1': 'Requests become job cards',
-  'product.hvac.f2': 'Technician suggestion by skill & route',
-  'product.hvac.f3': 'Customer confirmation as a draft',
+  'product.einsatzamt.f1': 'Requests become job cards',
+  'product.einsatzamt.f2': 'Technician suggestion by skill & route',
+  'product.einsatzamt.f3': 'Customer confirmation as a draft',
 
-  'product.depot.name': 'PostAmt',
-  'product.depot.for': 'For small wholesalers & warehouses (2–10 staff)',
-  'product.depot.desc':
-    'Reads orders that arrive by email, pulls line items into an order draft, decrements stock and prepares shipping — audit-compliant and e-invoice-ready, without an ERP project.',
-  'product.depot.f1': 'Order email → order draft',
-  'product.depot.f2': 'Stock decrements automatically',
-  'product.depot.f3': 'Pick list & ship status included',
+  'product.postamt.name': 'PostAmt',
+  'product.postamt.for': 'For small wholesalers & warehouses (2–10 staff)',
+  'product.postamt.desc':
+    'Reads orders that arrive by email, pulls line items into an order draft, decrements stock and prepares shipping — without an ERP project.',
+  'product.postamt.f1': 'Order email → order draft',
+  'product.postamt.f2': 'Stock decrements automatically',
+  'product.postamt.f3': 'Pick list & ship status included',
 
   // Dispatch page
   'dispatch.title': 'Offers',
@@ -233,7 +239,7 @@ const en: typeof de = {
   'dispatch.doc.pod': 'Proof of delivery',
   'dispatch.doc.waiting': 'waiting for broker',
   'dispatch.handoff': '→ hand off to FrachtRadar',
-  'dispatch.handoffDone': 'Tour created in FrachtRadar',
+  'dispatch.handoffDone': 'Handoff to FrachtRadar noted',
   'dispatch.broker': 'Broker',
 
   // Comply page
@@ -252,12 +258,12 @@ const en: typeof de = {
   'comply.daysLeft': '{days} days',
   'comply.overdue': 'overdue',
   'comply.audit': 'Audit pack',
-  'comply.auditSub': 'Everything ready for the next roadside or office check.',
+  'comply.auditSub': 'Everything ready for the next BALM roadside or office check.',
   'comply.audit.item1': 'Driver personnel records (4 weeks)',
   'comply.audit.item2': 'Driving-time report exported',
   'comply.audit.item3': 'Document register up to date',
   'comply.audit.item4': 'Violations annotated & filed',
-  'comply.audit.export': 'Export pack (PDF)',
+  'comply.audit.export': 'Export pack',
 
   // HVAC page
   'hvac.title': 'Service requests',

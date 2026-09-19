@@ -82,7 +82,7 @@ interface SuiteState {
   depotOrders: DepotOrder[];
 }
 
-// ————— Demo fixtures (Spedition Keller, Schwäbisch Hall) —————
+// ————— Demo fixtures (Spedition Berger GmbH, Schwäbisch Hall) —————
 
 const initialState: SuiteState = {
   offers: [

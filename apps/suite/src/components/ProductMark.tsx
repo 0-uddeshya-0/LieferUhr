@@ -1,23 +1,23 @@
 import { CalendarClock, Boxes, Navigation, Wrench, LayoutGrid } from 'lucide-react';
 import { cn } from '../lib/cn';
 
-export type ProductId = 'dispatch' | 'comply' | 'hvac' | 'depot' | 'suite';
+export type ProductId = 'frachtamt' | 'pruefamt' | 'einsatzamt' | 'postamt' | 'suite';
 
 const ICONS: Record<ProductId, typeof Navigation> = {
   suite: LayoutGrid,
-  dispatch: Navigation,
-  comply: CalendarClock,
-  hvac: Wrench,
-  depot: Boxes,
+  frachtamt: Navigation,
+  pruefamt: CalendarClock,
+  einsatzamt: Wrench,
+  postamt: Boxes,
 };
 
 // Tone classes resolve against the product accent tokens in index.css.
 const TONES: Record<ProductId, string> = {
   suite: 'bg-uhr text-uhr-ink',
-  dispatch: 'bg-dispatch text-dispatch-ink',
-  comply: 'bg-comply text-comply-ink',
-  hvac: 'bg-hvac text-hvac-ink',
-  depot: 'bg-depot text-depot-ink',
+  frachtamt: 'bg-dispatch text-dispatch-ink',
+  pruefamt: 'bg-comply text-comply-ink',
+  einsatzamt: 'bg-hvac text-hvac-ink',
+  postamt: 'bg-depot text-depot-ink',
 };
 
 export function ProductMark({ product, className }: { product: ProductId; className?: string }) {
@@ -32,4 +32,6 @@ export function ProductMark({ product, className }: { product: ProductId; classN
   );
 }
 
-export const PRODUCT_IDS: ProductId[] = ['dispatch', 'comply', 'hvac', 'depot'];
+// Core tools first; EinsatzAmt stays reachable but sits outside the two core worlds.
+export const PRODUCT_IDS: ProductId[] = ['frachtamt', 'pruefamt', 'postamt'];
+export const EXPERIMENT_IDS: ProductId[] = ['einsatzamt'];
